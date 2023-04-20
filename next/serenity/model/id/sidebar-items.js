@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ApplicationId","AttachmentId","AuditLogEntryId","ChannelId","CommandId","CommandPermissionId","CommandVersionId","EmojiId","GenericId","GuildId","IntegrationId","InteractionId","MessageId","RoleId","RuleId","ScheduledEventId","SkuId","StageInstanceId","StickerId","StickerPackBannerId","StickerPackId","TargetId","UserId","WebhookId"]};

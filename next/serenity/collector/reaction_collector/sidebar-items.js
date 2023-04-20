@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ReactionAction"],"struct":["CollectReaction","ReactionCollector","ReactionCollectorBuilder","ReactionFilter"]};

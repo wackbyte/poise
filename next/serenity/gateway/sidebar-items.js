@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ConnectionStage","GatewayError","InterMessage","ReconnectType","ShardAction"],"struct":["Shard"],"trait":["WebSocketGatewayClientExt"],"type":["CurrentPresence","WsStream"]};

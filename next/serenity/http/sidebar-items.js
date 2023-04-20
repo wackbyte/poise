@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GuildPagination","LightMethod","UserPagination"],"mod":["client","error","multipart","ratelimiting","request","routing","typing"],"struct":["StatusCode"],"trait":["CacheHttp"]};
