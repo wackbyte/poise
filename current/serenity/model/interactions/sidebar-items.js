@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["application_command","autocomplete","message_component","modal","ping"],"type":["Interaction","InteractionApplicationCommandCallbackDataFlags","InteractionResponseType","InteractionType","MessageInteraction"]};

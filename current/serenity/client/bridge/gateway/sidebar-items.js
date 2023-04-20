@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ChunkGuildFilter","ShardClientMessage","ShardManagerError","ShardManagerMessage","ShardQueuerMessage","ShardRunnerMessage"],"mod":["event"],"struct":["ShardId","ShardManager","ShardManagerMonitor","ShardManagerOptions","ShardMessenger","ShardQueuer","ShardRunner","ShardRunnerInfo","ShardRunnerOptions"]};

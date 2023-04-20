@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":["async_trait"],"enum":["Error"],"mod":["builder","cache","client","collector","constants","gateway","http","json","model","prelude","utils"],"struct":["CacheAndHttp"],"trait":["FutureExt"],"type":["Result"]};
