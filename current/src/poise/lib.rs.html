@@ -994,7 +994,7 @@ Also, poise is a stat in Dark Souls
 </span><span class="kw">mod </span>tests {
     <span class="kw">fn </span>assert_send_sync&lt;T: Send + Sync&gt;() {}
 
-    <span class="kw">fn </span>_test_framework_error_send_sync&lt;<span class="lifetime">&#39;a</span>, U: Send + Sync, E: Send + Sync&gt;() {
+    <span class="kw">fn </span>_test_framework_error_send_sync&lt;<span class="lifetime">&#39;a</span>, U: Send + Sync + <span class="lifetime">&#39;static</span>, E: Send + Sync + <span class="lifetime">&#39;static</span>&gt;() {
         assert_send_sync::&lt;<span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt;();
     }
 }
