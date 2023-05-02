@@ -227,6 +227,7 @@
 <a href="#227" id="227">227</a>
 <a href="#228" id="228">228</a>
 <a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Contains the built-in help command and surrounding infrastructure
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -377,6 +378,7 @@
             <span class="kw">let </span>kind = <span class="kw">match </span>command.context_menu_action {
                 <span class="prelude-val">Some</span>(<span class="kw">crate</span>::ContextMenuCommandAction::User(<span class="kw">_</span>)) =&gt; <span class="string">&quot;user&quot;</span>,
                 <span class="prelude-val">Some</span>(<span class="kw">crate</span>::ContextMenuCommandAction::Message(<span class="kw">_</span>)) =&gt; <span class="string">&quot;message&quot;</span>,
+                <span class="prelude-val">Some</span>(<span class="kw">crate</span>::ContextMenuCommandAction::__NonExhaustive) =&gt; <span class="macro">unreachable!</span>(),
                 <span class="prelude-val">None </span>=&gt; <span class="kw">continue</span>,
             };
             <span class="kw">let </span>name = command.context_menu_name.unwrap_or(<span class="kw-2">&amp;</span>command.name);

@@ -222,6 +222,7 @@
 <a href="#222" id="222">222</a>
 <a href="#223" id="223">223</a>
 <a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::Invocation;
 <span class="kw">use </span><span class="kw">crate</span>::util::extract_type_parameter;
 <span class="kw">use </span>syn::spanned::Spanned <span class="kw">as _</span>;
@@ -400,6 +401,7 @@
                         input: <span class="prelude-val">Some</span>(input),
                     }
                 },
+                poise::SlashArgError::__NonExhaustive =&gt; <span class="macro">unreachable!</span>(),
             })<span class="question-mark">?</span>;
 
             <span class="kw">if </span>!ctx.framework.options.manual_cooldowns {
