@@ -359,8 +359,6 @@
 <a href="#359" id="359">359</a>
 <a href="#360" id="360">360</a>
 <a href="#361" id="361">361</a>
-<a href="#362" id="362">362</a>
-<a href="#363" id="363">363</a>
 </pre></div><pre class="rust"><code><span class="kw">mod </span>prefix;
 <span class="kw">mod </span>slash;
 
@@ -441,7 +439,7 @@
 
 <span class="doccomment">/// Part of the Invocation struct. Represents a single parameter of a Discord command.
 </span><span class="kw">struct </span>CommandParameter {
-    name: syn::Ident,
+    name: <span class="prelude-ty">Option</span>&lt;syn::Ident&gt;,
     type_: syn::Type,
     args: ParamArgs,
     span: proc_macro2::Span,
@@ -519,10 +517,8 @@
             }
         };
         <span class="kw">let </span>name = <span class="kw">match </span><span class="kw-2">&amp;*</span>pattern.pat {
-            syn::Pat::Ident(pat_ident) =&gt; <span class="kw-2">&amp;</span>pat_ident.ident,
-            x =&gt; {
-                <span class="kw">return </span><span class="prelude-val">Err</span>(syn::Error::new(x.span(), <span class="string">&quot;must use an identifier pattern here&quot;</span>).into())
-            }
+            syn::Pat::Ident(pat_ident) =&gt; <span class="prelude-val">Some</span>(pat_ident.ident.clone()),
+            <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
         };
 
         <span class="kw">let </span>attrs = pattern
@@ -533,7 +529,7 @@
         <span class="kw">let </span>attrs = &lt;ParamArgs <span class="kw">as </span>darling::FromMeta&gt;::from_list(<span class="kw-2">&amp;</span>attrs)<span class="question-mark">?</span>;
 
         parameters.push(CommandParameter {
-            name: name.clone(),
+            name,
             type_: (<span class="kw-2">*</span>pattern.ty).clone(),
             args: attrs,
             span: command_param.span(),

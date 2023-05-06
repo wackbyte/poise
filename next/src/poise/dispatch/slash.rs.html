@@ -292,6 +292,12 @@
 <a href="#292" id="292">292</a>
 <a href="#293" id="293">293</a>
 <a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Dispatches interactions onto framework commands
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -499,7 +505,13 @@
     </span><span class="kw">let </span>parameters = <span class="kw-2">&amp;</span>ctx.command.parameters;
     <span class="kw">let </span>focused_parameter = parameters
         .iter()
-        .find(|p| p.name == focused_option.name)
+        .find(|p| <span class="kw">match </span><span class="kw-2">&amp;</span>p.name {
+            <span class="prelude-val">Some</span>(param_name) =&gt; <span class="kw-2">*</span>param_name == focused_option.name,
+            <span class="prelude-val">None </span>=&gt; {
+                <span class="macro">log::warn!</span>(<span class="string">&quot;name-less parameter ended up in slash command&quot;</span>);
+                <span class="bool-val">false
+            </span>}
+        })
         .ok_or(<span class="kw">crate</span>::FrameworkError::CommandStructureMismatch {
             ctx,
             description: <span class="string">&quot;focused autocomplete parameter name not recognized&quot;</span>,

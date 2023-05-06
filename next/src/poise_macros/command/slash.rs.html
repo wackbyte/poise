@@ -235,7 +235,7 @@
 <a href="#235" id="235">235</a>
 <a href="#236" id="236">236</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::Invocation;
-<span class="kw">use </span><span class="kw">crate</span>::util::extract_type_parameter;
+<span class="kw">use </span><span class="kw">crate</span>::util::{extract_type_parameter, wrap_option_to_string};
 <span class="kw">use </span>syn::spanned::Spanned <span class="kw">as _</span>;
 
 <span class="kw">pub fn </span>generate_parameters(inv: <span class="kw-2">&amp;</span>Invocation) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;proc_macro2::TokenStream&gt;, syn::Error&gt; {
@@ -261,8 +261,8 @@
         }
 
         <span class="kw">let </span>param_name = <span class="kw">match </span><span class="kw-2">&amp;</span>param.args.rename {
-            <span class="prelude-val">Some</span>(rename) =&gt; rename.clone(),
-            <span class="prelude-val">None </span>=&gt; param.name.to_string(),
+            <span class="prelude-val">Some</span>(rename) =&gt; wrap_option_to_string(<span class="prelude-val">Some</span>(rename)),
+            <span class="prelude-val">None </span>=&gt; wrap_option_to_string(param.name.as_ref().map(|x| x.to_string())),
         };
         <span class="kw">let </span>name_locales = param.args.name_localized.iter().map(|x| <span class="kw-2">&amp;</span>x.<span class="number">0</span>);
         <span class="kw">let </span>name_localized_values = param.args.name_localized.iter().map(|x| <span class="kw-2">&amp;</span>x.<span class="number">1</span>);
@@ -344,7 +344,7 @@
         parameter_structs.push((
             <span class="macro">quote::quote! </span>{
                 ::poise::CommandParameter {
-                    name: #param_name.to_string(),
+                    name: #param_name,
                     name_localizations: <span class="macro">vec!</span>[
                         #( (#name_locales.to_string(), #name_localized_values.to_string()) ),*
                     ].into_iter().collect(),
@@ -384,24 +384,24 @@
         }
     }
 
-    <span class="kw">let </span>param_identifiers = inv.parameters.iter().map(|p| <span class="kw-2">&amp;</span>p.name).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
-    <span class="kw">let </span>param_names = inv
-        .parameters
-        .iter()
-        .map(|p| <span class="kw">match </span><span class="kw-2">&amp;</span>p.args.rename {
-            <span class="prelude-val">Some</span>(rename) =&gt; syn::Ident::new(rename, p.name.span()),
-            <span class="prelude-val">None </span>=&gt; p.name.clone(),
-        })
-        .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span><span class="kw-2">mut </span>param_identifiers: Vec&lt;syn::Ident&gt; = Vec::new();
+    <span class="kw">let </span><span class="kw-2">mut </span>param_names: Vec&lt;syn::Ident&gt; = Vec::new();
+    <span class="kw">let </span><span class="kw-2">mut </span>param_types: Vec&lt;syn::Type&gt; = Vec::new();
+    <span class="kw">for </span>p <span class="kw">in </span><span class="kw-2">&amp;</span>inv.parameters {
+        <span class="kw">let </span>param_ident = p.name.clone().ok_or_else(|| {
+            syn::Error::new(p.span, <span class="string">&quot;parameter must have a name in slash commands&quot;</span>)
+        })<span class="question-mark">?</span>;
 
-    <span class="kw">let </span>param_types = inv
-        .parameters
-        .iter()
-        .map(|p| <span class="kw">match </span>p.args.flag {
+        param_identifiers.push(param_ident.clone());
+        param_names.push(<span class="kw">match </span><span class="kw-2">&amp;</span>p.args.rename {
+            <span class="prelude-val">Some</span>(rename) =&gt; syn::Ident::new(rename, p.name.span()),
+            <span class="prelude-val">None </span>=&gt; param_ident,
+        });
+        param_types.push(<span class="kw">match </span>p.args.flag {
             <span class="bool-val">true </span>=&gt; <span class="macro">syn::parse_quote! </span>{ FLAG },
             <span class="bool-val">false </span>=&gt; p.type_.clone(),
-        })
-        .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+        });
+    }
 
     <span class="prelude-val">Ok</span>(<span class="macro">quote::quote! </span>{
         |ctx| Box::pin(<span class="kw">async move </span>{
