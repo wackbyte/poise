@@ -73,6 +73,9 @@
 <a href="#73" id="73">73</a>
 <a href="#74" id="74">74</a>
 <a href="#75" id="75">75</a>
+<a href="#76" id="76">76</a>
+<a href="#77" id="77">77</a>
+<a href="#78" id="78">78</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Contains the [`ChoiceParameter`] trait and the blanket [`crate::SlashArgument`] and
 //! [`crate::PopArgument`] impl
 
@@ -104,7 +107,10 @@
         <span class="kw">_</span>: <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;_</span>&gt;,
         value: <span class="kw-2">&amp;</span>serenity::json::Value,
     ) -&gt; ::std::result::Result&lt;<span class="self">Self</span>, <span class="kw">crate</span>::SlashArgError&gt; {
-        <span class="kw">let </span>choice_key = value
+        <span class="attr">#[allow(unused_imports)]
+        </span><span class="kw">use </span>::serenity::json::prelude::<span class="kw-2">*</span>; <span class="comment">// Required for simd-json :|
+
+        </span><span class="kw">let </span>choice_key = value
             .as_u64()
             .ok_or(<span class="kw">crate</span>::SlashArgError::CommandStructureMismatch(
                 <span class="string">&quot;expected u64&quot;</span>,
