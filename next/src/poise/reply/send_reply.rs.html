@@ -207,7 +207,7 @@
     builder: <span class="kw">impl for</span>&lt;<span class="lifetime">&#39;a</span>&gt; FnOnce(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;att</span>&gt;) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;att</span>&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">crate</span>::ReplyHandle&lt;<span class="lifetime">&#39;_</span>&gt;, serenity::Error&gt; {
     <span class="prelude-val">Ok</span>(<span class="kw">match </span>ctx {
-        <span class="kw">crate</span>::Context::Prefix(ctx) =&gt; <span class="kw">crate</span>::ReplyHandle(<span class="kw">super</span>::ReplyHandleInner::Prefix(
+        <span class="kw">crate</span>::Context::Prefix(ctx) =&gt; <span class="kw">super</span>::ReplyHandle(<span class="kw">super</span>::ReplyHandleInner::Prefix(
             <span class="kw">crate</span>::send_prefix_reply(ctx, builder).<span class="kw">await</span><span class="question-mark">?</span>,
         )),
         <span class="kw">crate</span>::Context::Application(ctx) =&gt; <span class="kw">crate</span>::send_application_reply(ctx, builder).<span class="kw">await</span><span class="question-mark">?</span>,
@@ -245,7 +245,7 @@
     <span class="kw">let </span>interaction = <span class="kw">match </span>ctx.interaction {
         <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction::ApplicationCommand(x) =&gt; x,
         <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction::Autocomplete(<span class="kw">_</span>) =&gt; {
-            <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="kw">crate</span>::ReplyHandle(<span class="kw">super</span>::ReplyHandleInner::Autocomplete))
+            <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="kw">super</span>::ReplyHandle(<span class="kw">super</span>::ReplyHandleInner::Autocomplete))
         }
     };
 
@@ -278,7 +278,7 @@
         <span class="prelude-val">None
     </span>};
 
-    <span class="prelude-val">Ok</span>(<span class="kw">crate</span>::ReplyHandle(<span class="kw">crate</span>::ReplyHandleInner::Application {
+    <span class="prelude-val">Ok</span>(<span class="kw">super</span>::ReplyHandle(<span class="kw">super</span>::ReplyHandleInner::Application {
         http: <span class="kw-2">&amp;</span>ctx.serenity_context.http,
         interaction,
         followup,

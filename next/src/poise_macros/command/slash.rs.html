@@ -233,6 +233,7 @@
 <a href="#233" id="233">233</a>
 <a href="#234" id="234">234</a>
 <a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::Invocation;
 <span class="kw">use </span><span class="kw">crate</span>::util::extract_type_parameter;
 <span class="kw">use </span>syn::spanned::Spanned <span class="kw">as _</span>;
@@ -327,6 +328,7 @@
             <span class="bool-val">false </span>=&gt; <span class="macro">quote::quote! </span>{ <span class="prelude-val">None </span>},
         };
         <span class="comment">// TODO: theoretically a problem that we don&#39;t store choices for non slash commands
+        // TODO: move this to poise::CommandParameter::choices (is there a reason not to?)
         </span><span class="kw">let </span>choices = <span class="kw">match </span>inv.args.slash_command {
             <span class="bool-val">true </span>=&gt; <span class="macro">quote::quote! </span>{ <span class="macro">poise::slash_argument_choices!</span>(#type_) },
             <span class="bool-val">false </span>=&gt; <span class="macro">quote::quote! </span>{ <span class="macro">vec!</span>[] },

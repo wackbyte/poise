@@ -498,6 +498,7 @@
 <a href="#498" id="498">498</a>
 <a href="#499" id="499">499</a>
 <a href="#500" id="500">500</a>
+<a href="#501" id="501">501</a>
 </pre></div><pre class="rust"><code><span class="attr">#![cfg_attr(doc_nightly, feature(doc_cfg, doc_auto_cfg))]
 #![doc(test(attr(deny(deprecated))))]
 </span><span class="comment">// native #[non_exhaustive] is awful because you can&#39;t do struct update syntax with it (??)
@@ -884,6 +885,7 @@ Also, poise is a stat in Dark Souls
 */
 
 </span><span class="kw">pub mod </span>builtins;
+<span class="kw">pub mod </span>choice_parameter;
 <span class="kw">pub mod </span>cooldown;
 <span class="kw">pub mod </span>dispatch;
 <span class="kw">pub mod </span>event;
@@ -903,8 +905,8 @@ Also, poise is a stat in Dark Souls
 
 <span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>{
-    cooldown::<span class="kw-2">*</span>, dispatch::<span class="kw-2">*</span>, event::<span class="kw-2">*</span>, framework::<span class="kw-2">*</span>, macros::<span class="kw-2">*</span>, modal::<span class="kw-2">*</span>, prefix_argument::<span class="kw-2">*</span>,
-    reply::<span class="kw-2">*</span>, slash_argument::<span class="kw-2">*</span>, structs::<span class="kw-2">*</span>, track_edits::<span class="kw-2">*</span>,
+    choice_parameter::<span class="kw-2">*</span>, cooldown::<span class="kw-2">*</span>, dispatch::<span class="kw-2">*</span>, event::<span class="kw-2">*</span>, framework::<span class="kw-2">*</span>, macros::<span class="kw-2">*</span>, modal::<span class="kw-2">*</span>,
+    prefix_argument::<span class="kw-2">*</span>, reply::<span class="kw-2">*</span>, slash_argument::<span class="kw-2">*</span>, structs::<span class="kw-2">*</span>, track_edits::<span class="kw-2">*</span>,
 };
 
 <span class="doccomment">/// See [`builtins`]
@@ -992,10 +994,10 @@ Also, poise is a stat in Dark Souls
 
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
-    <span class="kw">fn </span>assert_send_sync&lt;T: Send + Sync&gt;() {}
+    <span class="kw">fn </span>_assert_send_sync&lt;T: Send + Sync&gt;() {}
 
     <span class="kw">fn </span>_test_framework_error_send_sync&lt;<span class="lifetime">&#39;a</span>, U: Send + Sync + <span class="lifetime">&#39;static</span>, E: Send + Sync + <span class="lifetime">&#39;static</span>&gt;() {
-        assert_send_sync::&lt;<span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt;();
+        _assert_send_sync::&lt;<span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt;();
     }
 }
 </code></pre></div></section></main></body></html>
