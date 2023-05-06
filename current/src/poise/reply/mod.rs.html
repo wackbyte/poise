@@ -185,7 +185,7 @@
 
 <span class="doccomment">/// Private enum so we can extend, split apart, or merge variants without breaking changes
 </span><span class="attr">#[derive(Clone)]
-</span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">enum </span>ReplyHandleInner&lt;<span class="lifetime">&#39;a</span>&gt; {
+</span><span class="kw">enum </span>ReplyHandleInner&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="doccomment">/// A reply sent to a prefix command, i.e. a normal standalone message
     </span>Prefix(Box&lt;serenity::Message&gt;),
     <span class="doccomment">/// An application command response
@@ -210,7 +210,7 @@
 /// Discord sometimes returns the [`serenity::Message`] object directly, but sometimes you have to
 /// request it manually. This enum abstracts over the two cases
 </span><span class="attr">#[derive(Clone)]
-</span><span class="kw">pub struct </span>ReplyHandle&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw">pub</span>(<span class="kw">super</span>) ReplyHandleInner&lt;<span class="lifetime">&#39;a</span>&gt;);
+</span><span class="kw">pub struct </span>ReplyHandle&lt;<span class="lifetime">&#39;a</span>&gt;(ReplyHandleInner&lt;<span class="lifetime">&#39;a</span>&gt;);
 
 <span class="kw">impl </span>ReplyHandle&lt;<span class="lifetime">&#39;_</span>&gt; {
     <span class="doccomment">/// Retrieve the message object of the sent reply.
