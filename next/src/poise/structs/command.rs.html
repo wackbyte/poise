@@ -251,8 +251,6 @@
 <a href="#251" id="251">251</a>
 <a href="#252" id="252">252</a>
 <a href="#253" id="253">253</a>
-<a href="#254" id="254">254</a>
-<a href="#255" id="255">255</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! The Command struct, which stores all information about a single framework command
 
 </span><span class="kw">use crate</span>::{serenity_prelude <span class="kw">as </span>serenity, BoxFuture};
@@ -299,18 +297,16 @@
     /// bots). If not explicitly configured, it falls back to the command function name.
     </span><span class="kw">pub </span>identifying_name: String,
     <span class="doccomment">/// Identifier for the category that this command will be displayed in for help commands.
-    </span><span class="kw">pub </span>category: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str&gt;,
+    </span><span class="kw">pub </span>category: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="doccomment">/// Whether to hide this command in help menus.
     </span><span class="kw">pub </span>hide_in_help: bool,
     <span class="doccomment">/// Short description of the command. Displayed inline in help menus and similar.
-    </span><span class="comment">// TODO: rename to description
     </span><span class="kw">pub </span>description: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="doccomment">/// Localized descriptions with locale string as the key (slash-only)
     </span><span class="kw">pub </span>description_localizations: std::collections::HashMap&lt;String, String&gt;,
     <span class="doccomment">/// Multiline description with detailed usage instructions. Displayed in the command specific
     /// help: `~help command_name`
-    </span><span class="comment">// TODO: fix the inconsistency that this is String and everywhere else it&#39;s &amp;&#39;static str
-    </span><span class="kw">pub </span>help_text: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>() -&gt; String&gt;,
+    </span><span class="kw">pub </span>help_text: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="doccomment">/// Handles command cooldowns. Mainly for framework internal use
     </span><span class="kw">pub </span>cooldowns: std::sync::Mutex&lt;<span class="kw">crate</span>::Cooldowns&gt;,
     <span class="doccomment">/// After the first response, whether to post subsequent responses as edits to the initial
@@ -360,7 +356,7 @@
 
     <span class="comment">// ============= Prefix-specific data
     </span><span class="doccomment">/// Alternative triggers for the command (prefix-only)
-    </span><span class="kw">pub </span>aliases: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str],
+    </span><span class="kw">pub </span>aliases: Vec&lt;String&gt;,
     <span class="doccomment">/// Whether to rerun the command if an existing invocation message is edited (prefix-only)
     </span><span class="kw">pub </span>invoke_on_edit: bool,
     <span class="doccomment">/// Whether to delete the bot response if an existing invocation message is deleted (prefix-only)
@@ -370,7 +366,7 @@
 
     <span class="comment">// ============= Application-specific data
     </span><span class="doccomment">/// Context menu specific name for this command, displayed in Discord&#39;s context menu
-    </span><span class="kw">pub </span>context_menu_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str&gt;,
+    </span><span class="kw">pub </span>context_menu_name: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="doccomment">/// Whether responses to this command should be ephemeral by default (application-only)
     </span><span class="kw">pub </span>ephemeral: bool,
 
@@ -475,7 +471,7 @@
         <span class="kw">let </span><span class="kw-2">mut </span>builder = serenity::CreateApplicationCommand::default();
         builder
             <span class="comment">// TODO: localization?
-            </span>.name(<span class="self">self</span>.context_menu_name.unwrap_or(<span class="kw-2">&amp;</span><span class="self">self</span>.name))
+            </span>.name(<span class="self">self</span>.context_menu_name.as_deref().unwrap_or(<span class="kw-2">&amp;</span><span class="self">self</span>.name))
             .kind(<span class="kw">match </span>context_menu_action {
                 <span class="kw">crate</span>::ContextMenuCommandAction::User(<span class="kw">_</span>) =&gt; serenity::CommandType::User,
                 <span class="kw">crate</span>::ContextMenuCommandAction::Message(<span class="kw">_</span>) =&gt; serenity::CommandType::Message,
@@ -491,7 +487,7 @@
 
     <span class="doccomment">/// **Deprecated**
     </span><span class="attr">#[deprecated = <span class="string">&quot;Please use `poise::Command { category: \&quot;...\&quot;, ..command() }` instead&quot;</span>]
-    </span><span class="kw">pub fn </span>category(<span class="kw-2">&amp;mut </span><span class="self">self</span>, category: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>category(<span class="kw-2">&amp;mut </span><span class="self">self</span>, category: String) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.category = <span class="prelude-val">Some</span>(category);
         <span class="self">self
     </span>}

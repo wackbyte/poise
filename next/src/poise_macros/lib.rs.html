@@ -242,6 +242,8 @@
 <a href="#242" id="242">242</a>
 <a href="#243" id="243">243</a>
 <a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
 </pre></div><pre class="rust"><code><span class="doccomment">/*!
 Procedural macros used in poise, like [`macro@command`]
 */
@@ -322,6 +324,8 @@ are multiple attributes you can use on parameters:
 - `#[rename = &quot;new_name&quot;]`: Changes the user-facing name of the parameter (slash-only)
 - `#[min = 0]`: Minimum value for this number parameter (slash-only)
 - `#[max = 0]`: Maximum value for this number parameter (slash-only)
+- `#[min_length = 0]`: Minimum length for this string parameter (slash-only)
+- `#[max_length = 1]`: Maximum length for this string parameter (slash-only)
 - `#[rest]`: Use the entire rest of the message for this parameter (prefix-only)
 - `#[lazy]`: Can be used on Option and Vec parameters and is equivalent to regular expressions&#39; laziness (prefix-only)
 - `#[flag]`: Can be used on a bool parameter to set the bool to true if the user typed the parameter name literally (prefix-only)

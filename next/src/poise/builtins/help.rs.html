@@ -352,6 +352,9 @@
 <a href="#352" id="352">352</a>
 <a href="#353" id="353">353</a>
 <a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
+<a href="#356" id="356">356</a>
+<a href="#357" id="357">357</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Contains the built-in help command and surrounding infrastructure
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -447,7 +450,7 @@
     <span class="kw">let </span>commands = <span class="kw-2">&amp;</span>ctx.framework().options().commands;
     <span class="comment">// Try interpret the command name as a context menu command first
     </span><span class="kw">let </span><span class="kw-2">mut </span>command = commands.iter().find(|command| {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(context_menu_name) = command.context_menu_name {
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(context_menu_name) = <span class="kw-2">&amp;</span>command.context_menu_name {
             <span class="kw">if </span>context_menu_name.eq_ignore_ascii_case(command_name) {
                 <span class="kw">return </span><span class="bool-val">true</span>;
             }
@@ -482,16 +485,16 @@
             String::new()
         };
 
-        <span class="kw">let </span><span class="kw-2">mut </span>text = <span class="kw">match </span>(<span class="kw-2">&amp;</span>command.description, command.help_text) {
+        <span class="kw">let </span><span class="kw-2">mut </span>text = <span class="kw">match </span>(<span class="kw-2">&amp;</span>command.description, <span class="kw-2">&amp;</span>command.help_text) {
             (<span class="prelude-val">Some</span>(description), <span class="prelude-val">Some</span>(help_text)) =&gt; {
                 <span class="kw">if </span>config.include_description {
-                    <span class="macro">format!</span>(<span class="string">&quot;{}\n\n{}&quot;</span>, description, help_text())
+                    <span class="macro">format!</span>(<span class="string">&quot;{}\n\n{}&quot;</span>, description, help_text)
                 } <span class="kw">else </span>{
-                    help_text()
+                    help_text.clone()
                 }
             }
             (<span class="prelude-val">Some</span>(description), <span class="prelude-val">None</span>) =&gt; description.to_owned(),
-            (<span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(help_text)) =&gt; help_text(),
+            (<span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(help_text)) =&gt; help_text.clone(),
             (<span class="prelude-val">None</span>, <span class="prelude-val">None</span>) =&gt; <span class="string">&quot;No help available&quot;</span>.to_string(),
         };
         <span class="kw">if </span>!command.subcommands.is_empty() {
@@ -566,7 +569,7 @@
     <span class="kw">let </span><span class="kw-2">mut </span>categories = <span class="kw">crate</span>::util::OrderedMap::&lt;<span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;, Vec&lt;<span class="kw-2">&amp;</span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;&gt;::new();
     <span class="kw">for </span>cmd <span class="kw">in </span><span class="kw-2">&amp;</span>ctx.framework().options().commands {
         categories
-            .get_or_insert_with(cmd.category, Vec::new)
+            .get_or_insert_with(cmd.category.as_deref(), Vec::new)
             .push(cmd);
     }
 
@@ -620,7 +623,10 @@
                 <span class="prelude-val">Some</span>(<span class="kw">crate</span>::ContextMenuCommandAction::__NonExhaustive) =&gt; <span class="macro">unreachable!</span>(),
                 <span class="prelude-val">None </span>=&gt; <span class="kw">continue</span>,
             };
-            <span class="kw">let </span>name = command.context_menu_name.unwrap_or(<span class="kw-2">&amp;</span>command.name);
+            <span class="kw">let </span>name = command
+                .context_menu_name
+                .as_deref()
+                .unwrap_or(<span class="kw-2">&amp;</span>command.name);
             <span class="kw">let _ </span>= <span class="macro">writeln!</span>(menu, <span class="string">&quot;  {} (on {})&quot;</span>, name, kind);
         }
     }

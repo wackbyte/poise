@@ -178,26 +178,6 @@
 <a href="#178" id="178">178</a>
 <a href="#179" id="179">179</a>
 <a href="#180" id="180">180</a>
-<a href="#181" id="181">181</a>
-<a href="#182" id="182">182</a>
-<a href="#183" id="183">183</a>
-<a href="#184" id="184">184</a>
-<a href="#185" id="185">185</a>
-<a href="#186" id="186">186</a>
-<a href="#187" id="187">187</a>
-<a href="#188" id="188">188</a>
-<a href="#189" id="189">189</a>
-<a href="#190" id="190">190</a>
-<a href="#191" id="191">191</a>
-<a href="#192" id="192">192</a>
-<a href="#193" id="193">193</a>
-<a href="#194" id="194">194</a>
-<a href="#195" id="195">195</a>
-<a href="#196" id="196">196</a>
-<a href="#197" id="197">197</a>
-<a href="#198" id="198">198</a>
-<a href="#199" id="199">199</a>
-<a href="#200" id="200">200</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! All functions to actually send a reply
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -254,19 +234,13 @@
     ctx: <span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
     builder: <span class="kw">impl for</span>&lt;<span class="lifetime">&#39;a</span>&gt; FnOnce(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;att</span>&gt;) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;att</span>&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">crate</span>::ReplyHandle&lt;<span class="lifetime">&#39;_</span>&gt;, serenity::Error&gt; {
-    <span class="kw">let </span><span class="kw-2">mut </span>data = <span class="kw">crate</span>::CreateReply {
-        ephemeral: ctx.command.ephemeral,
-        allowed_mentions: ctx.framework.options().allowed_mentions.clone(),
-        ..Default::default()
-    };
-    builder(<span class="kw-2">&amp;mut </span>data);
-    _send_application_reply(ctx, data).<span class="kw">await
+    _send_application_reply(ctx, ctx.reply_builder(builder)).<span class="kw">await
 </span>}
 
 <span class="doccomment">/// private version of [`send_application_reply`] that isn&#39;t generic over the builder to minimize monomorphization-related codegen bloat
 </span><span class="kw">async fn </span>_send_application_reply&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
     ctx: <span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
-    <span class="kw-2">mut </span>data: <span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;_</span>&gt;,
+    data: <span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;_</span>&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">crate</span>::ReplyHandle&lt;<span class="lifetime">&#39;a</span>&gt;, serenity::Error&gt; {
     <span class="kw">let </span>interaction = <span class="kw">match </span>ctx.interaction {
         <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction::ApplicationCommand(x) =&gt; x,
@@ -274,10 +248,6 @@
             <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="kw">crate</span>::ReplyHandle(<span class="kw">super</span>::ReplyHandleInner::Autocomplete))
         }
     };
-
-    <span class="kw">if let </span><span class="prelude-val">Some</span>(callback) = ctx.framework.options().reply_callback {
-        callback(ctx.into(), <span class="kw-2">&amp;mut </span>data);
-    }
 
     <span class="kw">let </span>has_sent_initial_response = ctx
         .has_sent_initial_response
@@ -320,24 +290,14 @@
     ctx: <span class="kw">crate</span>::PrefixContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
     builder: <span class="kw">impl for</span>&lt;<span class="lifetime">&#39;a</span>&gt; FnOnce(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;att</span>&gt;) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;att</span>&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;Box&lt;serenity::Message&gt;, serenity::Error&gt; {
-    <span class="kw">let </span><span class="kw-2">mut </span>reply = <span class="kw">crate</span>::CreateReply {
-        ephemeral: ctx.command.ephemeral,
-        allowed_mentions: ctx.framework.options().allowed_mentions.clone(),
-        ..Default::default()
-    };
-    builder(<span class="kw-2">&amp;mut </span>reply);
-    _send_prefix_reply(ctx, reply).<span class="kw">await
+    _send_prefix_reply(ctx, ctx.reply_builder(builder)).<span class="kw">await
 </span>}
 
 <span class="doccomment">/// private version of [`send_prefix_reply`] that isn&#39;t generic over the builder to minimize monomorphization-related codegen bloat
 </span><span class="kw">async fn </span>_send_prefix_reply&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
     ctx: <span class="kw">crate</span>::PrefixContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
-    <span class="kw-2">mut </span>reply: <span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;a</span>&gt;,
+    reply: <span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;a</span>&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;Box&lt;serenity::Message&gt;, serenity::Error&gt; {
-    <span class="kw">if let </span><span class="prelude-val">Some</span>(callback) = ctx.framework.options().reply_callback {
-        callback(ctx.into(), <span class="kw-2">&amp;mut </span>reply);
-    }
-
     <span class="comment">// This must only return None when we _actually_ want to reuse the existing response! There are
     // no checks later
     </span><span class="kw">let </span>lock_edit_tracker = || {

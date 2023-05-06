@@ -290,6 +290,8 @@
 <a href="#290" id="290">290</a>
 <a href="#291" id="291">291</a>
 <a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Dispatches interactions onto framework commands
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -302,7 +304,9 @@
     parent_commands: <span class="kw-2">&amp;mut </span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
 ) -&gt; <span class="prelude-ty">Option</span>&lt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;, <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>[serenity::CommandDataOption])&gt; {
     commands.iter().find_map(|cmd| {
-        <span class="kw">if </span>interaction_name != cmd.name &amp;&amp; <span class="prelude-val">Some</span>(interaction_name) != cmd.context_menu_name {
+        <span class="kw">if </span>interaction_name != cmd.name
+            &amp;&amp; <span class="prelude-val">Some</span>(interaction_name) != cmd.context_menu_name.as_deref()
+        {
             <span class="kw">return </span><span class="prelude-val">None</span>;
         }
 

@@ -346,9 +346,9 @@
         <span class="kw">crate</span>::FrameworkError::ArgumentParse { ctx, input, error } =&gt; {
             <span class="comment">// If we caught an argument parse error, give a helpful error message with the
             // command explanation if available
-            </span><span class="kw">let </span>usage = <span class="kw">match </span>ctx.command().help_text {
-                <span class="prelude-val">Some</span>(help_text) =&gt; help_text(),
-                <span class="prelude-val">None </span>=&gt; <span class="string">&quot;Please check the help menu for usage information&quot;</span>.into(),
+            </span><span class="kw">let </span>usage = <span class="kw">match </span><span class="kw-2">&amp;</span>ctx.command().help_text {
+                <span class="prelude-val">Some</span>(help_text) =&gt; <span class="kw-2">&amp;**</span>help_text,
+                <span class="prelude-val">None </span>=&gt; <span class="string">&quot;Please check the help menu for usage information&quot;</span>,
             };
             <span class="kw">let </span>response = <span class="kw">if let </span><span class="prelude-val">Some</span>(input) = input {
                 <span class="macro">format!</span>(

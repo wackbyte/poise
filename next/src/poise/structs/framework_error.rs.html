@@ -377,6 +377,12 @@
 <a href="#377" id="377">377</a>
 <a href="#378" id="378">378</a>
 <a href="#379" id="379">379</a>
+<a href="#380" id="380">380</a>
+<a href="#381" id="381">381</a>
+<a href="#382" id="382">382</a>
+<a href="#383" id="383">383</a>
+<a href="#384" id="384">384</a>
+<a href="#385" id="385">385</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Simple module for the `FrameworkError` struct and its impls
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -428,7 +434,13 @@
     /// normal errors!
     </span>CommandPanic {
         <span class="doccomment">/// Panic payload which was thrown in the command code
-        </span>payload: Box&lt;<span class="kw">dyn </span>std::any::Any + Send + <span class="lifetime">&#39;static</span>&gt;,
+        ///
+        /// If a panic was thrown via [`std::panic::panic_any()`] and the payload was neither &amp;str,
+        /// nor String, the payload is `None`.
+        ///
+        /// The reason the original [`Box&lt;dyn Any + Send&gt;`] payload isn&#39;t provided here is that it
+        /// would make [`FrameworkError`] not [`Sync`] anymore.
+        </span>payload: <span class="prelude-ty">Option</span>&lt;String&gt;,
         <span class="doccomment">/// Command context
         </span>ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     },

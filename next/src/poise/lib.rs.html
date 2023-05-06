@@ -479,6 +479,25 @@
 <a href="#479" id="479">479</a>
 <a href="#480" id="480">480</a>
 <a href="#481" id="481">481</a>
+<a href="#482" id="482">482</a>
+<a href="#483" id="483">483</a>
+<a href="#484" id="484">484</a>
+<a href="#485" id="485">485</a>
+<a href="#486" id="486">486</a>
+<a href="#487" id="487">487</a>
+<a href="#488" id="488">488</a>
+<a href="#489" id="489">489</a>
+<a href="#490" id="490">490</a>
+<a href="#491" id="491">491</a>
+<a href="#492" id="492">492</a>
+<a href="#493" id="493">493</a>
+<a href="#494" id="494">494</a>
+<a href="#495" id="495">495</a>
+<a href="#496" id="496">496</a>
+<a href="#497" id="497">497</a>
+<a href="#498" id="498">498</a>
+<a href="#499" id="499">499</a>
+<a href="#500" id="500">500</a>
 </pre></div><pre class="rust"><code><span class="attr">#![cfg_attr(doc_nightly, feature(doc_cfg, doc_auto_cfg))]
 #![doc(test(attr(deny(deprecated))))]
 </span><span class="comment">// native #[non_exhaustive] is awful because you can&#39;t do struct update syntax with it (??)
@@ -953,11 +972,30 @@ Also, poise is a stat in Dark Souls
 <span class="doccomment">/// Internal wrapper function for catch_unwind that respects the `handle_panics` feature flag
 </span><span class="kw">async fn </span>catch_unwind_maybe&lt;T&gt;(
     fut: <span class="kw">impl </span>std::future::Future&lt;Output = T&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;T, Box&lt;<span class="kw">dyn </span>std::any::Any + Send + <span class="lifetime">&#39;static</span>&gt;&gt; {
+) -&gt; <span class="prelude-ty">Result</span>&lt;T, <span class="prelude-ty">Option</span>&lt;String&gt;&gt; {
     <span class="attr">#[cfg(feature = <span class="string">&quot;handle_panics&quot;</span>)]
-    </span><span class="kw">let </span>res = futures_util::FutureExt::catch_unwind(std::panic::AssertUnwindSafe(fut)).<span class="kw">await</span>;
+    </span><span class="kw">let </span>res = futures_util::FutureExt::catch_unwind(std::panic::AssertUnwindSafe(fut))
+        .<span class="kw">await
+        </span>.map_err(|e| {
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(s) = e.downcast_ref::&lt;<span class="kw-2">&amp;</span>str&gt;() {
+                <span class="prelude-val">Some</span>(s.to_string())
+            } <span class="kw">else if let </span><span class="prelude-val">Ok</span>(s) = e.downcast::&lt;String&gt;() {
+                <span class="prelude-val">Some</span>(<span class="kw-2">*</span>s)
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>}
+        });
     <span class="attr">#[cfg(not(feature = <span class="string">&quot;handle_panics&quot;</span>))]
     </span><span class="kw">let </span>res = <span class="prelude-val">Ok</span>(fut.<span class="kw">await</span>);
     res
+}
+
+<span class="attr">#[cfg(test)]
+</span><span class="kw">mod </span>tests {
+    <span class="kw">fn </span>assert_send_sync&lt;T: Send + Sync&gt;() {}
+
+    <span class="kw">fn </span>_test_framework_error_send_sync&lt;<span class="lifetime">&#39;a</span>, U: Send + Sync + <span class="lifetime">&#39;static</span>, E: Send + Sync + <span class="lifetime">&#39;static</span>&gt;() {
+        assert_send_sync::&lt;<span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt;();
+    }
 }
 </code></pre></div></section></main></body></html>

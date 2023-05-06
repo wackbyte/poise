@@ -223,6 +223,16 @@
 <a href="#223" id="223">223</a>
 <a href="#224" id="224">224</a>
 <a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::Invocation;
 <span class="kw">use </span><span class="kw">crate</span>::util::extract_type_parameter;
 <span class="kw">use </span>syn::spanned::Spanned <span class="kw">as _</span>;
@@ -299,10 +309,20 @@
             <span class="prelude-val">Some</span>(x) =&gt; <span class="macro">quote::quote! </span>{ o.max_number_value(#x <span class="kw">as </span>f64); },
             <span class="prelude-val">None </span>=&gt; <span class="macro">quote::quote! </span>{},
         };
+        <span class="comment">// TODO: move this to poise::CommandParameter::{min_length, max_length} fields
+        </span><span class="kw">let </span>min_length_setter = <span class="kw">match </span><span class="kw-2">&amp;</span>param.args.min_length {
+            <span class="prelude-val">Some</span>(x) =&gt; <span class="macro">quote::quote! </span>{ o.min_length(#x); },
+            <span class="prelude-val">None </span>=&gt; <span class="macro">quote::quote! </span>{},
+        };
+        <span class="kw">let </span>max_length_setter = <span class="kw">match </span><span class="kw-2">&amp;</span>param.args.max_length {
+            <span class="prelude-val">Some</span>(x) =&gt; <span class="macro">quote::quote! </span>{ o.max_length(#x); },
+            <span class="prelude-val">None </span>=&gt; <span class="macro">quote::quote! </span>{},
+        };
         <span class="kw">let </span>type_setter = <span class="kw">match </span>inv.args.slash_command {
             <span class="bool-val">true </span>=&gt; <span class="macro">quote::quote! </span>{ <span class="prelude-val">Some</span>(|o| {
                 <span class="macro">poise::create_slash_argument!</span>(#type_, o);
                 #min_value_setter #max_value_setter
+                #min_length_setter #max_length_setter
             }) },
             <span class="bool-val">false </span>=&gt; <span class="macro">quote::quote! </span>{ <span class="prelude-val">None </span>},
         };
