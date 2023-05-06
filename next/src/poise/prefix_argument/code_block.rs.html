@@ -167,7 +167,7 @@
 </span><span class="kw">use super</span>::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// Error thrown when parsing a malformed [`CodeBlock`] ([`CodeBlock::pop_from`])
-</span><span class="attr">#[derive(Default, Debug, Clone, PartialEq, Eq, Hash)]
+</span><span class="attr">#[derive(Default, Debug, Clone)]
 </span><span class="kw">pub struct </span>CodeBlockError {
     <span class="attr">#[doc(hidden)]
     </span><span class="kw">pub </span>__non_exhaustive: (),
@@ -315,15 +315,15 @@
             pop_from(string).unwrap().<span class="number">1</span>,
             CodeBlock {
                 code: code.into(),
-                language: language.map(|x| x.into())
+                language: language.map(|x| x.into()),
                 __non_exhaustive: (),
             }
         );
     }
 
-    <span class="macro">assert_eq!</span>(pop_from(<span class="string">&quot;&quot;</span>), <span class="prelude-val">Err</span>(CodeBlockError));
-    <span class="macro">assert_eq!</span>(pop_from(<span class="string">&quot;&#39;&#39;&quot;</span>), <span class="prelude-val">Err</span>(CodeBlockError));
-    <span class="macro">assert_eq!</span>(pop_from(<span class="string">&quot;``&quot;</span>), <span class="prelude-val">Err</span>(CodeBlockError));
-    <span class="macro">assert_eq!</span>(pop_from(<span class="string">&quot;``````&quot;</span>), <span class="prelude-val">Err</span>(CodeBlockError));
+    <span class="macro">assert!</span>(pop_from(<span class="string">&quot;&quot;</span>).is_err());
+    <span class="macro">assert!</span>(pop_from(<span class="string">&quot;&#39;&#39;&quot;</span>).is_err());
+    <span class="macro">assert!</span>(pop_from(<span class="string">&quot;``&quot;</span>).is_err());
+    <span class="macro">assert!</span>(pop_from(<span class="string">&quot;``````&quot;</span>).is_err());
 }
 </code></pre></div></section></main></body></html>

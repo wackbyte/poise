@@ -143,6 +143,7 @@
 <a href="#143" id="143">143</a>
 <a href="#144" id="144">144</a>
 <a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Implements the #[derive(ChoiceParameter)] derive macro
 
 </span><span class="kw">use </span>proc_macro::TokenStream;
@@ -241,6 +242,7 @@
                     localizations: std::collections::HashMap::from([
                         #( (#locales.to_string(), #localized_names.to_string()) ),*
                     ]),
+                    __non_exhaustive: (),
                 }, )* ]
             }
         }
@@ -256,7 +258,7 @@
                         <span class="prelude-val">Ok</span>(<span class="self">Self</span>::#variant_idents)
                     } <span class="kw">else
                 </span>)* {
-                    <span class="prelude-val">Err</span>(poise::InvalidChoice)
+                    <span class="prelude-val">Err</span>(poise::InvalidChoice { __non_exhaustive: () })
                 }
             }
         }
