@@ -562,7 +562,7 @@
     },
     <span class="comment">// #[non_exhaustive] forbids struct update syntax for ?? reason
     </span><span class="attr">#[doc(hidden)]
-    </span>__NonExhaustive,
+    </span>__NonExhaustive(std::convert::Infallible),
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, U, E&gt; FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt; {
@@ -586,7 +586,7 @@
             <span class="self">Self</span>::DynamicPrefix { ctx, .. } =&gt; ctx.serenity_context,
             <span class="self">Self</span>::UnknownCommand { ctx, .. } =&gt; ctx,
             <span class="self">Self</span>::UnknownInteraction { ctx, .. } =&gt; ctx,
-            <span class="self">Self</span>::__NonExhaustive =&gt; <span class="macro">unreachable!</span>(),
+            <span class="self">Self</span>::__NonExhaustive(unreachable) =&gt; <span class="kw">match </span>unreachable {},
         }
     }
 
@@ -610,7 +610,7 @@
             | <span class="self">Self</span>::UnknownCommand { .. }
             | <span class="self">Self</span>::UnknownInteraction { .. }
             | <span class="self">Self</span>::DynamicPrefix { .. } =&gt; <span class="kw">return </span><span class="prelude-val">None</span>,
-            <span class="self">Self</span>::__NonExhaustive =&gt; <span class="macro">unreachable!</span>(),
+            <span class="self">Self</span>::__NonExhaustive(unreachable) =&gt; <span class="kw">match </span>unreachable {},
         })
     }
 
@@ -737,7 +737,7 @@
             <span class="self">Self</span>::UnknownInteraction { interaction, .. } =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">&quot;unknown interaction `{}`&quot;</span>, interaction.data().name)
             }
-            <span class="self">Self</span>::__NonExhaustive =&gt; <span class="macro">unreachable!</span>(),
+            <span class="self">Self</span>::__NonExhaustive(unreachable) =&gt; <span class="kw">match </span><span class="kw-2">*</span>unreachable {},
         }
     }
 }
@@ -764,7 +764,7 @@
             <span class="self">Self</span>::DynamicPrefix { error, .. } =&gt; <span class="prelude-val">Some</span>(error),
             <span class="self">Self</span>::UnknownCommand { .. } =&gt; <span class="prelude-val">None</span>,
             <span class="self">Self</span>::UnknownInteraction { .. } =&gt; <span class="prelude-val">None</span>,
-            <span class="self">Self</span>::__NonExhaustive =&gt; <span class="macro">unreachable!</span>(),
+            <span class="self">Self</span>::__NonExhaustive(unreachable) =&gt; <span class="kw">match </span><span class="kw-2">*</span>unreachable {},
         }
     }
 }
