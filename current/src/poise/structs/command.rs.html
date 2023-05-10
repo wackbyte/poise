@@ -251,6 +251,8 @@
 <a href="#251" id="251">251</a>
 <a href="#252" id="252">252</a>
 <a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! The Command struct, which stores all information about a single framework command
 
 </span><span class="kw">use crate</span>::{serenity_prelude <span class="kw">as </span>serenity, BoxFuture};
@@ -283,6 +285,8 @@
     <span class="comment">// ============= Command type agnostic data
     </span><span class="doccomment">/// Subcommands of this command, if any
     </span><span class="kw">pub </span>subcommands: Vec&lt;Command&lt;U, E&gt;&gt;,
+    <span class="doccomment">/// Require a subcommand to be invoked
+    </span><span class="kw">pub </span>subcommand_required: bool,
     <span class="doccomment">/// Main name of the command. Aliases (prefix-only) can be set in [`Self::aliases`].
     </span><span class="kw">pub </span>name: String,
     <span class="doccomment">/// Localized names with locale string as the key (slash-only)

@@ -326,6 +326,15 @@
 <a href="#326" id="326">326</a>
 <a href="#327" id="327">327</a>
 <a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
+<a href="#334" id="334">334</a>
+<a href="#335" id="335">335</a>
+<a href="#336" id="336">336</a>
+<a href="#337" id="337">337</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Dispatches incoming messages and message edits onto framework commands
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -584,6 +593,7 @@
         invocation_data,
         trigger,
     })<span class="question-mark">?</span>;
+
     <span class="kw">let </span>action = <span class="kw">match </span>command.prefix_action {
         <span class="prelude-val">Some</span>(x) =&gt; x,
         <span class="comment">// This command doesn&#39;t have a prefix implementation
@@ -620,6 +630,14 @@
         &amp;&amp; !ctx.framework.options.prefix_options.execute_untracked_edits
     {
         <span class="kw">return </span><span class="prelude-val">Ok</span>(());
+    }
+
+    <span class="kw">if </span>ctx.command.subcommand_required {
+        <span class="comment">// None of this command&#39;s subcommands were invoked, or else we&#39;d have the subcommand in
+        // ctx.command and not the parent command
+        </span><span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::FrameworkError::SubcommandRequired {
+            ctx: <span class="kw">crate</span>::Context::Prefix(ctx),
+        });
     }
 
     <span class="kw">super</span>::common::check_permissions_and_cooldown(ctx.into()).<span class="kw">await</span><span class="question-mark">?</span>;

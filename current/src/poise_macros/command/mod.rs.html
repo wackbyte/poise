@@ -360,6 +360,21 @@
 <a href="#360" id="360">360</a>
 <a href="#361" id="361">361</a>
 <a href="#362" id="362">362</a>
+<a href="#363" id="363">363</a>
+<a href="#364" id="364">364</a>
+<a href="#365" id="365">365</a>
+<a href="#366" id="366">366</a>
+<a href="#367" id="367">367</a>
+<a href="#368" id="368">368</a>
+<a href="#369" id="369">369</a>
+<a href="#370" id="370">370</a>
+<a href="#371" id="371">371</a>
+<a href="#372" id="372">372</a>
+<a href="#373" id="373">373</a>
+<a href="#374" id="374">374</a>
+<a href="#375" id="375">375</a>
+<a href="#376" id="376">376</a>
+<a href="#377" id="377">377</a>
 </pre></div><pre class="rust"><code><span class="kw">mod </span>prefix;
 <span class="kw">mod </span>slash;
 
@@ -380,6 +395,7 @@
     //  if it&#39;s actually irrational, the inconsistency should be fixed)
     </span>subcommands: <span class="kw">crate</span>::util::List&lt;syn::Path&gt;,
     aliases: <span class="kw">crate</span>::util::List&lt;String&gt;,
+    subcommand_required: bool,
     invoke_on_edit: bool,
     reuse_response: bool,
     track_deletion: bool,
@@ -508,6 +524,18 @@
         <span class="kw">return </span><span class="prelude-val">Err</span>(syn::Error::new(proc_macro2::Span::call_site(), err_msg).into());
     }
 
+    <span class="comment">// If subcommand_required is set to true, then the command cannot have any arguments
+    </span><span class="kw">if </span>args.subcommand_required &amp;&amp; function.sig.inputs.len() &gt; <span class="number">1 </span>{
+        <span class="kw">let </span>err_msg = <span class="string">&quot;subcommand_required is set to true, but the command has arguments&quot;</span>;
+        <span class="kw">return </span><span class="prelude-val">Err</span>(syn::Error::new(proc_macro2::Span::call_site(), err_msg).into());
+    }
+
+    <span class="comment">// If subcommand_required is set to true, then the command must have at least one subcommand
+    </span><span class="kw">if </span>args.subcommand_required &amp;&amp; args.subcommands.<span class="number">0</span>.is_empty() {
+        <span class="kw">let </span>err_msg = <span class="string">&quot;subcommand_required is set to true, but the command has no subcommands&quot;</span>;
+        <span class="kw">return </span><span class="prelude-val">Err</span>(syn::Error::new(proc_macro2::Span::call_site(), err_msg).into());
+    }
+
     <span class="comment">// Collect argument names/types/attributes to insert into generated function
     </span><span class="kw">let </span><span class="kw-2">mut </span>parameters = Vec::new();
     <span class="kw">for </span>command_param <span class="kw">in </span>function.sig.inputs.iter_mut().skip(<span class="number">1</span>) {
@@ -625,6 +653,7 @@
     <span class="kw">let </span>default_member_permissions = <span class="kw-2">&amp;</span>inv.default_member_permissions;
     <span class="kw">let </span>required_permissions = <span class="kw-2">&amp;</span>inv.required_permissions;
     <span class="kw">let </span>required_bot_permissions = <span class="kw-2">&amp;</span>inv.required_bot_permissions;
+    <span class="kw">let </span>subcommand_required = inv.args.subcommand_required;
     <span class="kw">let </span>owners_only = inv.args.owners_only;
     <span class="kw">let </span>guild_only = inv.args.guild_only;
     <span class="kw">let </span>dm_only = inv.args.dm_only;
@@ -680,6 +709,7 @@
                 context_menu_action: #context_menu_action,
 
                 subcommands: <span class="macro">vec!</span>[ #( #subcommands() ),* ],
+                subcommand_required: #subcommand_required,
                 name: #command_name.to_string(),
                 name_localizations: #name_localizations,
                 qualified_name: String::from(#command_name), <span class="comment">// properly filled in later by Framework

@@ -281,6 +281,19 @@
 <a href="#281" id="281">281</a>
 <a href="#282" id="282">282</a>
 <a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Building blocks for common commands like help commands or application command registration
 //!
 //! This file provides sample commands and utility functions like help menus or error handlers to
@@ -330,6 +343,19 @@
             <span class="kw">let </span>error = error.to_string();
             <span class="macro">eprintln!</span>(<span class="string">&quot;An error occured in a command: {}&quot;</span>, error);
             ctx.say(error).<span class="kw">await</span><span class="question-mark">?</span>;
+        }
+        <span class="kw">crate</span>::FrameworkError::SubcommandRequired { ctx } =&gt; {
+            <span class="kw">let </span>subcommands = ctx
+                .command()
+                .subcommands
+                .iter()
+                .map(|s| <span class="kw-2">&amp;*</span>s.name)
+                .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+            <span class="kw">let </span>response = <span class="macro">format!</span>(
+                <span class="string">&quot;You must specify one of the following subcommands: {}&quot;</span>,
+                subcommands.join(<span class="string">&quot;, &quot;</span>)
+            );
+            ctx.send(|b| b.content(response).ephemeral(<span class="bool-val">true</span>)).<span class="kw">await</span><span class="question-mark">?</span>;
         }
         <span class="kw">crate</span>::FrameworkError::CommandPanic { ctx, payload: <span class="kw">_ </span>} =&gt; {
             <span class="comment">// Not showing the payload to the user because it may contain sensitive info

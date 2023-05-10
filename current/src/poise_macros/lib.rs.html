@@ -273,6 +273,7 @@
 <a href="#273" id="273">273</a>
 <a href="#274" id="274">274</a>
 <a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
 </pre></div><pre class="rust"><code><span class="doccomment">/*!
 Procedural macros used in poise, like [`macro@command`]
 */
@@ -325,6 +326,7 @@ for example for command-specific help (i.e. `~help command_name`). Escape newlin
 - `guild_only`: Restricts command callers to only run on a guild
 - `dm_only`: Restricts command callers to only run on a DM
 - `nsfw_only`: Restricts command callers to only run on a NSFW channel
+- `subcommand_required`: Requires a subcommand to be specified (prefix only)
 - `check`: Path to a function which is invoked for every invocation. If the function returns false, the command is not executed (can be used multiple times)
 
 ## Help-related arguments
