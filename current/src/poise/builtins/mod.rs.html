@@ -319,7 +319,7 @@
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), serenity::Error&gt; {
     <span class="kw">match </span>error {
         <span class="kw">crate</span>::FrameworkError::Setup { error, .. } =&gt; {
-            <span class="macro">log::error!</span>(<span class="string">&quot;Error in user data setup: {}&quot;</span>, error);
+            <span class="macro">eprintln!</span>(<span class="string">&quot;Error in user data setup: {}&quot;</span>, error);
         }
         <span class="kw">crate</span>::FrameworkError::EventHandler { error, event, .. } =&gt; <span class="macro">log::error!</span>(
             <span class="string">&quot;User event event handler encountered an error on {} event: {}&quot;</span>,
