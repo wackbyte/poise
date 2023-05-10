@@ -319,7 +319,7 @@
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), serenity::Error&gt; {
     <span class="kw">match </span>error {
         <span class="kw">crate</span>::FrameworkError::Setup { error, .. } =&gt; {
-            <span class="macro">log::error!</span>(<span class="string">&quot;Error in user data setup: {}&quot;</span>, error);
+            <span class="macro">eprintln!</span>(<span class="string">&quot;Error in user data setup: {}&quot;</span>, error);
         }
         <span class="kw">crate</span>::FrameworkError::EventHandler { error, event, .. } =&gt; <span class="macro">log::error!</span>(
             <span class="string">&quot;User event event handler encountered an error on {} event: {}&quot;</span>,
@@ -455,7 +455,7 @@
                 interaction.data().name
             );
         }
-        <span class="kw">crate</span>::FrameworkError::__NonExhaustive =&gt; <span class="macro">panic!</span>(),
+        <span class="kw">crate</span>::FrameworkError::__NonExhaustive(unreachable) =&gt; <span class="kw">match </span>unreachable {},
     }
 
     <span class="prelude-val">Ok</span>(())
@@ -505,12 +505,12 @@
         </span>is_public: bool,
     }
 
-    <span class="kw">let </span>guild_ids = ctx.sc().cache.guilds();
+    <span class="kw">let </span>guild_ids = ctx.cache().guilds();
     <span class="kw">let </span><span class="kw-2">mut </span>num_unavailable_guilds = <span class="number">0</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>guilds = guild_ids
         .iter()
         .map(|<span class="kw-2">&amp;</span>guild_id| {
-            ctx.sc().cache.guild_field(guild_id, |guild| Guild {
+            ctx.cache().guild_field(guild_id, |guild| Guild {
                 name: guild.name.clone(),
                 num_members: guild.member_count,
                 is_public: guild.features.iter().any(|x| x == <span class="string">&quot;DISCOVERABLE&quot;</span>),

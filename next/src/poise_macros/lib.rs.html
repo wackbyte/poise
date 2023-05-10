@@ -244,6 +244,35 @@
 <a href="#244" id="244">244</a>
 <a href="#245" id="245">245</a>
 <a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
+<a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
 </pre></div><pre class="rust"><code><span class="doccomment">/*!
 Procedural macros used in poise, like [`macro@command`]
 */
@@ -265,46 +294,67 @@ for example for command-specific help (i.e. `~help command_name`). Escape newlin
 # Macro arguments
 
 `#[poise::command]` accepts a number of arguments to configure the command:
+
+## Command types
+
 - `prefix_command`: Generate a prefix command
 - `slash_command`: Generate a slash command
 - `context_menu_command`: Generate a context menu command
-- `description_localized`: Adds localized description of the parameter `description_localized(&quot;locale&quot;, &quot;Description&quot;)` (slash-only)
-- `name_localized`: Adds localized name of the parameter `name_localized(&quot;locale&quot;, &quot;new_name&quot;)` (slash-only)
+
+## Meta properties
+
 - `subcommands`: List of subcommands `subcommands(&quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;)`
-- `aliases`: Command name aliases (only applies to prefix commands)
-- `invoke_on_edit`: Reruns the command if an existing invocation message is edited (prefix only)
-- `track_deletion`: Deletes the bot response to a command if the command message is deleted (prefix only)
-- `reuse_response`: After the first response, post subsequent responses as edits to the initial message (prefix only)
-- `track_edits`: Shorthand for `invoke_on_edit`, `track_deletion`, and `reuse_response` (prefix only)
-- `broadcast_typing`: Trigger a typing indicator while command runs (only applies to prefix commands I think)
-- `help_text_fn`: Path to a string-returning function which is used for command help text instead of documentation comments
-    - Useful if you have many commands with very similar help messages: you can abstract the common parts into a function
-- `check`: Path to a function which is invoked for every invocation. If the function returns false, the command is not executed (can be used multiple times)
-- `on_error`: Error handling function
+- `name_localized`: Adds localized name of the parameter `name_localized(&quot;locale&quot;, &quot;new_name&quot;)` (slash-only)
+- `description_localized`: Adds localized description of the parameter `description_localized(&quot;locale&quot;, &quot;Description&quot;)` (slash-only)
 - `rename`: Choose an alternative command name instead of the function name
     - Useful if your command name is a Rust keyword, like `move`
-- `discard_spare_arguments`: Don&#39;t throw an error if the user supplies too many arguments
-- `hide_in_help`: Hide this command in help menus
-- `ephemeral`: Make bot responses ephemeral if possible
-    - Only poise&#39;s function, like `poise::send_reply`, respect this preference
+- `aliases`: Command name aliases (only applies to prefix commands)
+- `category`: Category of this command which affects placement in the help command
+- `custom_data`: Arbitrary expression that will be boxed and stored in `Command::custom_data`
+- `identifying_name`: Optionally, a unique identifier for this command for your personal usage
+
+## Checks
+
 - `required_permissions`: Permissions which the command caller needs to have
+- `required_bot_permissions`: Permissions which the bot is known to need
 - `default_member_permissions`: Like `required_permissions`, but checked server-side (slash only)
     - Due to being checked server-side, users without the required permissions are prevented from executing the command in the first place, which is a better experience
     - However, `default_member_permissions` has no effect on subcommands, which always inherit their permissions from the top-level command
     - Also, guild owners can freely change the required permissions for any bot command for their guild
-- `required_bot_permissions`: Permissions which the bot is known to need
 - `owners_only`: Restricts command callers to a configurable list of owners (see FrameworkOptions)
 - `guild_only`: Restricts command callers to only run on a guild
 - `dm_only`: Restricts command callers to only run on a DM
 - `nsfw_only`: Restricts command callers to only run on a NSFW channel
-- `identifying_name`: Optionally, a unique identifier for this command for your personal usage
-- `category`: Category of this command which affects placement in the help command
-- `custom_data`: Arbitrary expression that will be boxed and stored in `Command::custom_data`
+- `check`: Path to a function which is invoked for every invocation. If the function returns false, the command is not executed (can be used multiple times)
+
+## Help-related arguments
+
+- `hide_in_help`: Hide this command in help menus
+- `help_text_fn`: Path to a string-returning function which is used for command help text instead of documentation comments
+    - Useful if you have many commands with very similar help messages: you can abstract the common parts into a function
+
+## Edit tracking (prefix only)
+
+- `track_edits`: Shorthand for `invoke_on_edit`, `track_deletion`, and `reuse_response` (prefix only)
+- `invoke_on_edit`: Reruns the command if an existing invocation message is edited (prefix only)
+- `track_deletion`: Deletes the bot response to a command if the command message is deleted (prefix only)
+- `reuse_response`: After the first response, post subsequent responses as edits to the initial message (prefix only)
+
+## Cooldown
+
 - `global_cooldown`: Minimum duration in seconds between invocations, globally
 - `user_cooldown`: Minimum duration in seconds between invocations, per user
 - `guild_cooldown`: Minimum duration in seconds between invocations, per guild
 - `channel_cooldown`: Minimum duration in seconds between invocations, per channel
 - `member_cooldown`: Minimum duration in seconds between invocations, per guild member
+
+## Other
+
+- `on_error`: Error handling function
+- `broadcast_typing`: Trigger a typing indicator while command runs (prefix only)
+- `discard_spare_arguments`: Don&#39;t throw an error if the user supplies too many arguments (prefix only)
+- `ephemeral`: Make bot responses ephemeral if possible (slash only)
+    - Only poise&#39;s function, like `poise::send_reply`, respect this preference
 
 # Function parameters
 
@@ -316,16 +366,24 @@ All following parameters are inputs to the command. You can use all types that i
 `poise::PopArgumentAsync`, `poise::PopArgument`, `serenity::ArgumentConvert` or `std::str::FromStr`.
 You can also wrap types in `Option` or `Vec` to make them optional or variadic. In addition, there
 are multiple attributes you can use on parameters:
+
+## Meta properties
+
 - `#[description = &quot;&quot;]`: Sets description of the parameter (slash-only)
 - `#[description_localized(&quot;locale&quot;, &quot;Description&quot;)]`: Adds localized description of the parameter (slash-only)
 - `#[name_localized(&quot;locale&quot;, &quot;new_name&quot;)]`: Adds localized name of the parameter (slash-only)
 - `#[autocomplete = &quot;callback()&quot;]`: Sets the autocomplete callback (slash-only)
-- `#[channel_types(&quot;&quot;, &quot;&quot;)]`: For channel parameters, restricts allowed channel types (slash-only)
 - `#[rename = &quot;new_name&quot;]`: Changes the user-facing name of the parameter (slash-only)
+
+## Input filter (slash only)
+
+- `#[channel_types(&quot;&quot;, &quot;&quot;)]`: For channel parameters, restricts allowed channel types (slash-only)
 - `#[min = 0]`: Minimum value for this number parameter (slash-only)
 - `#[max = 0]`: Maximum value for this number parameter (slash-only)
 - `#[min_length = 0]`: Minimum length for this string parameter (slash-only)
 - `#[max_length = 1]`: Maximum length for this string parameter (slash-only)
+
+## Parser settings (prefix only)
 - `#[rest]`: Use the entire rest of the message for this parameter (prefix-only)
 - `#[lazy]`: Can be used on Option and Vec parameters and is equivalent to regular expressions&#39; laziness (prefix-only)
 - `#[flag]`: Can be used on a bool parameter to set the bool to true if the user typed the parameter name literally (prefix-only)
