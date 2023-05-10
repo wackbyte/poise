@@ -597,6 +597,11 @@
 <a href="#597" id="597">597</a>
 <a href="#598" id="598">598</a>
 <a href="#599" id="599">599</a>
+<a href="#600" id="600">600</a>
+<a href="#601" id="601">601</a>
+<a href="#602" id="602">602</a>
+<a href="#603" id="603">603</a>
+<a href="#604" id="604">604</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Just contains Context and `PartialContext` structs
 
 </span><span class="kw">use </span>std::borrow::Cow;
@@ -760,17 +765,6 @@
         <span class="self">self</span>.serenity_context()
     }
 
-    <span class="comment">// Poise internals can&#39;t pass `poise::Context` into `impl CacheHttp` parameters, because
-    // `CacheHttp: Send + Sync` so poise internals would need to add noisy `U: Send + Sync`
-    // everywhere.
-    // Poise internals also can&#39;t continue to call `.discord()` because it&#39;s deprecated. And
-    // `.serenity_context()` is too long. So we have this instead.
-    </span><span class="attr">#[doc(hidden)]
-    </span>(sc <span class="self">self</span>)
-    (<span class="kw">pub fn </span>sc(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context) {
-        <span class="self">self</span>.serenity_context()
-    }
-
     <span class="doccomment">/// Returns a view into data stored by the framework, like configuration
     </span>(framework <span class="self">self</span>)
     (<span class="kw">pub fn </span>framework(<span class="self">self</span>) -&gt; <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;) {
@@ -850,7 +844,7 @@
             ctx.interaction.member().map(Cow::Borrowed)
         } <span class="kw">else </span>{
             <span class="self">self</span>.guild_id()<span class="question-mark">?
-                </span>.member(<span class="self">self</span>.sc(), <span class="self">self</span>.author().id)
+                </span>.member(<span class="self">self</span>.serenity_context(), <span class="self">self</span>.author().id)
                 .<span class="kw">await
                 </span>.ok()
                 .map(Cow::Owned)
@@ -1060,6 +1054,22 @@
             callback(<span class="self">self</span>, <span class="kw-2">&amp;mut </span>reply);
         }
         reply
+    }
+
+    <span class="doccomment">/// Returns serenity&#39;s cache which stores various useful data received from the gateway
+    ///
+    /// Shorthand for [`.serenity_context().cache`](serenity::Context::cache)
+    </span>(cache <span class="self">self</span>)
+    (<span class="kw">pub fn </span>cache(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Cache) {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.serenity_context().cache
+    }
+
+    <span class="doccomment">/// Returns serenity&#39;s raw Discord API client to make raw API requests, if needed.
+    ///
+    /// Shorthand for [`.serenity_context().http`](serenity::Context::http)
+    </span>(http <span class="self">self</span>)
+    (<span class="kw">pub fn </span>http(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Http) {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.serenity_context().http
     }
 }
 

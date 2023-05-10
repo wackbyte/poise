@@ -181,6 +181,12 @@
 <a href="#181" id="181">181</a>
 <a href="#182" id="182">182</a>
 <a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Prefix and slash agnostic utilities for dispatching incoming events onto framework commands
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -229,7 +235,13 @@
         <span class="kw">return </span><span class="prelude-val">Some</span>(serenity::Permissions::empty());
     }
 
-    <span class="kw">let </span>permissions = user_permissions(ctx.sc(), ctx.guild_id(), ctx.channel_id(), user).<span class="kw">await</span>;
+    <span class="kw">let </span>permissions = user_permissions(
+        ctx.serenity_context(),
+        ctx.guild_id(),
+        ctx.channel_id(),
+        user,
+    )
+    .<span class="kw">await</span>;
     <span class="prelude-val">Some</span>(required_permissions - permissions<span class="question-mark">?</span>)
 }
 
@@ -256,7 +268,7 @@
             <span class="prelude-val">Some</span>(guild_id) =&gt; {
                 <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
                 </span><span class="kw">if </span>ctx.framework().options().require_cache_for_guild_check
-                    &amp;&amp; ctx.sc().cache.guild_field(guild_id, |<span class="kw">_</span>| ()).is_none()
+                    &amp;&amp; ctx.cache().guild_field(guild_id, |<span class="kw">_</span>| ()).is_none()
                 {
                     <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::FrameworkError::GuildOnly { ctx });
                 }
@@ -271,7 +283,7 @@
     }
 
     <span class="kw">if </span>cmd.nsfw_only {
-        <span class="kw">let </span>channel = <span class="kw">match </span>ctx.channel_id().to_channel(ctx.sc()).<span class="kw">await </span>{
+        <span class="kw">let </span>channel = <span class="kw">match </span>ctx.channel_id().to_channel(ctx.serenity_context()).<span class="kw">await </span>{
             <span class="prelude-val">Ok</span>(channel) =&gt; channel,
             <span class="prelude-val">Err</span>(e) =&gt; {
                 <span class="macro">log::warn!</span>(<span class="string">&quot;Error when getting channel: {}&quot;</span>, e);

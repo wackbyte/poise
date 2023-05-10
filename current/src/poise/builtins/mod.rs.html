@@ -505,12 +505,12 @@
         </span>is_public: bool,
     }
 
-    <span class="kw">let </span>guild_ids = ctx.sc().cache.guilds();
+    <span class="kw">let </span>guild_ids = ctx.cache().guilds();
     <span class="kw">let </span><span class="kw-2">mut </span>num_unavailable_guilds = <span class="number">0</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>guilds = guild_ids
         .iter()
         .map(|<span class="kw-2">&amp;</span>guild_id| {
-            ctx.sc().cache.guild_field(guild_id, |guild| Guild {
+            ctx.cache().guild_field(guild_id, |guild| Guild {
                 name: guild.name.clone(),
                 num_members: guild.member_count,
                 is_public: guild.features.iter().any(|x| x == <span class="string">&quot;DISCOVERABLE&quot;</span>),
