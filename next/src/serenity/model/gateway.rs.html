@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.5/src/model/gateway.rs`."><title>gateway.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-f3501f0f5ae15dfb.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (2f6bc5d25 2023-05-09)" data-search-js="search-4926e5fc22a5646a.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../serenity/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/model/gateway.rs`."><title>gateway.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (4c8bb79d9 2023-07-15)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../serenity/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -887,6 +887,49 @@
 <a href="#887" id="887">887</a>
 <a href="#888" id="888">888</a>
 <a href="#889" id="889">889</a>
+<a href="#890" id="890">890</a>
+<a href="#891" id="891">891</a>
+<a href="#892" id="892">892</a>
+<a href="#893" id="893">893</a>
+<a href="#894" id="894">894</a>
+<a href="#895" id="895">895</a>
+<a href="#896" id="896">896</a>
+<a href="#897" id="897">897</a>
+<a href="#898" id="898">898</a>
+<a href="#899" id="899">899</a>
+<a href="#900" id="900">900</a>
+<a href="#901" id="901">901</a>
+<a href="#902" id="902">902</a>
+<a href="#903" id="903">903</a>
+<a href="#904" id="904">904</a>
+<a href="#905" id="905">905</a>
+<a href="#906" id="906">906</a>
+<a href="#907" id="907">907</a>
+<a href="#908" id="908">908</a>
+<a href="#909" id="909">909</a>
+<a href="#910" id="910">910</a>
+<a href="#911" id="911">911</a>
+<a href="#912" id="912">912</a>
+<a href="#913" id="913">913</a>
+<a href="#914" id="914">914</a>
+<a href="#915" id="915">915</a>
+<a href="#916" id="916">916</a>
+<a href="#917" id="917">917</a>
+<a href="#918" id="918">918</a>
+<a href="#919" id="919">919</a>
+<a href="#920" id="920">920</a>
+<a href="#921" id="921">921</a>
+<a href="#922" id="922">922</a>
+<a href="#923" id="923">923</a>
+<a href="#924" id="924">924</a>
+<a href="#925" id="925">925</a>
+<a href="#926" id="926">926</a>
+<a href="#927" id="927">927</a>
+<a href="#928" id="928">928</a>
+<a href="#929" id="929">929</a>
+<a href="#930" id="930">930</a>
+<a href="#931" id="931">931</a>
+<a href="#932" id="932">932</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Models pertaining to the gateway.
 
 </span><span class="kw">use </span>url::Url;
@@ -900,6 +943,8 @@
 /// shards that Discord recommends to use for a bot user.
 ///
 /// This is only applicable to bot users.
+///
+/// [Discord docs](https://discord.com/developers/docs/topics/gateway#get-gateway-bot-json-response).
 </span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>BotGateway {
@@ -914,6 +959,8 @@
 }
 
 <span class="doccomment">/// Representation of an activity that a [`User`] is performing.
+///
+/// [Discord docs](https://discord.com/developers/docs/topics/gateway#activity-object-activity-structure).
 </span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>Activity {
@@ -1154,7 +1201,8 @@
     }
 }
 
-<span class="attr">#[derive(Clone, Debug, Serialize, Deserialize)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/topics/gateway#activity-object-activity-buttons).
+</span><span class="attr">#[derive(Clone, Debug, Serialize, Deserialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ActivityButton {
     <span class="doccomment">/// The text shown on the button.
@@ -1167,6 +1215,8 @@
 }
 
 <span class="doccomment">/// The assets for an activity.
+///
+/// [Discord docs](https://discord.com/developers/docs/topics/gateway#activity-object-activity-assets).
 </span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ActivityAssets {
@@ -1182,6 +1232,8 @@
 
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// A set of flags defining what is in an activity&#39;s payload.
+    ///
+    /// [Discord docs](https://discord.com/developers/docs/topics/gateway#activity-object-activity-flags).
     </span><span class="attr">#[derive(Default)]
     </span><span class="kw">pub struct </span>ActivityFlags: u64 {
         <span class="doccomment">/// Whether the activity is an instance activity.
@@ -1206,6 +1258,8 @@
 }
 
 <span class="doccomment">/// Information about an activity&#39;s party.
+///
+/// [Discord docs](https://discord.com/developers/docs/topics/gateway#activity-object-activity-party).
 </span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ActivityParty {
@@ -1216,6 +1270,8 @@
 }
 
 <span class="doccomment">/// Secrets for an activity.
+///
+/// [Discord docs](https://discord.com/developers/docs/topics/gateway#activity-object-activity-secrets).
 </span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ActivitySecrets {
@@ -1229,6 +1285,8 @@
 }
 
 <span class="doccomment">/// Representation of an emoji used in a custom status
+///
+/// [Discord docs](https://discord.com/developers/docs/topics/gateway#activity-object-activity-emoji).
 </span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>ActivityEmoji {
     <span class="doccomment">/// The name of the emoji.
@@ -1239,7 +1297,8 @@
     </span><span class="kw">pub </span>animated: <span class="prelude-ty">Option</span>&lt;bool&gt;,
 }
 
-<span class="attr">#[derive(Clone, Copy, Debug, PartialEq)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/topics/gateway#activity-object-activity-types).
+</span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>ActivityType {
     <span class="doccomment">/// An indicator that the user is playing a game.
@@ -1276,6 +1335,8 @@
 <span class="doccomment">/// A representation of the data retrieved from the gateway endpoint.
 ///
 /// For the bot-specific gateway, refer to [`BotGateway`].
+///
+/// [Discord docs](https://discord.com/developers/docs/topics/gateway#get-gateway-example-response).
 </span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>Gateway {
@@ -1284,6 +1345,8 @@
 }
 
 <span class="doccomment">/// Information detailing the current active status of a [`User`].
+///
+/// [Discord docs](https://discord.com/developers/docs/topics/gateway#client-status-object).
 </span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>ClientStatus {
     <span class="kw">pub </span>desktop: <span class="prelude-ty">Option</span>&lt;OnlineStatus&gt;,
@@ -1292,6 +1355,8 @@
 }
 
 <span class="doccomment">/// Information about the user of a [`Presence`] event.
+///
+/// [Discord docs](https://discord.com/developers/docs/topics/gateway-events#presence-update).
 </span><span class="attr">#[derive(Clone, Default, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 #[serde(default)]
@@ -1324,6 +1389,7 @@
             public_flags: <span class="self">self</span>.public_flags,
             banner: <span class="prelude-val">None</span>,
             accent_colour: <span class="prelude-val">None</span>,
+            member: <span class="prelude-val">None</span>,
         })
     }
 
@@ -1343,6 +1409,7 @@
             public_flags: <span class="self">self</span>.public_flags,
             banner: <span class="prelude-val">None</span>,
             accent_colour: <span class="prelude-val">None</span>,
+            member: <span class="prelude-val">None</span>,
         })
     }
 
@@ -1362,6 +1429,8 @@
 }
 
 <span class="doccomment">/// Information detailing the current online status of a [`User`].
+///
+/// [Discord docs](https://discord.com/developers/docs/topics/gateway#presence-update-presence-update-event-fields).
 </span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>Presence {
@@ -1380,6 +1449,8 @@
 }
 
 <span class="doccomment">/// An initial set of information given after IDENTIFYing to the gateway.
+///
+/// [Discord docs](https://discord.com/developers/docs/topics/gateway#ready-ready-event-fields).
 </span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>Ready {
@@ -1400,6 +1471,8 @@
 
 <span class="doccomment">/// Information describing how many gateway sessions you can initiate within a
 /// ratelimit period.
+///
+/// [Discord docs](https://discord.com/developers/docs/topics/gateway#session-start-limit-object-session-start-limit-structure).
 </span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>SessionStartLimit {
@@ -1410,8 +1483,12 @@
     </span><span class="kw">pub </span>reset_after: u64,
     <span class="doccomment">/// The total number of session starts within the ratelimit period allowed.
     </span><span class="kw">pub </span>total: u64,
+    <span class="doccomment">/// The number of identify requests allowed per 5 seconds.
+    </span><span class="kw">pub </span>max_concurrency: u64,
 }
 <span class="doccomment">/// Timestamps of when a user started and/or is ending their activity.
+///
+/// [Discord docs](https://discord.com/developers/docs/game-sdk/activities#data-models-activitytimestamps-struct).
 </span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ActivityTimestamps {
@@ -1442,10 +1519,11 @@
     /// Once the bot is in 100 guilds or more, [the bot must be verified] in
     /// order to use privileged intents.
     ///
+    /// [Discord docs](https://discord.com/developers/docs/topics/gateway#list-of-intents).
+    ///
     /// [gateway intent]: https://discord.com/developers/docs/topics/gateway#privileged-intents
     /// [Privileged Intents]: https://discord.com/developers/docs/topics/gateway#privileged-intents
     /// [the bot must be verified]: https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting
-    </span><span class="attr">#[derive(Default)]
     </span><span class="kw">pub struct </span>GatewayIntents: u64 {
         <span class="doccomment">/// Enables following gateway events:
         ///
@@ -1589,8 +1667,7 @@
     }
 }
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
-</span><span class="kw">impl </span>GatewayIntents {
+<span class="kw">impl </span>GatewayIntents {
     <span class="doccomment">/// Gets all of the intents that aren&#39;t considered privileged by Discord.
     </span><span class="attr">#[must_use]
     </span><span class="kw">pub const fn </span>non_privileged() -&gt; GatewayIntents {
@@ -1607,7 +1684,10 @@
         // See: https://github.com/bitflags/bitflags/issues/180
         </span><span class="self">Self</span>::GUILD_MEMBERS.union(<span class="self">Self</span>::GUILD_PRESENCES).union(<span class="self">Self</span>::MESSAGE_CONTENT)
     }
+}
 
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+</span><span class="kw">impl </span>GatewayIntents {
     <span class="doccomment">/// Checks if any of the included intents are privileged.
     </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>is_privileged(<span class="self">self</span>) -&gt; bool {
@@ -1774,6 +1854,12 @@
     </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>auto_moderation_execution(<span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.contains(<span class="self">Self</span>::AUTO_MODERATION_EXECUTION)
+    }
+}
+
+<span class="kw">impl </span>Default <span class="kw">for </span>GatewayIntents {
+    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>::non_privileged()
     }
 }
 </code></pre></div></section></main></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.5/src/model/guild/audit_log.rs`."><title>audit_log.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-f3501f0f5ae15dfb.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (2f6bc5d25 2023-05-09)" data-search-js="search-4926e5fc22a5646a.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../../source-files.js"></script><script defer src="../../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../../serenity/index.html"><img class="rust-logo" src="../../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/model/guild/audit_log.rs`."><title>audit_log.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (4c8bb79d9 2023-07-15)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../../serenity/index.html"><img class="rust-logo" src="../../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -419,6 +419,25 @@
 <a href="#419" id="419">419</a>
 <a href="#420" id="420">420</a>
 <a href="#421" id="421">421</a>
+<a href="#422" id="422">422</a>
+<a href="#423" id="423">423</a>
+<a href="#424" id="424">424</a>
+<a href="#425" id="425">425</a>
+<a href="#426" id="426">426</a>
+<a href="#427" id="427">427</a>
+<a href="#428" id="428">428</a>
+<a href="#429" id="429">429</a>
+<a href="#430" id="430">430</a>
+<a href="#431" id="431">431</a>
+<a href="#432" id="432">432</a>
+<a href="#433" id="433">433</a>
+<a href="#434" id="434">434</a>
+<a href="#435" id="435">435</a>
+<a href="#436" id="436">436</a>
+<a href="#437" id="437">437</a>
+<a href="#438" id="438">438</a>
+<a href="#439" id="439">439</a>
+<a href="#440" id="440">440</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Audit log types for administrative actions within guilds.
 
 </span><span class="kw">use </span>std::collections::HashMap;
@@ -436,6 +455,8 @@
 <span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// Determines the action that was done on a target.
+///
+/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events).
 </span><span class="attr">#[derive(Copy, Clone, Debug)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>Action {
@@ -523,7 +544,8 @@
 <span class="attr">#[deprecated(note = <span class="string">&quot;use `ChannelAction`&quot;</span>)]
 </span><span class="kw">pub type </span>ActionChannel = ChannelAction;
 
-<span class="attr">#[derive(Copy, Clone, Debug)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events).
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>ChannelAction {
@@ -535,7 +557,8 @@
 <span class="attr">#[deprecated(note = <span class="string">&quot;use `ChannelOverwriteAction`&quot;</span>)]
 </span><span class="kw">pub type </span>ActionChannelOverwrite = ChannelOverwriteAction;
 
-<span class="attr">#[derive(Copy, Clone, Debug)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events).
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>ChannelOverwriteAction {
@@ -547,7 +570,8 @@
 <span class="attr">#[deprecated(note = <span class="string">&quot;use `MemberAction`&quot;</span>)]
 </span><span class="kw">pub type </span>ActionMember = MemberAction;
 
-<span class="attr">#[derive(Copy, Clone, Debug)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events).
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>MemberAction {
@@ -565,7 +589,8 @@
 <span class="attr">#[deprecated(note = <span class="string">&quot;use `RoleAction`&quot;</span>)]
 </span><span class="kw">pub type </span>ActionRole = RoleAction;
 
-<span class="attr">#[derive(Copy, Clone, Debug)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events).
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>RoleAction {
@@ -577,7 +602,8 @@
 <span class="attr">#[deprecated(note = <span class="string">&quot;use `InviteAction`&quot;</span>)]
 </span><span class="kw">pub type </span>ActionInvite = InviteAction;
 
-<span class="attr">#[derive(Copy, Clone, Debug)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events).
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>InviteAction {
@@ -589,7 +615,8 @@
 <span class="attr">#[deprecated(note = <span class="string">&quot;use `WebhookAction`&quot;</span>)]
 </span><span class="kw">pub type </span>ActionWebhook = WebhookAction;
 
-<span class="attr">#[derive(Copy, Clone, Debug)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events).
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>WebhookAction {
@@ -601,7 +628,8 @@
 <span class="attr">#[deprecated(note = <span class="string">&quot;use `EmojiAction`&quot;</span>)]
 </span><span class="kw">pub type </span>ActionEmoji = EmojiAction;
 
-<span class="attr">#[derive(Copy, Clone, Debug)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events).
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>EmojiAction {
@@ -613,7 +641,8 @@
 <span class="attr">#[deprecated(note = <span class="string">&quot;use `MessageAction`&quot;</span>)]
 </span><span class="kw">pub type </span>ActionMessage = MessageAction;
 
-<span class="attr">#[derive(Copy, Clone, Debug)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events).
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>MessageAction {
@@ -626,7 +655,8 @@
 <span class="attr">#[deprecated(note = <span class="string">&quot;use `IntegrationAction`&quot;</span>)]
 </span><span class="kw">pub type </span>ActionIntegration = IntegrationAction;
 
-<span class="attr">#[derive(Copy, Clone, Debug)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events).
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>IntegrationAction {
@@ -638,7 +668,8 @@
 <span class="attr">#[deprecated(note = <span class="string">&quot;use `StageInstanceAction`&quot;</span>)]
 </span><span class="kw">pub type </span>ActionStageInstance = StageInstanceAction;
 
-<span class="attr">#[derive(Copy, Clone, Debug)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events).
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>StageInstanceAction {
@@ -650,7 +681,8 @@
 <span class="attr">#[deprecated(note = <span class="string">&quot;use `StickerAction`&quot;</span>)]
 </span><span class="kw">pub type </span>ActionSticker = StickerAction;
 
-<span class="attr">#[derive(Copy, Clone, Debug)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events).
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>StickerAction {
@@ -659,7 +691,8 @@
     Delete = <span class="number">92</span>,
 }
 
-<span class="attr">#[derive(Copy, Clone, Debug)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events).
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>ScheduledEventAction {
@@ -671,7 +704,8 @@
 <span class="attr">#[deprecated(note = <span class="string">&quot;use `ThreadAction`&quot;</span>)]
 </span><span class="kw">pub type </span>ActionThread = ThreadAction;
 
-<span class="attr">#[derive(Copy, Clone, Debug)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events).
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>ThreadAction {
@@ -680,7 +714,8 @@
     Delete = <span class="number">112</span>,
 }
 
-<span class="attr">#[derive(Copy, Clone, Debug)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events).
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>AutoModerationAction {
@@ -690,7 +725,8 @@
     BlockMessage = <span class="number">143</span>,
 }
 
-<span class="attr">#[derive(Debug, Deserialize, Serialize)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-object).
+</span><span class="attr">#[derive(Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>AuditLogs {
     <span class="attr">#[serde(rename = <span class="string">&quot;audit_log_entries&quot;</span>)]
@@ -701,7 +737,8 @@
     </span><span class="kw">pub </span>webhooks: HashMap&lt;WebhookId, Webhook&gt;,
 }
 
-<span class="attr">#[derive(Debug, Deserialize, Serialize)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object).
+</span><span class="attr">#[derive(Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>AuditLogEntry {
     <span class="doccomment">/// Determines to what entity an [`Self::action`] was used on.
@@ -722,7 +759,8 @@
     </span><span class="kw">pub </span>options: <span class="prelude-ty">Option</span>&lt;Options&gt;,
 }
 
-<span class="attr">#[derive(Debug, Deserialize, Serialize)]
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-optional-audit-entry-info).
+</span><span class="attr">#[derive(Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>Options {
     <span class="doccomment">/// Number of days after which inactive members were kicked.

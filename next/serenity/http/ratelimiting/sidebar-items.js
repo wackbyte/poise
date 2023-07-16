@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":["Ratelimit","RatelimitedRequest","Ratelimiter"]};
+window.SIDEBAR_ITEMS = {"struct":["Ratelimit","RatelimitInfo","RatelimitedRequest","Ratelimiter"]};

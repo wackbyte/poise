@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["StickerFormatType","StickerType"],"mod":["sticker_id","sticker_item","sticker_pack"],"struct":["Sticker"]};

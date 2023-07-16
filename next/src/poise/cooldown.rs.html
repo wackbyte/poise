@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/cooldown.rs`."><title>cooldown.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-f3501f0f5ae15dfb.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (2f6bc5d25 2023-05-09)" data-search-js="search-4926e5fc22a5646a.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../poise/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/cooldown.rs`."><title>cooldown.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (4c8bb79d9 2023-07-15)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../poise/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -110,12 +110,45 @@
 <a href="#110" id="110">110</a>
 <a href="#111" id="111">111</a>
 <a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Infrastructure for command cooldowns
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
 <span class="comment">// I usually don&#39;t really do imports, but these are very convenient
-</span><span class="kw">use </span><span class="kw">crate</span>::util::OrderedMap;
+</span><span class="kw">use </span>std::collections::HashMap;
 <span class="kw">use </span>std::time::{Duration, Instant};
+
+<span class="doccomment">/// Subset of [`crate::Context`] so that [`Cooldowns`] can be used without requiring a full [Context](`crate::Context`)
+/// (ie from within an `event_handler`)
+</span><span class="attr">#[derive(Default, Clone, PartialEq, Eq, Debug, Hash)]
+</span><span class="kw">pub struct </span>CooldownContext {
+    <span class="doccomment">/// The user associated with this request
+    </span><span class="kw">pub </span>user_id: serenity::UserId,
+    <span class="doccomment">/// The guild this request originated from or `None`
+    </span><span class="kw">pub </span>guild_id: <span class="prelude-ty">Option</span>&lt;serenity::GuildId&gt;,
+    <span class="doccomment">/// The channel associated with this request
+    </span><span class="kw">pub </span>channel_id: serenity::ChannelId,
+}
 
 <span class="doccomment">/// Configuration struct for [`Cooldowns`]
 </span><span class="attr">#[derive(Default, Clone, PartialEq, Eq, Debug, Hash)]
@@ -138,7 +171,7 @@
 ///
 /// You probably don&#39;t need to use this directly. `#[poise::command]` automatically generates a
 /// cooldown handler.
-</span><span class="attr">#[derive(Default, Clone, Debug, PartialEq, Eq, Hash)]
+</span><span class="attr">#[derive(Default, Clone, Debug, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>Cooldowns {
     <span class="doccomment">/// Stores the cooldown durations
     </span>cooldown: CooldownConfig,
@@ -146,13 +179,13 @@
     <span class="doccomment">/// Stores the timestamp of the last global invocation
     </span>global_invocation: <span class="prelude-ty">Option</span>&lt;Instant&gt;,
     <span class="doccomment">/// Stores the timestamps of the last invocation per user
-    </span>user_invocations: OrderedMap&lt;serenity::UserId, Instant&gt;,
+    </span>user_invocations: HashMap&lt;serenity::UserId, Instant&gt;,
     <span class="doccomment">/// Stores the timestamps of the last invocation per guild
-    </span>guild_invocations: OrderedMap&lt;serenity::GuildId, Instant&gt;,
+    </span>guild_invocations: HashMap&lt;serenity::GuildId, Instant&gt;,
     <span class="doccomment">/// Stores the timestamps of the last invocation per channel
-    </span>channel_invocations: OrderedMap&lt;serenity::ChannelId, Instant&gt;,
+    </span>channel_invocations: HashMap&lt;serenity::ChannelId, Instant&gt;,
     <span class="doccomment">/// Stores the timestamps of the last invocation per member (user and guild)
-    </span>member_invocations: OrderedMap&lt;(serenity::UserId, serenity::GuildId), Instant&gt;,
+    </span>member_invocations: HashMap&lt;(serenity::UserId, serenity::GuildId), Instant&gt;,
 }
 
 <span class="kw">impl </span>Cooldowns {
@@ -162,29 +195,29 @@
             cooldown: config,
 
             global_invocation: <span class="prelude-val">None</span>,
-            user_invocations: OrderedMap::new(),
-            guild_invocations: OrderedMap::new(),
-            channel_invocations: OrderedMap::new(),
-            member_invocations: OrderedMap::new(),
+            user_invocations: HashMap::new(),
+            guild_invocations: HashMap::new(),
+            channel_invocations: HashMap::new(),
+            member_invocations: HashMap::new(),
         }
     }
 
     <span class="doccomment">/// Queries the cooldown buckets and checks if all cooldowns have expired and command
     /// execution may proceed. If not, Some is returned with the remaining cooldown
-    </span><span class="kw">pub fn </span>remaining_cooldown&lt;U, E&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;Duration&gt; {
+    </span><span class="kw">pub fn </span>remaining_cooldown(<span class="kw-2">&amp;</span><span class="self">self</span>, ctx: CooldownContext) -&gt; <span class="prelude-ty">Option</span>&lt;Duration&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>cooldown_data = <span class="macro">vec!</span>[
             (<span class="self">self</span>.cooldown.global, <span class="self">self</span>.global_invocation),
             (
                 <span class="self">self</span>.cooldown.user,
-                <span class="self">self</span>.user_invocations.get(<span class="kw-2">&amp;</span>ctx.author().id).copied(),
+                <span class="self">self</span>.user_invocations.get(<span class="kw-2">&amp;</span>ctx.user_id).copied(),
             ),
             (
                 <span class="self">self</span>.cooldown.channel,
-                <span class="self">self</span>.channel_invocations.get(<span class="kw-2">&amp;</span>ctx.channel_id()).copied(),
+                <span class="self">self</span>.channel_invocations.get(<span class="kw-2">&amp;</span>ctx.channel_id).copied(),
             ),
         ];
 
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(guild_id) = ctx.guild_id() {
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(guild_id) = ctx.guild_id {
             cooldown_data.push((
                 <span class="self">self</span>.cooldown.guild,
                 <span class="self">self</span>.guild_invocations.get(<span class="kw-2">&amp;</span>guild_id).copied(),
@@ -192,7 +225,7 @@
             cooldown_data.push((
                 <span class="self">self</span>.cooldown.member,
                 <span class="self">self</span>.member_invocations
-                    .get(<span class="kw-2">&amp;</span>(ctx.author().id, guild_id))
+                    .get(<span class="kw-2">&amp;</span>(ctx.user_id, guild_id))
                     .copied(),
             ));
         }
@@ -208,17 +241,26 @@
     }
 
     <span class="doccomment">/// Indicates that a command has been executed and all associated cooldowns should start running
-    </span><span class="kw">pub fn </span>start_cooldown&lt;U, E&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;) {
+    </span><span class="kw">pub fn </span>start_cooldown(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ctx: CooldownContext) {
         <span class="kw">let </span>now = Instant::now();
 
         <span class="self">self</span>.global_invocation = <span class="prelude-val">Some</span>(now);
-        <span class="self">self</span>.user_invocations.insert(ctx.author().id, now);
-        <span class="self">self</span>.channel_invocations.insert(ctx.channel_id(), now);
+        <span class="self">self</span>.user_invocations.insert(ctx.user_id, now);
+        <span class="self">self</span>.channel_invocations.insert(ctx.channel_id, now);
 
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(guild_id) = ctx.guild_id() {
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(guild_id) = ctx.guild_id {
             <span class="self">self</span>.guild_invocations.insert(guild_id, now);
-            <span class="self">self</span>.member_invocations
-                .insert((ctx.author().id, guild_id), now);
+            <span class="self">self</span>.member_invocations.insert((ctx.user_id, guild_id), now);
+        }
+    }
+}
+
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Message&gt; <span class="kw">for </span>CooldownContext {
+    <span class="kw">fn </span>from(message: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Message) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            user_id: message.author.id,
+            channel_id: message.channel_id,
+            guild_id: message.guild_id,
         }
     }
 }

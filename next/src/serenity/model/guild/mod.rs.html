@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.5/src/model/guild/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-f3501f0f5ae15dfb.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (2f6bc5d25 2023-05-09)" data-search-js="search-4926e5fc22a5646a.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../../source-files.js"></script><script defer src="../../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../../serenity/index.html"><img class="rust-logo" src="../../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/model/guild/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (4c8bb79d9 2023-07-15)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../../serenity/index.html"><img class="rust-logo" src="../../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -3327,6 +3327,46 @@
 <a href="#3327" id="3327">3327</a>
 <a href="#3328" id="3328">3328</a>
 <a href="#3329" id="3329">3329</a>
+<a href="#3330" id="3330">3330</a>
+<a href="#3331" id="3331">3331</a>
+<a href="#3332" id="3332">3332</a>
+<a href="#3333" id="3333">3333</a>
+<a href="#3334" id="3334">3334</a>
+<a href="#3335" id="3335">3335</a>
+<a href="#3336" id="3336">3336</a>
+<a href="#3337" id="3337">3337</a>
+<a href="#3338" id="3338">3338</a>
+<a href="#3339" id="3339">3339</a>
+<a href="#3340" id="3340">3340</a>
+<a href="#3341" id="3341">3341</a>
+<a href="#3342" id="3342">3342</a>
+<a href="#3343" id="3343">3343</a>
+<a href="#3344" id="3344">3344</a>
+<a href="#3345" id="3345">3345</a>
+<a href="#3346" id="3346">3346</a>
+<a href="#3347" id="3347">3347</a>
+<a href="#3348" id="3348">3348</a>
+<a href="#3349" id="3349">3349</a>
+<a href="#3350" id="3350">3350</a>
+<a href="#3351" id="3351">3351</a>
+<a href="#3352" id="3352">3352</a>
+<a href="#3353" id="3353">3353</a>
+<a href="#3354" id="3354">3354</a>
+<a href="#3355" id="3355">3355</a>
+<a href="#3356" id="3356">3356</a>
+<a href="#3357" id="3357">3357</a>
+<a href="#3358" id="3358">3358</a>
+<a href="#3359" id="3359">3359</a>
+<a href="#3360" id="3360">3360</a>
+<a href="#3361" id="3361">3361</a>
+<a href="#3362" id="3362">3362</a>
+<a href="#3363" id="3363">3363</a>
+<a href="#3364" id="3364">3364</a>
+<a href="#3365" id="3365">3365</a>
+<a href="#3366" id="3366">3366</a>
+<a href="#3367" id="3367">3367</a>
+<a href="#3368" id="3368">3368</a>
+<a href="#3369" id="3369">3369</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Models relating to guilds and types that it owns.
 
 </span><span class="kw">pub mod </span>audit_log;
@@ -3372,7 +3412,6 @@
     CreateApplicationCommand,
     CreateApplicationCommandPermissionsData,
     CreateApplicationCommands,
-    CreateApplicationCommandsPermissions,
     CreateChannel,
     CreateScheduledEvent,
     CreateSticker,
@@ -3411,6 +3450,8 @@
 <span class="kw">use </span><span class="kw">crate</span>::model::Timestamp;
 
 <span class="doccomment">/// A representation of a banning of a user.
+///
+/// [Discord docs](https://discord.com/developers/docs/resources/guild#ban-object).
 </span><span class="attr">#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Hash, Serialize)]
 </span><span class="kw">pub struct </span>Ban {
     <span class="doccomment">/// The reason given for this ban.
@@ -3420,6 +3461,9 @@
 }
 
 <span class="doccomment">/// Information about a Discord guild, such as channels, emojis, etc.
+///
+/// [Discord docs](https://discord.com/developers/docs/resources/guild#guild-object) plus
+/// [extension](https://discord.com/developers/docs/topics/gateway#guild-create).
 </span><span class="attr">#[derive(Clone, Debug, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>Guild {
@@ -3484,8 +3528,7 @@
     </span><span class="kw">pub </span>icon: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="doccomment">/// The unique Id identifying the guild.
     ///
-    /// This is equivalent to the Id of the default role (`@everyone`) and also
-    /// that of the default channel (typically `#general`).
+    /// This is equivalent to the Id of the default role (`@everyone`).
     </span><span class="kw">pub </span>id: GuildId,
     <span class="doccomment">/// The date that the current user joined the guild.
     </span><span class="kw">pub </span>joined_at: Timestamp,
@@ -3718,6 +3761,7 @@
     <span class="doccomment">/// Returns the &quot;default&quot; channel of the guild for the passed user id.
     /// (This returns the first channel that can be read by the user, if there isn&#39;t one,
     /// returns [`None`])
+    </span><span class="attr">#[allow(clippy::unused_async)]
     </span><span class="kw">pub async fn </span>default_channel(<span class="kw-2">&amp;</span><span class="self">self</span>, uid: UserId) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>GuildChannel&gt; {
         <span class="kw">let </span>member = <span class="self">self</span>.members.get(<span class="kw-2">&amp;</span>uid)<span class="question-mark">?</span>;
         <span class="kw">for </span>channel <span class="kw">in </span><span class="self">self</span>.channels.values() {
@@ -3741,10 +3785,13 @@
     </span><span class="kw">pub fn </span>default_channel_guaranteed(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>GuildChannel&gt; {
         <span class="kw">for </span>channel <span class="kw">in </span><span class="self">self</span>.channels.values() {
             <span class="kw">if let </span>Channel::Guild(channel) = channel {
-                <span class="kw">for </span>member <span class="kw">in </span><span class="self">self</span>.members.values() {
-                    <span class="kw">if </span><span class="self">self</span>.user_permissions_in(channel, member).ok()<span class="question-mark">?</span>.view_channel() {
-                        <span class="kw">return </span><span class="prelude-val">Some</span>(channel);
-                    }
+                <span class="kw">if </span><span class="self">self
+                    </span>.members
+                    .values()
+                    .filter_map(|member| <span class="self">self</span>.user_permissions_in(channel, member).ok())
+                    .all(Permissions::view_channel)
+                {
+                    <span class="kw">return </span><span class="prelude-val">Some</span>(channel);
                 }
             }
         }
@@ -3776,7 +3823,7 @@
         name: <span class="kw">impl </span>AsRef&lt;str&gt;,
     ) -&gt; <span class="prelude-ty">Option</span>&lt;ChannelId&gt; {
         <span class="kw">let </span>name = name.as_ref();
-        <span class="kw">let </span>guild_channels = cache.as_ref().guild_channels(<span class="kw-2">&amp;</span><span class="self">self</span>.id)<span class="question-mark">?</span>;
+        <span class="kw">let </span>guild_channels = cache.as_ref().guild_channels(<span class="self">self</span>.id)<span class="question-mark">?</span>;
 
         <span class="kw">for </span>channel_entry <span class="kw">in </span>guild_channels.iter() {
             <span class="kw">let </span>(id, channel) = channel_entry.pair();
@@ -4077,7 +4124,7 @@
     ///
     /// [Manage Guild]: Permissions::MANAGE_GUILD
     </span><span class="attr">#[inline]
-    </span><span class="kw">pub async fn </span>create_integration&lt;I&gt;(
+    </span><span class="kw">pub async fn </span>create_integration(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
         integration_id: <span class="kw">impl </span>Into&lt;IntegrationId&gt;,
@@ -4150,6 +4197,8 @@
     /// # Errors
     ///
     /// If there is an error, it will be either [`Error::Http`] or [`Error::Json`].
+    </span><span class="attr">#[deprecated(note = <span class="string">&quot;use `create_appliction_command_permission`.&quot;</span>)]
+    #[allow(deprecated)]
     </span><span class="kw">pub async fn </span>set_application_commands_permissions&lt;F&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -4157,8 +4206,8 @@
     ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;CommandPermission&gt;&gt;
     <span class="kw">where
         </span>F: FnOnce(
-            <span class="kw-2">&amp;mut </span>CreateApplicationCommandsPermissions,
-        ) -&gt; <span class="kw-2">&amp;mut </span>CreateApplicationCommandsPermissions,
+            <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::builder::CreateApplicationCommandsPermissions,
+        ) -&gt; <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::builder::CreateApplicationCommandsPermissions,
     {
         <span class="self">self</span>.id.set_application_commands_permissions(http, f).<span class="kw">await
     </span>}
@@ -4170,6 +4219,18 @@
     /// If there is an error, it will be either [`Error::Http`] or [`Error::Json`].
     </span><span class="kw">pub async fn </span>get_application_commands(<span class="kw-2">&amp;</span><span class="self">self</span>, http: <span class="kw">impl </span>AsRef&lt;Http&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Command&gt;&gt; {
         <span class="self">self</span>.id.get_application_commands(http).<span class="kw">await
+    </span>}
+
+    <span class="doccomment">/// Get all guild application commands with localizations.
+    ///
+    /// # Errors
+    ///
+    /// If there is an error, it will be either [`Error::Http`] or [`Error::Json`].
+    </span><span class="kw">pub async fn </span>get_application_commands_with_localizations(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Command&gt;&gt; {
+        <span class="self">self</span>.id.get_application_commands_with_localizations(http).<span class="kw">await
     </span>}
 
     <span class="doccomment">/// Get a specific guild application command by its Id.
@@ -6344,6 +6405,8 @@
 }
 
 <span class="doccomment">/// A [`Guild`] widget.
+///
+/// [Discord docs](https://discord.com/developers/docs/resources/guild#guild-widget-settings-object).
 </span><span class="attr">#[derive(Clone, Debug, Serialize, Deserialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildWidget {
@@ -6355,6 +6418,8 @@
 
 <span class="doccomment">/// Representation of the number of members that would be pruned by a guild
 /// prune operation.
+///
+/// [Discord docs](https://discord.com/developers/docs/resources/guild#get-guild-prune-count).
 </span><span class="attr">#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>GuildPrune {
     <span class="doccomment">/// The number of members that would be pruned by the operation.
@@ -6362,6 +6427,9 @@
 }
 
 <span class="doccomment">/// Basic information about a guild.
+///
+/// [Discord docs](https://discord.com/developers/docs/resources/guild#guild-object), subset undocumented (closest thing is
+/// [this](https://discord.com/developers/docs/topics/rpc#getguilds-get-guilds-response-structure)).
 </span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>GuildInfo {
     <span class="doccomment">/// The unique Id of the guild.
@@ -6423,6 +6491,8 @@
 }
 
 <span class="doccomment">/// Data for an unavailable guild.
+///
+/// [Discord docs](https://discord.com/developers/docs/resources/guild#unavailable-guild-object).
 </span><span class="attr">#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>UnavailableGuild {
     <span class="doccomment">/// The Id of the [`Guild`] that may be unavailable.
@@ -6433,6 +6503,8 @@
 }
 
 <span class="doccomment">/// Default message notification level for a guild.
+///
+/// [Discord docs](https://discord.com/developers/docs/resources/guild#guild-object-default-message-notification-level).
 </span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>DefaultMessageNotificationLevel {
@@ -6450,6 +6522,8 @@
 });
 
 <span class="doccomment">/// Setting used to filter explicit messages from members.
+///
+/// [Discord docs](https://discord.com/developers/docs/resources/guild#guild-object-explicit-content-filter-level).
 </span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>ExplicitContentFilter {
@@ -6470,6 +6544,8 @@
 });
 
 <span class="doccomment">/// Multi-Factor Authentication level for guild moderators.
+///
+/// [Discord docs](https://discord.com/developers/docs/resources/guild#guild-object-mfa-level).
 </span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>MfaLevel {
@@ -6488,6 +6564,8 @@
 
 <span class="doccomment">/// The level to set as criteria prior to a user being able to send
 /// messages in a [`Guild`].
+///
+/// [Discord docs](https://discord.com/developers/docs/resources/guild#guild-object-verification-level).
 </span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>VerificationLevel {
@@ -6514,6 +6592,8 @@
 });
 
 <span class="doccomment">/// The [`Guild`] nsfw level.
+///
+/// [Discord docs](https://discord.com/developers/docs/resources/guild#guild-object-guild-nsfw-level).
 </span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>NsfwLevel {

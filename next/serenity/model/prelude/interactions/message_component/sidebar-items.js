@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"type":["ActionRow","ActionRowComponent","Button","ButtonStyle","ComponentType","InputText","InputTextStyle","MessageComponentInteraction","MessageComponentInteractionData","SelectMenu","SelectMenuOption"]};

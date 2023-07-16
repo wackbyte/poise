@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CommandDataOptionValue","ResolvedTarget"],"struct":["ApplicationCommandInteraction","CommandData","CommandDataOption","CommandDataResolved"]};

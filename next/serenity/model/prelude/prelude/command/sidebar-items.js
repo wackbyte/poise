@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CommandOptionType","CommandPermissionType","CommandType"],"struct":["Command","CommandOption","CommandOptionChoice","CommandPermission","CommandPermissionData"]};
