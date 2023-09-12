@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/reqwest-0.11.13/src/async_impl/multipart.rs`."><title>multipart.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-8092eaa720ad3b6f.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="reqwest" data-themes="" data-resource-suffix="" data-rustdoc-version="1.72.0-nightly (8084f397c 2023-06-25)" data-channel="nightly" data-search-js="search-c507e026dd61038c.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../reqwest/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/reqwest-0.11.20/src/async_impl/multipart.rs`."><title>multipart.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-47e7ab555ef2818a.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="reqwest" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (b4e54c6e3 2023-09-11)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-8d035c8cea6edbc4.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../reqwest/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -657,13 +657,27 @@
 <a href="#657" id="657">657</a>
 <a href="#658" id="658">658</a>
 <a href="#659" id="659">659</a>
+<a href="#660" id="660">660</a>
+<a href="#661" id="661">661</a>
+<a href="#662" id="662">662</a>
+<a href="#663" id="663">663</a>
+<a href="#664" id="664">664</a>
+<a href="#665" id="665">665</a>
+<a href="#666" id="666">666</a>
+<a href="#667" id="667">667</a>
+<a href="#668" id="668">668</a>
+<a href="#669" id="669">669</a>
+<a href="#670" id="670">670</a>
+<a href="#671" id="671">671</a>
+<a href="#672" id="672">672</a>
+<a href="#673" id="673">673</a>
+<a href="#674" id="674">674</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! multipart/form-data
 </span><span class="kw">use </span>std::borrow::Cow;
 <span class="kw">use </span>std::fmt;
 <span class="kw">use </span>std::pin::Pin;
 
 <span class="kw">use </span>bytes::Bytes;
-<span class="kw">use </span>http::HeaderMap;
 <span class="kw">use </span>mime_guess::Mime;
 <span class="kw">use </span>percent_encoding::{<span class="self">self</span>, AsciiSet, NON_ALPHANUMERIC};
 
@@ -671,6 +685,7 @@
 <span class="kw">use </span>futures_util::{future, stream, StreamExt};
 
 <span class="kw">use </span><span class="kw">super</span>::Body;
+<span class="kw">use </span><span class="kw">crate</span>::header::HeaderMap;
 
 <span class="doccomment">/// An async multipart/form-data request.
 </span><span class="kw">pub struct </span>Form {
@@ -903,6 +918,11 @@
         <span class="self">self</span>.with_inner(<span class="kw">move </span>|inner| inner.file_name(filename))
     }
 
+    <span class="doccomment">/// Sets custom headers for the part.
+    </span><span class="kw">pub fn </span>headers(<span class="self">self</span>, headers: HeaderMap) -&gt; Part {
+        <span class="self">self</span>.with_inner(<span class="kw">move </span>|inner| inner.headers(headers))
+    }
+
     <span class="kw">fn </span>with_inner&lt;F&gt;(<span class="self">self</span>, func: F) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>F: FnOnce(PartMetadata) -&gt; PartMetadata,
@@ -1053,6 +1073,14 @@
         <span class="self">self</span>.file_name = <span class="prelude-val">Some</span>(filename.into());
         <span class="self">self
     </span>}
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>headers&lt;T&gt;(<span class="kw-2">mut </span><span class="self">self</span>, headers: T) -&gt; <span class="self">Self
+    </span><span class="kw">where
+        </span>T: Into&lt;HeaderMap&gt;,
+    {
+        <span class="self">self</span>.headers = headers.into();
+        <span class="self">self
+    </span>}
 }
 
 <span class="kw">impl </span>PartMetadata {
@@ -1103,57 +1131,57 @@
 
 <span class="kw">impl </span>PercentEncoding {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>encode_headers(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, field: <span class="kw-2">&amp;</span>PartMetadata) -&gt; Vec&lt;u8&gt; {
-        <span class="kw">let </span>s = <span class="macro">format!</span>(
-            <span class="string">&quot;Content-Disposition: form-data; {}{}{}&quot;</span>,
-            <span class="self">self</span>.format_parameter(<span class="string">&quot;name&quot;</span>, name),
-            <span class="kw">match </span>field.file_name {
-                <span class="prelude-val">Some</span>(<span class="kw-2">ref </span>file_name) =&gt; <span class="macro">format!</span>(<span class="string">&quot;; {}&quot;</span>, <span class="self">self</span>.format_filename(file_name)),
-                <span class="prelude-val">None </span>=&gt; String::new(),
-            },
-            <span class="kw">match </span>field.mime {
-                <span class="prelude-val">Some</span>(<span class="kw-2">ref </span>mime) =&gt; <span class="macro">format!</span>(<span class="string">&quot;\r\nContent-Type: {}&quot;</span>, mime),
-                <span class="prelude-val">None </span>=&gt; <span class="string">&quot;&quot;</span>.to_string(),
-            },
-        );
-        field
-            .headers
-            .iter()
-            .fold(s.into_bytes(), |<span class="kw-2">mut </span>header, (k, v)| {
-                header.extend_from_slice(<span class="string">b&quot;\r\n&quot;</span>);
-                header.extend_from_slice(k.as_str().as_bytes());
-                header.extend_from_slice(<span class="string">b&quot;: &quot;</span>);
-                header.extend_from_slice(v.as_bytes());
-                header
-            })
+        <span class="kw">let </span><span class="kw-2">mut </span>buf = Vec::new();
+        buf.extend_from_slice(<span class="string">b&quot;Content-Disposition: form-data; &quot;</span>);
+
+        <span class="kw">match </span><span class="self">self</span>.percent_encode(name) {
+            Cow::Borrowed(value) =&gt; {
+                <span class="comment">// nothing has been percent encoded
+                </span>buf.extend_from_slice(<span class="string">b&quot;name=\&quot;&quot;</span>);
+                buf.extend_from_slice(value.as_bytes());
+                buf.extend_from_slice(<span class="string">b&quot;\&quot;&quot;</span>);
+            }
+            Cow::Owned(value) =&gt; {
+                <span class="comment">// something has been percent encoded
+                </span>buf.extend_from_slice(<span class="string">b&quot;name*=utf-8&#39;&#39;&quot;</span>);
+                buf.extend_from_slice(value.as_bytes());
+            }
+        }
+
+        <span class="comment">// According to RFC7578 Section 4.2, `filename*=` syntax is invalid.
+        // See https://github.com/seanmonstar/reqwest/issues/419.
+        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(filename) = <span class="kw-2">&amp;</span>field.file_name {
+            buf.extend_from_slice(<span class="string">b&quot;; filename=\&quot;&quot;</span>);
+            <span class="kw">let </span>legal_filename = filename
+                .replace(<span class="string">&#39;\\&#39;</span>, <span class="string">&quot;\\\\&quot;</span>)
+                .replace(<span class="string">&#39;&quot;&#39;</span>, <span class="string">&quot;\\\&quot;&quot;</span>)
+                .replace(<span class="string">&#39;\r&#39;</span>, <span class="string">&quot;\\\r&quot;</span>)
+                .replace(<span class="string">&#39;\n&#39;</span>, <span class="string">&quot;\\\n&quot;</span>);
+            buf.extend_from_slice(legal_filename.as_bytes());
+            buf.extend_from_slice(<span class="string">b&quot;\&quot;&quot;</span>);
+        }
+
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(mime) = <span class="kw-2">&amp;</span>field.mime {
+            buf.extend_from_slice(<span class="string">b&quot;\r\nContent-Type: &quot;</span>);
+            buf.extend_from_slice(mime.as_ref().as_bytes());
+        }
+
+        <span class="kw">for </span>(k, v) <span class="kw">in </span>field.headers.iter() {
+            buf.extend_from_slice(<span class="string">b&quot;\r\n&quot;</span>);
+            buf.extend_from_slice(k.as_str().as_bytes());
+            buf.extend_from_slice(<span class="string">b&quot;: &quot;</span>);
+            buf.extend_from_slice(v.as_bytes());
+        }
+        buf
     }
 
-    <span class="comment">// According to RFC7578 Section 4.2, `filename*=` syntax is invalid.
-    // See https://github.com/seanmonstar/reqwest/issues/419.
-    </span><span class="kw">fn </span>format_filename(<span class="kw-2">&amp;</span><span class="self">self</span>, filename: <span class="kw-2">&amp;</span>str) -&gt; String {
-        <span class="kw">let </span>legal_filename = filename
-            .replace(<span class="string">&quot;\\&quot;</span>, <span class="string">&quot;\\\\&quot;</span>)
-            .replace(<span class="string">&quot;\&quot;&quot;</span>, <span class="string">&quot;\\\&quot;&quot;</span>)
-            .replace(<span class="string">&quot;\r&quot;</span>, <span class="string">&quot;\\\r&quot;</span>)
-            .replace(<span class="string">&quot;\n&quot;</span>, <span class="string">&quot;\\\n&quot;</span>);
-        <span class="macro">format!</span>(<span class="string">&quot;filename=\&quot;{}\&quot;&quot;</span>, legal_filename)
-    }
+    <span class="kw">fn </span>percent_encode&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; Cow&lt;<span class="lifetime">&#39;a</span>, str&gt; {
+        <span class="kw">use </span>percent_encoding::utf8_percent_encode <span class="kw">as </span>percent_encode;
 
-    <span class="kw">fn </span>format_parameter(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, value: <span class="kw-2">&amp;</span>str) -&gt; String {
-        <span class="kw">let </span>legal_value = <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            PercentEncoding::PathSegment =&gt; {
-                percent_encoding::utf8_percent_encode(value, PATH_SEGMENT_ENCODE_SET).to_string()
-            }
-            PercentEncoding::AttrChar =&gt; {
-                percent_encoding::utf8_percent_encode(value, ATTR_CHAR_ENCODE_SET).to_string()
-            }
-            PercentEncoding::NoOp =&gt; value.to_string(),
-        };
-        <span class="kw">if </span>value.len() == legal_value.len() {
-            <span class="comment">// nothing has been percent encoded
-            </span><span class="macro">format!</span>(<span class="string">&quot;{}=\&quot;{}\&quot;&quot;</span>, name, value)
-        } <span class="kw">else </span>{
-            <span class="comment">// something has been percent encoded
-            </span><span class="macro">format!</span>(<span class="string">&quot;{}*=utf-8&#39;&#39;{}&quot;</span>, name, legal_value)
+        <span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::PathSegment =&gt; percent_encode(value, PATH_SEGMENT_ENCODE_SET).into(),
+            <span class="self">Self</span>::AttrChar =&gt; percent_encode(value, ATTR_CHAR_ENCODE_SET).into(),
+            <span class="self">Self</span>::NoOp =&gt; value.into(),
         }
     }
 }
@@ -1250,7 +1278,9 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>stream_to_end_with_header() {
         <span class="kw">let </span><span class="kw-2">mut </span>part = Part::text(<span class="string">&quot;value2&quot;</span>).mime(mime::IMAGE_BMP);
-        part.meta.headers.insert(<span class="string">&quot;Hdr3&quot;</span>, <span class="string">&quot;/a/b/c&quot;</span>.parse().unwrap());
+        <span class="kw">let </span><span class="kw-2">mut </span>headers = HeaderMap::new();
+        headers.insert(<span class="string">&quot;Hdr3&quot;</span>, <span class="string">&quot;/a/b/c&quot;</span>.parse().unwrap());
+        part = part.headers(headers);
         <span class="kw">let </span><span class="kw-2">mut </span>form = Form::new().part(<span class="string">&quot;key2&quot;</span>, part);
         form.inner.boundary = <span class="string">&quot;boundary&quot;</span>.to_string();
         <span class="kw">let </span>expected = <span class="string">&quot;--boundary\r\n\

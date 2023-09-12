@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Interaction","InteractionResponseType","InteractionType"],"mod":["application_command","autocomplete","message_component","modal","ping"],"struct":["MessageFlags","MessageInteraction"]};

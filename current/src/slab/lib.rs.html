@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/slab-0.4.7/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-8092eaa720ad3b6f.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="slab" data-themes="" data-resource-suffix="" data-rustdoc-version="1.72.0-nightly (8084f397c 2023-06-25)" data-channel="nightly" data-search-js="search-c507e026dd61038c.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../slab/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/slab-0.4.9/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-47e7ab555ef2818a.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="slab" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (b4e54c6e3 2023-09-11)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-8d035c8cea6edbc4.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../slab/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1587,17 +1587,6 @@
 <a href="#1587" id="1587">1587</a>
 <a href="#1588" id="1588">1588</a>
 <a href="#1589" id="1589">1589</a>
-<a href="#1590" id="1590">1590</a>
-<a href="#1591" id="1591">1591</a>
-<a href="#1592" id="1592">1592</a>
-<a href="#1593" id="1593">1593</a>
-<a href="#1594" id="1594">1594</a>
-<a href="#1595" id="1595">1595</a>
-<a href="#1596" id="1596">1596</a>
-<a href="#1597" id="1597">1597</a>
-<a href="#1598" id="1598">1598</a>
-<a href="#1599" id="1599">1599</a>
-<a href="#1600" id="1600">1600</a>
 </pre></div><pre class="rust"><code><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
 #![warn(
     missing_debug_implementations,
@@ -1718,6 +1707,8 @@
 <span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">mod </span>serde;
 
+<span class="kw">mod </span>builder;
+
 <span class="kw">use </span>alloc::vec::{<span class="self">self</span>, Vec};
 <span class="kw">use </span>core::iter::{<span class="self">self</span>, FromIterator, FusedIterator};
 <span class="kw">use </span>core::{fmt, mem, ops, slice};
@@ -1727,7 +1718,6 @@
 /// See the [module documentation] for more details.
 ///
 /// [module documentation]: index.html
-</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>Slab&lt;T&gt; {
     <span class="comment">// Chunk of memory
     </span>entries: Vec&lt;Entry&lt;T&gt;&gt;,
@@ -1738,6 +1728,25 @@
     <span class="comment">// Offset of the next available slot in the slab. Set to the slab&#39;s
     // capacity when the slab is full.
     </span>next: usize,
+}
+
+<span class="kw">impl</span>&lt;T&gt; Clone <span class="kw">for </span>Slab&lt;T&gt;
+<span class="kw">where
+    </span>T: Clone,
+{
+    <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            entries: <span class="self">self</span>.entries.clone(),
+            len: <span class="self">self</span>.len,
+            next: <span class="self">self</span>.next,
+        }
+    }
+
+    <span class="kw">fn </span>clone_from(<span class="kw-2">&amp;mut </span><span class="self">self</span>, source: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
+        <span class="self">self</span>.entries.clone_from(<span class="kw-2">&amp;</span>source.entries);
+        <span class="self">self</span>.len = source.len;
+        <span class="self">self</span>.next = source.next;
+    }
 }
 
 <span class="kw">impl</span>&lt;T&gt; Default <span class="kw">for </span>Slab&lt;T&gt; {
@@ -1913,7 +1922,7 @@
     ///
     /// # Panics
     ///
-    /// Panics if the new capacity overflows `usize`.
+    /// Panics if the new capacity exceeds `isize::MAX` bytes.
     ///
     /// # Examples
     ///
@@ -1947,7 +1956,7 @@
     ///
     /// # Panics
     ///
-    /// Panics if the new capacity overflows `usize`.
+    /// Panics if the new capacity exceeds `isize::MAX` bytes.
     ///
     /// # Examples
     ///
@@ -2040,17 +2049,21 @@
         <span class="self">self</span>.next = <span class="self">self</span>.entries.len();
         <span class="comment">// We can stop once we&#39;ve found all vacant entries
         </span><span class="kw">let </span><span class="kw-2">mut </span>remaining_vacant = <span class="self">self</span>.entries.len() - <span class="self">self</span>.len;
+        <span class="kw">if </span>remaining_vacant == <span class="number">0 </span>{
+            <span class="kw">return</span>;
+        }
+
         <span class="comment">// Iterate in reverse order so that lower keys are at the start of
         // the vacant list. This way future shrinks are more likely to be
         // able to remove vacant entries.
         </span><span class="kw">for </span>(i, entry) <span class="kw">in </span><span class="self">self</span>.entries.iter_mut().enumerate().rev() {
-            <span class="kw">if </span>remaining_vacant == <span class="number">0 </span>{
-                <span class="kw">break</span>;
-            }
             <span class="kw">if let </span>Entry::Vacant(<span class="kw-2">ref mut </span>next) = <span class="kw-2">*</span>entry {
                 <span class="kw-2">*</span>next = <span class="self">self</span>.next;
                 <span class="self">self</span>.next = i;
                 remaining_vacant -= <span class="number">1</span>;
+                <span class="kw">if </span>remaining_vacant == <span class="number">0 </span>{
+                    <span class="kw">break</span>;
+                }
             }
         }
     }
@@ -2286,7 +2299,7 @@
     /// ```
     </span><span class="kw">pub fn </span>get(<span class="kw-2">&amp;</span><span class="self">self</span>, key: usize) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>T&gt; {
         <span class="kw">match </span><span class="self">self</span>.entries.get(key) {
-            <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>Entry::Occupied(<span class="kw-2">ref </span>val)) =&gt; <span class="prelude-val">Some</span>(val),
+            <span class="prelude-val">Some</span>(Entry::Occupied(val)) =&gt; <span class="prelude-val">Some</span>(val),
             <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
         }
     }
@@ -2323,6 +2336,10 @@
     ///
     /// This function can be used to get two mutable references out of one slab,
     /// so that you can manipulate both of them at the same time, eg. swap them.
+    ///
+    /// # Panics
+    ///
+    /// This function will panic if `key1` and `key2` are the same.
     ///
     /// # Examples
     ///
@@ -2523,7 +2540,7 @@
     ///
     /// # Panics
     ///
-    /// Panics if the number of elements in the vector overflows a `usize`.
+    /// Panics if the new storage in the vector exceeds `isize::MAX` bytes.
     ///
     /// # Examples
     ///
@@ -2778,7 +2795,7 @@
     <span class="attr">#[cfg_attr(not(slab_no_track_caller), track_caller)]
     </span><span class="kw">fn </span>index(<span class="kw-2">&amp;</span><span class="self">self</span>, key: usize) -&gt; <span class="kw-2">&amp;</span>T {
         <span class="kw">match </span><span class="self">self</span>.entries.get(key) {
-            <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>Entry::Occupied(<span class="kw-2">ref </span>v)) =&gt; v,
+            <span class="prelude-val">Some</span>(Entry::Occupied(v)) =&gt; v,
             <span class="kw">_ </span>=&gt; <span class="macro">panic!</span>(<span class="string">&quot;invalid key&quot;</span>),
         }
     }
@@ -2860,51 +2877,12 @@
         </span>I: IntoIterator&lt;Item = (usize, T)&gt;,
     {
         <span class="kw">let </span>iterator = iterable.into_iter();
-        <span class="kw">let </span><span class="kw-2">mut </span>slab = <span class="self">Self</span>::with_capacity(iterator.size_hint().<span class="number">0</span>);
+        <span class="kw">let </span><span class="kw-2">mut </span>builder = builder::Builder::with_capacity(iterator.size_hint().<span class="number">0</span>);
 
-        <span class="kw">let </span><span class="kw-2">mut </span>vacant_list_broken = <span class="bool-val">false</span>;
-        <span class="kw">let </span><span class="kw-2">mut </span>first_vacant_index = <span class="prelude-val">None</span>;
         <span class="kw">for </span>(key, value) <span class="kw">in </span>iterator {
-            <span class="kw">if </span>key &lt; slab.entries.len() {
-                <span class="comment">// iterator is not sorted, might need to recreate vacant list
-                </span><span class="kw">if let </span>Entry::Vacant(<span class="kw">_</span>) = slab.entries[key] {
-                    vacant_list_broken = <span class="bool-val">true</span>;
-                    slab.len += <span class="number">1</span>;
-                }
-                <span class="comment">// if an element with this key already exists, replace it.
-                // This is consistent with HashMap and BtreeMap
-                </span>slab.entries[key] = Entry::Occupied(value);
-            } <span class="kw">else </span>{
-                <span class="kw">if </span>first_vacant_index.is_none() &amp;&amp; slab.entries.len() &lt; key {
-                    first_vacant_index = <span class="prelude-val">Some</span>(slab.entries.len());
-                }
-                <span class="comment">// insert holes as necessary
-                </span><span class="kw">while </span>slab.entries.len() &lt; key {
-                    <span class="comment">// add the entry to the start of the vacant list
-                    </span><span class="kw">let </span>next = slab.next;
-                    slab.next = slab.entries.len();
-                    slab.entries.push(Entry::Vacant(next));
-                }
-                slab.entries.push(Entry::Occupied(value));
-                slab.len += <span class="number">1</span>;
-            }
+            builder.pair(key, value)
         }
-        <span class="kw">if </span>slab.len == slab.entries.len() {
-            <span class="comment">// no vacant entries, so next might not have been updated
-            </span>slab.next = slab.entries.len();
-        } <span class="kw">else if </span>vacant_list_broken {
-            slab.recreate_vacant_list();
-        } <span class="kw">else if let </span><span class="prelude-val">Some</span>(first_vacant_index) = first_vacant_index {
-            <span class="kw">let </span>next = slab.entries.len();
-            <span class="kw">match </span><span class="kw-2">&amp;mut </span>slab.entries[first_vacant_index] {
-                Entry::Vacant(n) =&gt; <span class="kw-2">*</span>n = next,
-                <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
-            }
-        } <span class="kw">else </span>{
-            <span class="macro">unreachable!</span>()
-        }
-
-        slab
+        builder.build()
     }
 }
 

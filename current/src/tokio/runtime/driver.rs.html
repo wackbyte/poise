@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-1.23.0/src/runtime/driver.rs`."><title>driver.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-8092eaa720ad3b6f.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="tokio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.72.0-nightly (8084f397c 2023-06-25)" data-channel="nightly" data-search-js="search-c507e026dd61038c.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../tokio/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-1.32.0/src/runtime/driver.rs`."><title>driver.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-47e7ab555ef2818a.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="tokio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (b4e54c6e3 2023-09-11)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-8d035c8cea6edbc4.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../tokio/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -341,11 +341,38 @@
 <a href="#341" id="341">341</a>
 <a href="#342" id="342">342</a>
 <a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
+<a href="#350" id="350">350</a>
+<a href="#351" id="351">351</a>
+<a href="#352" id="352">352</a>
+<a href="#353" id="353">353</a>
+<a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
+<a href="#356" id="356">356</a>
+<a href="#357" id="357">357</a>
+<a href="#358" id="358">358</a>
+<a href="#359" id="359">359</a>
+<a href="#360" id="360">360</a>
+<a href="#361" id="361">361</a>
+<a href="#362" id="362">362</a>
+<a href="#363" id="363">363</a>
+<a href="#364" id="364">364</a>
+<a href="#365" id="365">365</a>
+<a href="#366" id="366">366</a>
+<a href="#367" id="367">367</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Abstracts out the entire chain of runtime sub-drivers into common types.
 
 </span><span class="comment">// Eventually, this file will see significant refactoring / cleanup. For now, we
 // don&#39;t need to worry much about dead code with certain feature permutations.
-</span><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;full&quot;</span>), allow(dead_code))]
+</span><span class="attr">#![cfg_attr(
+    any(not(all(tokio_unstable, feature = <span class="string">&quot;full&quot;</span>)), target_family = <span class="string">&quot;wasm&quot;</span>),
+    allow(dead_code)
+)]
 
 </span><span class="kw">use </span><span class="kw">crate</span>::runtime::park::{ParkThread, UnparkThread};
 
@@ -379,16 +406,16 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) enable_time: bool,
     <span class="kw">pub</span>(<span class="kw">crate</span>) enable_pause_time: bool,
     <span class="kw">pub</span>(<span class="kw">crate</span>) start_paused: bool,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) nevents: usize,
 }
 
 <span class="kw">impl </span>Driver {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(cfg: Cfg) -&gt; io::Result&lt;(<span class="self">Self</span>, Handle)&gt; {
-        <span class="kw">let </span>(io_stack, io_handle, signal_handle) = create_io_stack(cfg.enable_io)<span class="question-mark">?</span>;
+        <span class="kw">let </span>(io_stack, io_handle, signal_handle) = create_io_stack(cfg.enable_io, cfg.nevents)<span class="question-mark">?</span>;
 
         <span class="kw">let </span>clock = create_clock(cfg.enable_pause_time, cfg.start_paused);
 
-        <span class="kw">let </span>(time_driver, time_handle) =
-            create_time_driver(cfg.enable_time, io_stack, clock.clone());
+        <span class="kw">let </span>(time_driver, time_handle) = create_time_driver(cfg.enable_time, io_stack, <span class="kw-2">&amp;</span>clock);
 
         <span class="prelude-val">Ok</span>((
             <span class="self">Self </span>{ inner: time_driver },
@@ -399,6 +426,10 @@
                 clock,
             },
         ))
+    }
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>is_enabled(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="self">self</span>.inner.is_enabled()
     }
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>park(<span class="kw-2">&amp;mut </span><span class="self">self</span>, handle: <span class="kw-2">&amp;</span>Handle) {
@@ -453,10 +484,8 @@
                 .expect(<span class="string">&quot;A Tokio 1.x context was found, but timers are disabled. Call `enable_time` on the runtime builder to enable timers.&quot;</span>)
         }
 
-        <span class="macro">cfg_test_util! </span>{
-            <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>clock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Clock {
-                <span class="kw-2">&amp;</span><span class="self">self</span>.clock
-            }
+        <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>clock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Clock {
+            <span class="kw-2">&amp;</span><span class="self">self</span>.clock
         }
     }
 }
@@ -478,12 +507,12 @@
         Disabled(UnparkThread),
     }
 
-    <span class="kw">fn </span>create_io_stack(enabled: bool) -&gt; io::Result&lt;(IoStack, IoHandle, SignalHandle)&gt; {
+    <span class="kw">fn </span>create_io_stack(enabled: bool, nevents: usize) -&gt; io::Result&lt;(IoStack, IoHandle, SignalHandle)&gt; {
         <span class="attr">#[cfg(loom)]
         </span><span class="macro">assert!</span>(!enabled);
 
         <span class="kw">let </span>ret = <span class="kw">if </span>enabled {
-            <span class="kw">let </span>(io_driver, io_handle) = <span class="kw">crate</span>::runtime::io::Driver::new()<span class="question-mark">?</span>;
+            <span class="kw">let </span>(io_driver, io_handle) = <span class="kw">crate</span>::runtime::io::Driver::new(nevents)<span class="question-mark">?</span>;
 
             <span class="kw">let </span>(signal_driver, signal_handle) = create_signal_driver(io_driver, <span class="kw-2">&amp;</span>io_handle)<span class="question-mark">?</span>;
             <span class="kw">let </span>process_driver = create_process_driver(signal_driver);
@@ -499,6 +528,13 @@
     }
 
     <span class="kw">impl </span>IoStack {
+        <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>is_enabled(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+            <span class="kw">match </span><span class="self">self </span>{
+                IoStack::Enabled(..) =&gt; <span class="bool-val">true</span>,
+                IoStack::Disabled(..) =&gt; <span class="bool-val">false</span>,
+            }
+        }
+
         <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>park(<span class="kw-2">&amp;mut </span><span class="self">self</span>, handle: <span class="kw-2">&amp;</span>Handle) {
             <span class="kw">match </span><span class="self">self </span>{
                 IoStack::Enabled(v) =&gt; v.park(handle),
@@ -544,7 +580,7 @@
     <span class="attr">#[derive(Debug)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>IoStack(ParkThread);
 
-    <span class="kw">fn </span>create_io_stack(_enabled: bool) -&gt; io::Result&lt;(IoStack, IoHandle, SignalHandle)&gt; {
+    <span class="kw">fn </span>create_io_stack(_enabled: bool, _nevents: usize) -&gt; io::Result&lt;(IoStack, IoHandle, SignalHandle)&gt; {
         <span class="kw">let </span>park_thread = ParkThread::new();
         <span class="kw">let </span>unpark_thread = park_thread.unpark();
         <span class="prelude-val">Ok</span>((IoStack(park_thread), unpark_thread, Default::default()))
@@ -562,6 +598,11 @@
         <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>shutdown(<span class="kw-2">&amp;mut </span><span class="self">self</span>, _handle: <span class="kw-2">&amp;</span>Handle) {
             <span class="self">self</span>.<span class="number">0</span>.shutdown();
         }
+
+        <span class="doccomment">/// This is not a &quot;real&quot; driver, so it is not considered enabled.
+        </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>is_enabled(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+            <span class="bool-val">false
+        </span>}
     }
 }
 
@@ -631,7 +672,7 @@
     <span class="kw">fn </span>create_time_driver(
         enable: bool,
         io_stack: IoStack,
-        clock: Clock,
+        clock: <span class="kw-2">&amp;</span>Clock,
     ) -&gt; (TimeDriver, TimeHandle) {
         <span class="kw">if </span>enable {
             <span class="kw">let </span>(driver, handle) = <span class="kw">crate</span>::runtime::time::Driver::new(io_stack, clock);
@@ -643,6 +684,13 @@
     }
 
     <span class="kw">impl </span>TimeDriver {
+        <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>is_enabled(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+            <span class="kw">match </span><span class="self">self </span>{
+                TimeDriver::Enabled { .. } =&gt; <span class="bool-val">true</span>,
+                TimeDriver::Disabled(inner) =&gt; inner.is_enabled(),
+            }
+        }
+
         <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>park(<span class="kw-2">&amp;mut </span><span class="self">self</span>, handle: <span class="kw-2">&amp;</span>Handle) {
             <span class="kw">match </span><span class="self">self </span>{
                 TimeDriver::Enabled { driver, .. } =&gt; driver.park(handle),
@@ -679,7 +727,7 @@
     <span class="kw">fn </span>create_time_driver(
         _enable: bool,
         io_stack: IoStack,
-        _clock: Clock,
+        _clock: <span class="kw-2">&amp;</span>Clock,
     ) -&gt; (TimeDriver, TimeHandle) {
         (io_stack, ())
     }

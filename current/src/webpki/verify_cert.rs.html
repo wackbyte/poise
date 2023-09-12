@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/webpki-0.22.0/src/verify_cert.rs`."><title>verify_cert.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-8092eaa720ad3b6f.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="webpki" data-themes="" data-resource-suffix="" data-rustdoc-version="1.72.0-nightly (8084f397c 2023-06-25)" data-channel="nightly" data-search-js="search-c507e026dd61038c.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../webpki/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/webpki-0.22.1/src/verify_cert.rs`."><title>verify_cert.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-47e7ab555ef2818a.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="webpki" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (b4e54c6e3 2023-09-11)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-8d035c8cea6edbc4.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../webpki/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -350,6 +350,156 @@
 <a href="#350" id="350">350</a>
 <a href="#351" id="351">351</a>
 <a href="#352" id="352">352</a>
+<a href="#353" id="353">353</a>
+<a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
+<a href="#356" id="356">356</a>
+<a href="#357" id="357">357</a>
+<a href="#358" id="358">358</a>
+<a href="#359" id="359">359</a>
+<a href="#360" id="360">360</a>
+<a href="#361" id="361">361</a>
+<a href="#362" id="362">362</a>
+<a href="#363" id="363">363</a>
+<a href="#364" id="364">364</a>
+<a href="#365" id="365">365</a>
+<a href="#366" id="366">366</a>
+<a href="#367" id="367">367</a>
+<a href="#368" id="368">368</a>
+<a href="#369" id="369">369</a>
+<a href="#370" id="370">370</a>
+<a href="#371" id="371">371</a>
+<a href="#372" id="372">372</a>
+<a href="#373" id="373">373</a>
+<a href="#374" id="374">374</a>
+<a href="#375" id="375">375</a>
+<a href="#376" id="376">376</a>
+<a href="#377" id="377">377</a>
+<a href="#378" id="378">378</a>
+<a href="#379" id="379">379</a>
+<a href="#380" id="380">380</a>
+<a href="#381" id="381">381</a>
+<a href="#382" id="382">382</a>
+<a href="#383" id="383">383</a>
+<a href="#384" id="384">384</a>
+<a href="#385" id="385">385</a>
+<a href="#386" id="386">386</a>
+<a href="#387" id="387">387</a>
+<a href="#388" id="388">388</a>
+<a href="#389" id="389">389</a>
+<a href="#390" id="390">390</a>
+<a href="#391" id="391">391</a>
+<a href="#392" id="392">392</a>
+<a href="#393" id="393">393</a>
+<a href="#394" id="394">394</a>
+<a href="#395" id="395">395</a>
+<a href="#396" id="396">396</a>
+<a href="#397" id="397">397</a>
+<a href="#398" id="398">398</a>
+<a href="#399" id="399">399</a>
+<a href="#400" id="400">400</a>
+<a href="#401" id="401">401</a>
+<a href="#402" id="402">402</a>
+<a href="#403" id="403">403</a>
+<a href="#404" id="404">404</a>
+<a href="#405" id="405">405</a>
+<a href="#406" id="406">406</a>
+<a href="#407" id="407">407</a>
+<a href="#408" id="408">408</a>
+<a href="#409" id="409">409</a>
+<a href="#410" id="410">410</a>
+<a href="#411" id="411">411</a>
+<a href="#412" id="412">412</a>
+<a href="#413" id="413">413</a>
+<a href="#414" id="414">414</a>
+<a href="#415" id="415">415</a>
+<a href="#416" id="416">416</a>
+<a href="#417" id="417">417</a>
+<a href="#418" id="418">418</a>
+<a href="#419" id="419">419</a>
+<a href="#420" id="420">420</a>
+<a href="#421" id="421">421</a>
+<a href="#422" id="422">422</a>
+<a href="#423" id="423">423</a>
+<a href="#424" id="424">424</a>
+<a href="#425" id="425">425</a>
+<a href="#426" id="426">426</a>
+<a href="#427" id="427">427</a>
+<a href="#428" id="428">428</a>
+<a href="#429" id="429">429</a>
+<a href="#430" id="430">430</a>
+<a href="#431" id="431">431</a>
+<a href="#432" id="432">432</a>
+<a href="#433" id="433">433</a>
+<a href="#434" id="434">434</a>
+<a href="#435" id="435">435</a>
+<a href="#436" id="436">436</a>
+<a href="#437" id="437">437</a>
+<a href="#438" id="438">438</a>
+<a href="#439" id="439">439</a>
+<a href="#440" id="440">440</a>
+<a href="#441" id="441">441</a>
+<a href="#442" id="442">442</a>
+<a href="#443" id="443">443</a>
+<a href="#444" id="444">444</a>
+<a href="#445" id="445">445</a>
+<a href="#446" id="446">446</a>
+<a href="#447" id="447">447</a>
+<a href="#448" id="448">448</a>
+<a href="#449" id="449">449</a>
+<a href="#450" id="450">450</a>
+<a href="#451" id="451">451</a>
+<a href="#452" id="452">452</a>
+<a href="#453" id="453">453</a>
+<a href="#454" id="454">454</a>
+<a href="#455" id="455">455</a>
+<a href="#456" id="456">456</a>
+<a href="#457" id="457">457</a>
+<a href="#458" id="458">458</a>
+<a href="#459" id="459">459</a>
+<a href="#460" id="460">460</a>
+<a href="#461" id="461">461</a>
+<a href="#462" id="462">462</a>
+<a href="#463" id="463">463</a>
+<a href="#464" id="464">464</a>
+<a href="#465" id="465">465</a>
+<a href="#466" id="466">466</a>
+<a href="#467" id="467">467</a>
+<a href="#468" id="468">468</a>
+<a href="#469" id="469">469</a>
+<a href="#470" id="470">470</a>
+<a href="#471" id="471">471</a>
+<a href="#472" id="472">472</a>
+<a href="#473" id="473">473</a>
+<a href="#474" id="474">474</a>
+<a href="#475" id="475">475</a>
+<a href="#476" id="476">476</a>
+<a href="#477" id="477">477</a>
+<a href="#478" id="478">478</a>
+<a href="#479" id="479">479</a>
+<a href="#480" id="480">480</a>
+<a href="#481" id="481">481</a>
+<a href="#482" id="482">482</a>
+<a href="#483" id="483">483</a>
+<a href="#484" id="484">484</a>
+<a href="#485" id="485">485</a>
+<a href="#486" id="486">486</a>
+<a href="#487" id="487">487</a>
+<a href="#488" id="488">488</a>
+<a href="#489" id="489">489</a>
+<a href="#490" id="490">490</a>
+<a href="#491" id="491">491</a>
+<a href="#492" id="492">492</a>
+<a href="#493" id="493">493</a>
+<a href="#494" id="494">494</a>
+<a href="#495" id="495">495</a>
+<a href="#496" id="496">496</a>
+<a href="#497" id="497">497</a>
+<a href="#498" id="498">498</a>
+<a href="#499" id="499">499</a>
+<a href="#500" id="500">500</a>
+<a href="#501" id="501">501</a>
+<a href="#502" id="502">502</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2015 Brian Smith.
 //
 // Permission to use, copy, modify, and/or distribute this software for any
@@ -376,8 +526,71 @@
     intermediate_certs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>[u8]],
     cert: <span class="kw-2">&amp;</span>Cert,
     time: time::Time,
-    sub_ca_count: usize,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    <span class="kw">let </span>result = build_chain_inner(
+        required_eku_if_present,
+        supported_sig_algs,
+        trust_anchors,
+        intermediate_certs,
+        cert,
+        time,
+        <span class="number">0</span>,
+        <span class="kw-2">&amp;mut </span><span class="number">0</span>,
+    );
+    result.map_err(|error| {
+        <span class="kw">match </span>error {
+            ErrorOrInternalError::Error(e) =&gt; e,
+            <span class="comment">// Eat internal errors,
+            </span>ErrorOrInternalError::InternalError(<span class="kw">_</span>) =&gt; Error::UnknownIssuer,
+        }
+    })
+}
+
+<span class="doccomment">/// Errors that we cannot report externally since `Error` wasn&#39;t declared
+/// non-exhaustive, but which we need to differentiate internally (at least
+/// for testing).
+</span><span class="kw">enum </span>InternalError {
+    MaximumSignatureChecksExceeded,
+}
+
+<span class="kw">enum </span>ErrorOrInternalError {
+    Error(Error),
+    InternalError(InternalError),
+}
+
+<span class="kw">impl </span>ErrorOrInternalError {
+    <span class="kw">fn </span>is_fatal(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">match </span><span class="self">self </span>{
+            ErrorOrInternalError::Error(<span class="kw">_</span>) =&gt; <span class="bool-val">false</span>,
+            ErrorOrInternalError::InternalError(InternalError::MaximumSignatureChecksExceeded) =&gt; {
+                <span class="bool-val">true
+            </span>}
+        }
+    }
+}
+
+<span class="kw">impl </span>From&lt;InternalError&gt; <span class="kw">for </span>ErrorOrInternalError {
+    <span class="kw">fn </span>from(value: InternalError) -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>::InternalError(value)
+    }
+}
+
+<span class="kw">impl </span>From&lt;Error&gt; <span class="kw">for </span>ErrorOrInternalError {
+    <span class="kw">fn </span>from(error: Error) -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>::Error(error)
+    }
+}
+
+<span class="kw">fn </span>build_chain_inner(
+    required_eku_if_present: KeyPurposeId,
+    supported_sig_algs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>SignatureAlgorithm],
+    trust_anchors: <span class="kw-2">&amp;</span>[TrustAnchor],
+    intermediate_certs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>[u8]],
+    cert: <span class="kw-2">&amp;</span>Cert,
+    time: time::Time,
+    sub_ca_count: usize,
+    signatures: <span class="kw-2">&amp;mut </span>usize,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), ErrorOrInternalError&gt; {
     <span class="kw">let </span>used_as_ca = used_as_ca(<span class="kw-2">&amp;</span>cert.ee_or_ca);
 
     check_issuer_independent_properties(
@@ -395,7 +608,7 @@
             <span class="kw">const </span>MAX_SUB_CA_COUNT: usize = <span class="number">6</span>;
 
             <span class="kw">if </span>sub_ca_count &gt;= MAX_SUB_CA_COUNT {
-                <span class="kw">return </span><span class="prelude-val">Err</span>(Error::UnknownIssuer);
+                <span class="kw">return </span><span class="prelude-val">Err</span>(Error::UnknownIssuer.into());
             }
         }
         UsedAsCa::No =&gt; {
@@ -408,7 +621,7 @@
     </span><span class="kw">match </span>loop_while_non_fatal_error(trust_anchors, |trust_anchor: <span class="kw-2">&amp;</span>TrustAnchor| {
         <span class="kw">let </span>trust_anchor_subject = untrusted::Input::from(trust_anchor.subject);
         <span class="kw">if </span>cert.issuer != trust_anchor_subject {
-            <span class="kw">return </span><span class="prelude-val">Err</span>(Error::UnknownIssuer);
+            <span class="kw">return </span><span class="prelude-val">Err</span>(Error::UnknownIssuer.into());
         }
 
         <span class="kw">let </span>name_constraints = trust_anchor.name_constraints.map(untrusted::Input::from);
@@ -421,14 +634,17 @@
 
         <span class="comment">// TODO: check_distrust(trust_anchor_subject, trust_anchor_spki)?;
 
-        </span>check_signatures(supported_sig_algs, cert, trust_anchor_spki)<span class="question-mark">?</span>;
+        </span>check_signatures(supported_sig_algs, cert, trust_anchor_spki, signatures)<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(())
     }) {
         <span class="prelude-val">Ok</span>(()) =&gt; {
             <span class="kw">return </span><span class="prelude-val">Ok</span>(());
         }
-        <span class="prelude-val">Err</span>(..) =&gt; {
+        <span class="prelude-val">Err</span>(e) =&gt; {
+            <span class="kw">if </span>e.is_fatal() {
+                <span class="kw">return </span><span class="prelude-val">Err</span>(e);
+            }
             <span class="comment">// If the error is not fatal, then keep going.
         </span>}
     }
@@ -438,7 +654,7 @@
             cert::parse_cert(untrusted::Input::from(<span class="kw-2">*</span>cert_der), EndEntityOrCa::Ca(<span class="kw-2">&amp;</span>cert))<span class="question-mark">?</span>;
 
         <span class="kw">if </span>potential_issuer.subject != cert.issuer {
-            <span class="kw">return </span><span class="prelude-val">Err</span>(Error::UnknownIssuer);
+            <span class="kw">return </span><span class="prelude-val">Err</span>(Error::UnknownIssuer.into());
         }
 
         <span class="comment">// Prevent loops; see RFC 4158 section 5.2.
@@ -447,7 +663,7 @@
             <span class="kw">if </span>potential_issuer.spki.value() == prev.spki.value()
                 &amp;&amp; potential_issuer.subject == prev.subject
             {
-                <span class="kw">return </span><span class="prelude-val">Err</span>(Error::UnknownIssuer);
+                <span class="kw">return </span><span class="prelude-val">Err</span>(Error::UnknownIssuer.into());
             }
             <span class="kw">match </span><span class="kw-2">&amp;</span>prev.ee_or_ca {
                 EndEntityOrCa::EndEntity =&gt; {
@@ -468,7 +684,7 @@
             UsedAsCa::Yes =&gt; sub_ca_count + <span class="number">1</span>,
         };
 
-        build_chain(
+        build_chain_inner(
             required_eku_if_present,
             supported_sig_algs,
             trust_anchors,
@@ -476,6 +692,7 @@
             <span class="kw-2">&amp;</span>potential_issuer,
             time,
             next_sub_ca_count,
+            signatures,
         )
     })
 }
@@ -484,10 +701,16 @@
     supported_sig_algs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>SignatureAlgorithm],
     cert_chain: <span class="kw-2">&amp;</span>Cert,
     trust_anchor_key: untrusted::Input,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    signatures: <span class="kw-2">&amp;mut </span>usize,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), ErrorOrInternalError&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>spki_value = trust_anchor_key;
     <span class="kw">let </span><span class="kw-2">mut </span>cert = cert_chain;
     <span class="kw">loop </span>{
+        <span class="kw-2">*</span>signatures += <span class="number">1</span>;
+        <span class="kw">if </span><span class="kw-2">*</span>signatures &gt; <span class="number">100 </span>{
+            <span class="kw">return </span><span class="prelude-val">Err</span>(InternalError::MaximumSignatureChecksExceeded.into());
+        }
+
         signed_data::verify_signed_data(supported_sig_algs, spki_value, <span class="kw-2">&amp;</span>cert.signed_data)<span class="question-mark">?</span>;
 
         <span class="comment">// TODO: check revocation
@@ -685,8 +908,8 @@
 
 <span class="kw">fn </span>loop_while_non_fatal_error&lt;V&gt;(
     values: V,
-    f: <span class="kw">impl </span>Fn(V::Item) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt;
+    <span class="kw-2">mut </span>f: <span class="kw">impl </span>FnMut(V::Item) -&gt; <span class="prelude-ty">Result</span>&lt;(), ErrorOrInternalError&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), ErrorOrInternalError&gt;
 <span class="kw">where
     </span>V: IntoIterator,
 {
@@ -695,11 +918,88 @@
             <span class="prelude-val">Ok</span>(()) =&gt; {
                 <span class="kw">return </span><span class="prelude-val">Ok</span>(());
             }
-            <span class="prelude-val">Err</span>(..) =&gt; {
+            <span class="prelude-val">Err</span>(e) =&gt; {
+                <span class="kw">if </span>e.is_fatal() {
+                    <span class="kw">return </span><span class="prelude-val">Err</span>(e);
+                }
                 <span class="comment">// If the error is not fatal, then keep going.
             </span>}
         }
     }
-    <span class="prelude-val">Err</span>(Error::UnknownIssuer)
+    <span class="prelude-val">Err</span>(Error::UnknownIssuer.into())
+}
+
+<span class="attr">#[cfg(test)]
+</span><span class="kw">mod </span>tests {
+
+    <span class="attr">#[test]
+    #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="kw">fn </span>test_too_many_signatures() {
+        <span class="kw">use super</span>::<span class="kw-2">*</span>;
+        <span class="kw">use </span><span class="kw">crate</span>::ECDSA_P256_SHA256;
+        <span class="kw">use crate</span>::{EndEntityCert, Time};
+        <span class="kw">use </span>alloc::{string::ToString, vec::Vec};
+        <span class="kw">use </span>core::convert::TryFrom;
+
+        <span class="kw">let </span>alg = <span class="kw-2">&amp;</span>rcgen::PKCS_ECDSA_P256_SHA256;
+
+        <span class="kw">let </span>make_issuer = || {
+            <span class="kw">let </span><span class="kw-2">mut </span>ca_params = rcgen::CertificateParams::new(Vec::new());
+            ca_params
+                .distinguished_name
+                .push(rcgen::DnType::OrganizationName, <span class="string">&quot;Bogus Subject&quot;</span>);
+            ca_params.is_ca = rcgen::IsCa::Ca(rcgen::BasicConstraints::Unconstrained);
+            ca_params.key_usages = <span class="macro">vec!</span>[
+                rcgen::KeyUsagePurpose::KeyCertSign,
+                rcgen::KeyUsagePurpose::DigitalSignature,
+                rcgen::KeyUsagePurpose::CrlSign,
+            ];
+            ca_params.alg = alg;
+            rcgen::Certificate::from_params(ca_params).unwrap()
+        };
+
+        <span class="kw">let </span>ca_cert = make_issuer();
+        <span class="kw">let </span>ca_cert_der = ca_cert.serialize_der().unwrap();
+
+        <span class="kw">let </span><span class="kw-2">mut </span>intermediates = Vec::with_capacity(<span class="number">101</span>);
+        <span class="kw">let </span><span class="kw-2">mut </span>issuer = ca_cert;
+        <span class="kw">for _ in </span><span class="number">0</span>..<span class="number">101 </span>{
+            <span class="kw">let </span>intermediate = make_issuer();
+            <span class="kw">let </span>intermediate_der = intermediate.serialize_der_with_signer(<span class="kw-2">&amp;</span>issuer).unwrap();
+            intermediates.push(intermediate_der);
+            issuer = intermediate;
+        }
+
+        <span class="kw">let </span><span class="kw-2">mut </span>ee_params = rcgen::CertificateParams::new(<span class="macro">vec!</span>[<span class="string">&quot;example.com&quot;</span>.to_string()]);
+        ee_params.is_ca = rcgen::IsCa::ExplicitNoCa;
+        ee_params.alg = alg;
+        <span class="kw">let </span>ee_cert = rcgen::Certificate::from_params(ee_params).unwrap();
+        <span class="kw">let </span>ee_cert_der = ee_cert.serialize_der_with_signer(<span class="kw-2">&amp;</span>issuer).unwrap();
+
+        <span class="kw">let </span>anchors = <span class="kw-2">&amp;</span>[TrustAnchor::try_from_cert_der(<span class="kw-2">&amp;</span>ca_cert_der).unwrap()];
+        <span class="kw">let </span>time = Time::from_seconds_since_unix_epoch(<span class="number">0x1fed_f00d</span>);
+        <span class="kw">let </span>cert = EndEntityCert::try_from(<span class="kw-2">&amp;</span>ee_cert_der[..]).unwrap();
+        <span class="kw">let </span>intermediates_der: Vec&lt;<span class="kw-2">&amp;</span>[u8]&gt; = intermediates.iter().map(|x| x.as_ref()).collect();
+        <span class="kw">let </span>intermediate_certs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>[u8]] = intermediates_der.as_ref();
+
+        <span class="comment">// TODO: Use `build_chain` when `Error` is made non-exhaustive.
+        </span><span class="kw">let </span>result = build_chain_inner(
+            EKU_SERVER_AUTH,
+            <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>ECDSA_P256_SHA256],
+            anchors,
+            intermediate_certs,
+            cert.inner(),
+            time,
+            <span class="number">0</span>,
+            <span class="kw-2">&amp;mut </span><span class="number">0</span>,
+        );
+
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
+            result,
+            <span class="prelude-val">Err</span>(ErrorOrInternalError::InternalError(
+                InternalError::MaximumSignatureChecksExceeded
+            ))
+        ));
+    }
 }
 </code></pre></div></section></main></body></html>
