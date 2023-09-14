@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":["CooldownConfig","CooldownContext","Cooldowns"]};
+window.SIDEBAR_ITEMS = {"struct":["CooldownConfig","CooldownContext","CooldownTracker"]};
