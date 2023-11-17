@@ -76,8 +76,8 @@
 <a href="#76" id="76">76</a>
 <a href="#77" id="77">77</a>
 <a href="#78" id="78">78</a>
-<a href="#79" id="79">79</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::Invocation;
+<span class="kw">use </span>quote::format_ident;
 <span class="kw">use </span>syn::spanned::Spanned <span class="kw">as _</span>;
 
 <span class="kw">fn </span>quote_parameter(p: <span class="kw-2">&amp;</span><span class="kw">super</span>::CommandParameter) -&gt; <span class="prelude-ty">Result</span>&lt;proc_macro2::TokenStream, syn::Error&gt; {
@@ -93,23 +93,20 @@
         (<span class="bool-val">false</span>, <span class="bool-val">true</span>, <span class="bool-val">false</span>) =&gt; Modifier::Rest,
         (<span class="bool-val">false</span>, <span class="bool-val">false</span>, <span class="bool-val">true</span>) =&gt; Modifier::Flag,
         <span class="kw">_ </span>=&gt; {
-            <span class="kw">return </span><span class="prelude-val">Err</span>(syn::Error::new(
-                p.span,
-                <span class="string">&quot;modifiers like #[lazy] or #[rest] currently cannot be used together&quot;</span>,
-            )
-            .into())
+            <span class="kw">let </span>message = <span class="string">&quot;modifiers like #[lazy] or #[rest] currently cannot be used together&quot;</span>;
+            <span class="kw">return </span><span class="prelude-val">Err</span>(syn::Error::new(p.span, message));
         }
     };
     <span class="kw">let </span>type_ = <span class="kw-2">&amp;</span>p.type_;
     <span class="prelude-val">Ok</span>(<span class="kw">match </span>modifier {
         Modifier::Flag =&gt; {
             <span class="kw">if </span>p.type_ != <span class="macro">syn::parse_quote! </span>{ bool } {
-                <span class="kw">return </span><span class="prelude-val">Err</span>(syn::Error::new(p.type_.span(), <span class="string">&quot;Must use bool for flags&quot;</span>).into());
+                <span class="kw">return </span><span class="prelude-val">Err</span>(syn::Error::new(p.type_.span(), <span class="string">&quot;Must use bool for flags&quot;</span>));
             }
             <span class="comment">// TODO: doesn&#39;t work for r#keywords :( I cant be arsed to fix this rn because basically
             // nobody uses this feature anyways and I&#39;d have to go change the macro_rules macro to
             // not accept non-quoted idents anymore
-            </span><span class="kw">let </span>literal = proc_macro2::Literal::string(<span class="kw-2">&amp;</span>p.ident.to_string());
+            </span><span class="kw">let </span>literal = proc_macro2::Literal::string(<span class="kw-2">&amp;</span>p.name);
             <span class="macro">quote::quote! </span>{ <span class="attr">#[flag] </span>(#literal) }
         }
         Modifier::Lazy =&gt; <span class="macro">quote::quote! </span>{ <span class="attr">#[lazy] </span>(#type_) },
@@ -119,7 +116,9 @@
 }
 
 <span class="kw">pub fn </span>generate_prefix_action(inv: <span class="kw-2">&amp;</span>Invocation) -&gt; <span class="prelude-ty">Result</span>&lt;proc_macro2::TokenStream, syn::Error&gt; {
-    <span class="kw">let </span>param_idents = inv.parameters.iter().map(|p| <span class="kw-2">&amp;</span>p.ident).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>param_idents = (<span class="number">0</span>..inv.parameters.len())
+        .map(|i| <span class="macro">format_ident!</span>(<span class="string">&quot;poise_param_{i}&quot;</span>))
+        .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
     <span class="kw">let </span>param_specs = inv
         .parameters
         .iter()
@@ -131,8 +130,7 @@
     };
 
     <span class="prelude-val">Ok</span>(<span class="macro">quote::quote! </span>{
-        <span class="attr">#[allow(clippy::used_underscore_binding)]
-        </span>|ctx| Box::pin(<span class="kw">async move </span>{
+        |ctx| Box::pin(<span class="kw">async move </span>{
             <span class="kw">let </span>( #( #param_idents, )* .. ) = <span class="macro">::poise::parse_prefix_args!</span>(
                 ctx.serenity_context, ctx.msg, ctx.args, <span class="number">0 </span>=&gt;
                 #( #param_specs, )*

@@ -221,8 +221,12 @@
 <a href="#221" id="221">221</a>
 <a href="#222" id="222">222</a>
 <a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::Invocation;
 <span class="kw">use </span><span class="kw">crate</span>::util::extract_type_parameter;
+<span class="kw">use </span>quote::format_ident;
 <span class="kw">use </span>syn::spanned::Spanned <span class="kw">as _</span>;
 
 <span class="kw">pub fn </span>generate_parameters(inv: <span class="kw-2">&amp;</span>Invocation) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;proc_macro2::TokenStream&gt;, syn::Error&gt; {
@@ -366,7 +370,9 @@
         }
     }
 
-    <span class="kw">let </span>param_identifiers = inv.parameters.iter().map(|p| <span class="kw-2">&amp;</span>p.ident).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>param_identifiers = (<span class="number">0</span>..inv.parameters.len())
+        .map(|i| <span class="macro">format_ident!</span>(<span class="string">&quot;poise_param_{i}&quot;</span>))
+        .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
     <span class="kw">let </span>param_names = inv.parameters.iter().map(|p| <span class="kw-2">&amp;</span>p.name).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
 
     <span class="kw">let </span>param_types = inv

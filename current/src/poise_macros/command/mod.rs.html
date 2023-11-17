@@ -388,7 +388,6 @@
 <a href="#388" id="388">388</a>
 <a href="#389" id="389">389</a>
 <a href="#390" id="390">390</a>
-<a href="#391" id="391">391</a>
 </pre></div><pre class="rust"><code><span class="kw">mod </span>prefix;
 <span class="kw">mod </span>slash;
 
@@ -470,7 +469,6 @@
 
 <span class="doccomment">/// Part of the Invocation struct. Represents a single parameter of a Discord command.
 </span><span class="kw">struct </span>CommandParameter {
-    ident: syn::Ident,
     name: String,
     type_: syn::Type,
     args: ParamArgs,
@@ -553,16 +551,12 @@
     <span class="comment">// Collect argument names/types/attributes to insert into generated function
     </span><span class="kw">let </span><span class="kw-2">mut </span>parameters = Vec::new();
     <span class="kw">for </span>command_param <span class="kw">in </span>function.sig.inputs.iter_mut().skip(<span class="number">1</span>) {
+        <span class="kw">let </span>span = command_param.span();
+
         <span class="kw">let </span>pattern = <span class="kw">match </span>command_param {
-            syn::FnArg::Typed(x) =&gt; <span class="kw-2">&amp;mut *</span>x,
+            syn::FnArg::Typed(x) =&gt; x,
             syn::FnArg::Receiver(r) =&gt; {
                 <span class="kw">return </span><span class="prelude-val">Err</span>(syn::Error::new(r.span(), <span class="string">&quot;self argument is invalid here&quot;</span>).into());
-            }
-        };
-        <span class="kw">let </span>ident = <span class="kw">match </span><span class="kw-2">&amp;*</span>pattern.pat {
-            syn::Pat::Ident(pat_ident) =&gt; <span class="kw-2">&amp;</span>pat_ident.ident,
-            x =&gt; {
-                <span class="kw">return </span><span class="prelude-val">Err</span>(syn::Error::new(x.span(), <span class="string">&quot;must use an identifier pattern here&quot;</span>).into())
             }
         };
 
@@ -573,15 +567,19 @@
             .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;, <span class="kw">_</span>&gt;&gt;()<span class="question-mark">?</span>;
         <span class="kw">let </span>attrs = &lt;ParamArgs <span class="kw">as </span>darling::FromMeta&gt;::from_list(<span class="kw-2">&amp;</span>attrs)<span class="question-mark">?</span>;
 
+        <span class="kw">let </span>name = <span class="kw">if let </span><span class="prelude-val">Some</span>(rename) = <span class="kw-2">&amp;</span>attrs.rename {
+            rename.clone()
+        } <span class="kw">else if let </span>syn::Pat::Ident(ident) = <span class="kw-2">&amp;*</span>pattern.pat {
+            ident.ident.to_string().trim_start_matches(<span class="string">&quot;r#&quot;</span>).into()
+        } <span class="kw">else </span>{
+            <span class="kw">let </span>message = <span class="string">&quot;#[rename = \&quot;...\&quot;] must be specified for pattern parameters&quot;</span>;
+            <span class="kw">return </span><span class="prelude-val">Err</span>(syn::Error::new(pattern.pat.span(), message).into());
+        };
         parameters.push(CommandParameter {
-            ident: ident.clone(),
-            name: attrs
-                .rename
-                .clone()
-                .unwrap_or_else(|| ident.to_string().trim_start_matches(<span class="string">&quot;r#&quot;</span>).to_string()),
+            name,
             type_: (<span class="kw-2">*</span>pattern.ty).clone(),
             args: attrs,
-            span: command_param.span(),
+            span,
         });
     }
 
