@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/builtins/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (283170175 2023-11-17)" data-channel="nightly" data-search-js="search-83dad86cfc406332.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/builtins/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (f5dc2653f 2023-11-25)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -297,6 +297,7 @@
 <a href="#297" id="297">297</a>
 <a href="#298" id="298">298</a>
 <a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Building blocks for common commands like help commands or application command registration
 //!
 //! This file provides sample commands and utility functions like help menus or error handlers to
@@ -315,8 +316,9 @@
 
 <span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
 
-<span class="doccomment">/// An error handler that logs errors either via the [`log`] crate or via a Discord message. Set
-/// up a logger (e.g. `env_logger::init()`) to see the logged errors from this method.
+<span class="doccomment">/// An error handler that logs errors either via the [`tracing`] crate or via a Discord message. Set
+/// up a logger (e.g. `env_logger::init()`) or a tracing subscriber
+/// (e.g. `tracing_subscriber::fmt::init()`) to see the logged errors from this method.
 ///
 /// If the user invoked the command wrong ([`crate::FrameworkError::ArgumentParse`]), the command
 /// help is displayed and the user is directed to the help menu.
@@ -326,7 +328,7 @@
 /// ```rust,no_run
 /// # async { let error: poise::FrameworkError&lt;&#39;_, (), &amp;str&gt; = todo!();
 /// if let Err(e) = poise::builtins::on_error(error).await {
-///     log::error!(&quot;Fatal error while sending error message: {}&quot;, e);
+///     tracing::error!(&quot;Fatal error while sending error message: {}&quot;, e);
 /// }
 /// # };
 /// ```
@@ -337,7 +339,7 @@
         <span class="kw">crate</span>::FrameworkError::Setup { error, .. } =&gt; {
             <span class="macro">eprintln!</span>(<span class="string">&quot;Error in user data setup: {}&quot;</span>, error);
         }
-        <span class="kw">crate</span>::FrameworkError::EventHandler { error, event, .. } =&gt; <span class="macro">log::error!</span>(
+        <span class="kw">crate</span>::FrameworkError::EventHandler { error, event, .. } =&gt; <span class="macro">tracing::error!</span>(
             <span class="string">&quot;User event event handler encountered an error on {} event: {}&quot;</span>,
             event.name(),
             error
@@ -390,14 +392,14 @@
             ctx.say(response).<span class="kw">await</span><span class="question-mark">?</span>;
         }
         <span class="kw">crate</span>::FrameworkError::CommandStructureMismatch { ctx, description } =&gt; {
-            <span class="macro">log::error!</span>(
+            <span class="macro">tracing::error!</span>(
                 <span class="string">&quot;Error: failed to deserialize interaction arguments for `/{}`: {}&quot;</span>,
                 ctx.command.name,
                 description,
             );
         }
         <span class="kw">crate</span>::FrameworkError::CommandCheckFailed { ctx, error } =&gt; {
-            <span class="macro">log::error!</span>(
+            <span class="macro">tracing::error!</span>(
                 <span class="string">&quot;A command check failed in command {} for user {}: {:?}&quot;</span>,
                 ctx.command().name,
                 ctx.author().name,
@@ -461,7 +463,7 @@
             ctx.send(|b| b.content(response).ephemeral(<span class="bool-val">true</span>)).<span class="kw">await</span><span class="question-mark">?</span>;
         }
         <span class="kw">crate</span>::FrameworkError::DynamicPrefix { error, msg, .. } =&gt; {
-            <span class="macro">log::error!</span>(
+            <span class="macro">tracing::error!</span>(
                 <span class="string">&quot;Dynamic prefix failed for message {:?}: {}&quot;</span>,
                 msg.content,
                 error
@@ -472,14 +474,14 @@
             prefix,
             ..
         } =&gt; {
-            <span class="macro">log::warn!</span>(
+            <span class="macro">tracing::warn!</span>(
                 <span class="string">&quot;Recognized prefix `{}`, but didn&#39;t recognize command name in `{}`&quot;</span>,
                 prefix,
                 msg_content,
             );
         }
         <span class="kw">crate</span>::FrameworkError::UnknownInteraction { interaction, .. } =&gt; {
-            <span class="macro">log::warn!</span>(
+            <span class="macro">tracing::warn!</span>(
                 <span class="string">&quot;received unknown interaction \&quot;{}\&quot;&quot;</span>,
                 interaction.data().name
             );
