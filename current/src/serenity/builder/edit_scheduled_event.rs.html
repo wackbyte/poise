@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/builder/edit_scheduled_event.rs`."><title>edit_scheduled_event.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (f5dc2653f 2023-11-25)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.12.0/src/builder/edit_scheduled_event.rs`."><title>edit_scheduled_event.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -141,53 +141,134 @@
 <a href="#141" id="141">141</a>
 <a href="#142" id="142">142</a>
 <a href="#143" id="143">143</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
-
-<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
-</span><span class="kw">use </span><span class="kw">crate</span>::http::Http;
-<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+<a href="#161" id="161">161</a>
+<a href="#162" id="162">162</a>
+<a href="#163" id="163">163</a>
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a>
+<a href="#178" id="178">178</a>
+<a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+</pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">super</span>::Builder;
+<span class="kw">use </span><span class="kw">super</span>::CreateAttachment;
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">crate</span>::http::CacheHttp;
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
-<span class="kw">use </span><span class="kw">crate</span>::json::{json, Value, NULL};
-<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
-</span><span class="kw">use </span><span class="kw">crate</span>::model::channel::AttachmentType;
-<span class="kw">use </span><span class="kw">crate</span>::model::guild::{ScheduledEventStatus, ScheduledEventType};
-<span class="kw">use </span><span class="kw">crate</span>::model::id::ChannelId;
-<span class="kw">use </span><span class="kw">crate</span>::model::Timestamp;
-<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
-</span><span class="kw">use </span><span class="kw">crate</span>::utils::encode_image;
+<span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
 
-<span class="attr">#[derive(Clone, Debug, Default)]
-</span><span class="kw">pub struct </span>EditScheduledEvent(<span class="kw">pub </span>HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, Value&gt;);
+<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/guild-scheduled-event#modify-guild-scheduled-event)
+</span><span class="attr">#[derive(Clone, Debug, Default, Serialize)]
+#[must_use]
+</span><span class="kw">pub struct </span>EditScheduledEvent&lt;<span class="lifetime">&#39;a</span>&gt; {
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>channel_id: <span class="prelude-ty">Option</span>&lt;<span class="prelude-ty">Option</span>&lt;ChannelId&gt;&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>entity_metadata: <span class="prelude-ty">Option</span>&lt;<span class="prelude-ty">Option</span>&lt;ScheduledEventMetadata&gt;&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>name: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>privacy_level: <span class="prelude-ty">Option</span>&lt;ScheduledEventPrivacyLevel&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>scheduled_start_time: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>scheduled_end_time: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>description: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>entity_type: <span class="prelude-ty">Option</span>&lt;ScheduledEventType&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>status: <span class="prelude-ty">Option</span>&lt;ScheduledEventStatus&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>image: <span class="prelude-ty">Option</span>&lt;String&gt;,
 
-<span class="kw">impl </span>EditScheduledEvent {
+    <span class="attr">#[serde(skip)]
+    </span>audit_log_reason: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt;,
+}
+
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; EditScheduledEvent&lt;<span class="lifetime">&#39;a</span>&gt; {
+    <span class="doccomment">/// Equivalent to [`Self::default`].
+    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>::default()
+    }
+
     <span class="doccomment">/// Sets the channel id of the scheduled event. If the [`kind`] of the event is changed from
     /// [`External`] to either [`StageInstance`] or [`Voice`], then this field is also required.
     ///
     /// [`kind`]: EditScheduledEvent::kind
-    /// [`StageInstance`]: ScheduledEventType::StageInstance
     /// [`Voice`]: ScheduledEventType::Voice
     /// [`External`]: ScheduledEventType::External
-    </span><span class="kw">pub fn </span>channel_id&lt;C: Into&lt;ChannelId&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, channel_id: C) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;channel_id&quot;</span>, Value::from(channel_id.into().<span class="number">0</span>));
+    </span><span class="kw">pub fn </span>channel_id(<span class="kw-2">mut </span><span class="self">self</span>, channel_id: <span class="kw">impl </span>Into&lt;ChannelId&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.channel_id = <span class="prelude-val">Some</span>(<span class="prelude-val">Some</span>(channel_id.into()));
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Sets the name of the scheduled event.
-    </span><span class="kw">pub fn </span>name&lt;S: ToString&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, name: S) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;name&quot;</span>, Value::from(name.to_string()));
+    </span><span class="kw">pub fn </span>name(<span class="kw-2">mut </span><span class="self">self</span>, name: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.name = <span class="prelude-val">Some</span>(name.into());
+        <span class="self">self
+    </span>}
+
+    <span class="doccomment">/// The privacy level of the scheduled event
+    </span><span class="kw">pub fn </span>privacy_level(<span class="kw-2">mut </span><span class="self">self</span>, privacy_level: ScheduledEventPrivacyLevel) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.privacy_level = <span class="prelude-val">Some</span>(privacy_level);
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Sets the description of the scheduled event.
-    </span><span class="kw">pub fn </span>description&lt;S: ToString&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, description: S) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;description&quot;</span>, Value::from(description.to_string()));
+    </span><span class="kw">pub fn </span>description(<span class="kw-2">mut </span><span class="self">self</span>, description: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.description = <span class="prelude-val">Some</span>(description.into());
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Sets the start time of the scheduled event.
     </span><span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>start_time&lt;T: Into&lt;Timestamp&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, timestamp: T) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>._timestamp(<span class="string">&quot;scheduled_start_time&quot;</span>, timestamp.into());
+    </span><span class="kw">pub fn </span>start_time(<span class="kw-2">mut </span><span class="self">self</span>, timestamp: <span class="kw">impl </span>Into&lt;Timestamp&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.scheduled_start_time = <span class="prelude-val">Some</span>(timestamp.into().to_string());
         <span class="self">self
     </span>}
 
@@ -198,21 +279,18 @@
     /// [`kind`]: EditScheduledEvent::kind
     /// [`External`]: ScheduledEventType::External
     </span><span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>end_time&lt;T: Into&lt;Timestamp&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, timestamp: T) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>._timestamp(<span class="string">&quot;scheduled_end_time&quot;</span>, timestamp.into());
+    </span><span class="kw">pub fn </span>end_time(<span class="kw-2">mut </span><span class="self">self</span>, timestamp: <span class="kw">impl </span>Into&lt;Timestamp&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.scheduled_end_time = <span class="prelude-val">Some</span>(timestamp.into().to_string());
         <span class="self">self
     </span>}
 
-    <span class="kw">fn </span>_timestamp(<span class="kw-2">&amp;mut </span><span class="self">self</span>, field: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, timestamp: Timestamp) {
-        <span class="self">self</span>.<span class="number">0</span>.insert(field, Value::from(timestamp.to_string()));
-    }
-
-    <span class="comment">// See https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-field-requirements-by-entity-type
-    </span><span class="doccomment">/// Sets the entity type of the scheduled event.
+    <span class="doccomment">/// Sets the entity type of the scheduled event.
     ///
     /// If changing to [`External`], then [`end_time`] and [`location`] must also be set.
     /// Otherwise, if changing to either [`StageInstance`] or [`Voice`], then [`channel_id`] is
     /// also required to be set.
+    ///
+    /// See the [Discord docs] for more details.
     ///
     /// [`channel_id`]: EditScheduledEvent::channel_id
     /// [`end_time`]: EditScheduledEvent::end_time
@@ -221,12 +299,15 @@
     /// [`StageInstance`]: ScheduledEventType::StageInstance
     /// [`Voice`]: ScheduledEventType::Voice
     /// [`External`]: ScheduledEventType::External
-    </span><span class="kw">pub fn </span>kind(<span class="kw-2">&amp;mut </span><span class="self">self</span>, kind: ScheduledEventType) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="kw">match </span>kind {
-            ScheduledEventType::External =&gt; <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;channel_id&quot;</span>, NULL),
-            <span class="kw">_ </span>=&gt; <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;entity_metadata&quot;</span>, NULL),
-        };
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;entity_type&quot;</span>, Value::from(kind.num()));
+    /// [Discord docs]: https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-field-requirements-by-entity-type
+    </span><span class="kw">pub fn </span>kind(<span class="kw-2">mut </span><span class="self">self</span>, kind: ScheduledEventType) -&gt; <span class="self">Self </span>{
+        <span class="kw">if let </span>ScheduledEventType::External = kind {
+            <span class="self">self</span>.channel_id = <span class="prelude-val">Some</span>(<span class="prelude-val">None</span>);
+        } <span class="kw">else </span>{
+            <span class="self">self</span>.entity_metadata = <span class="prelude-val">Some</span>(<span class="prelude-val">None</span>);
+        }
+
+        <span class="self">self</span>.entity_type = <span class="prelude-val">Some</span>(kind);
         <span class="self">self
     </span>}
 
@@ -247,8 +328,8 @@
     /// [`Active`]: ScheduledEventStatus::Active
     /// [`Completed`]: ScheduledEventStatus::Completed
     /// [`Canceled`]: ScheduledEventStatus::Canceled
-    </span><span class="kw">pub fn </span>status(<span class="kw-2">&amp;mut </span><span class="self">self</span>, status: ScheduledEventStatus) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;status&quot;</span>, Value::from(status.num()));
+    </span><span class="kw">pub fn </span>status(<span class="kw-2">mut </span><span class="self">self</span>, status: ScheduledEventStatus) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.status = <span class="prelude-val">Some</span>(status);
         <span class="self">self
     </span>}
 
@@ -259,29 +340,50 @@
     ///
     /// [`kind`]: EditScheduledEvent::kind
     /// [`External`]: ScheduledEventType::External
-    </span><span class="kw">pub fn </span>location&lt;S: ToString&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, location: S) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="kw">let </span>obj = <span class="macro">json!</span>({
-            <span class="string">&quot;location&quot;</span>: location.to_string(),
-        });
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;entity_metadata&quot;</span>, obj);
+    </span><span class="kw">pub fn </span>location(<span class="kw-2">mut </span><span class="self">self</span>, location: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.entity_metadata = <span class="prelude-val">Some</span>(<span class="prelude-val">Some</span>(ScheduledEventMetadata {
+            location: <span class="prelude-val">Some</span>(location.into()),
+        }));
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Sets the cover image for the scheduled event.
+    </span><span class="kw">pub fn </span>image(<span class="kw-2">mut </span><span class="self">self</span>, image: <span class="kw-2">&amp;</span>CreateAttachment) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.image = <span class="prelude-val">Some</span>(image.to_base64());
+        <span class="self">self
+    </span>}
+
+    <span class="doccomment">/// Sets the request&#39;s audit log reason.
+    </span><span class="kw">pub fn </span>audit_log_reason(<span class="kw-2">mut </span><span class="self">self</span>, reason: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.audit_log_reason = <span class="prelude-val">Some</span>(reason);
+        <span class="self">self
+    </span>}
+}
+
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+#[async_trait::async_trait]
+</span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Builder <span class="kw">for </span>EditScheduledEvent&lt;<span class="lifetime">&#39;a</span>&gt; {
+    <span class="kw">type </span>Context&lt;<span class="lifetime">&#39;ctx</span>&gt; = (GuildId, ScheduledEventId);
+    <span class="kw">type </span>Built = ScheduledEvent;
+
+    <span class="doccomment">/// Modifies a scheduled event in the guild with the data set, if any.
+    ///
+    /// **Note**: If the event was created by the current user, requires either [Create Events] or
+    /// the [Manage Events] permission. Otherwise, the [Manage Events] permission is required.
     ///
     /// # Errors
     ///
-    /// May error if the icon is a URL and the HTTP request fails, or if the image is a file
-    /// on a path that doesn&#39;t exist.
-    </span><span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
-    </span><span class="kw">pub async fn </span>image&lt;<span class="lifetime">&#39;a</span>&gt;(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
-        image: <span class="kw">impl </span>Into&lt;AttachmentType&lt;<span class="lifetime">&#39;a</span>&gt;&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt; {
-        <span class="kw">let </span>image_data = image.into().data(<span class="kw-2">&amp;</span>http.as_ref().client).<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;image&quot;</span>, Value::from(encode_image(<span class="kw-2">&amp;</span>image_data)));
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>)
-    }
+    /// If the `cache` is enabled, returns a [`ModelError::InvalidPermissions`] if the current user
+    /// lacks permission. Otherwise returns [`Error::Http`], as well as if invalid data is given.
+    ///
+    /// [Create Events]: Permissions::CREATE_EVENTS
+    /// [Manage Events]: Permissions::MANAGE_EVENTS
+    </span><span class="kw">async fn </span>execute(
+        <span class="self">self</span>,
+        cache_http: <span class="kw">impl </span>CacheHttp,
+        ctx: <span class="self">Self</span>::Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>::Built&gt; {
+        cache_http.http().edit_scheduled_event(ctx.<span class="number">0</span>, ctx.<span class="number">1</span>, <span class="kw-2">&amp;</span><span class="self">self</span>, <span class="self">self</span>.audit_log_reason).<span class="kw">await
+    </span>}
 }
 </code></pre></div></section></main></body></html>

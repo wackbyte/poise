@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/utils/argument_convert/user.rs`."><title>user.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (f5dc2653f 2023-11-25)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.12.0/src/utils/argument_convert/user.rs`."><title>user.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -95,15 +95,6 @@
 <a href="#95" id="95">95</a>
 <a href="#96" id="96">96</a>
 <a href="#97" id="97">97</a>
-<a href="#98" id="98">98</a>
-<a href="#99" id="99">99</a>
-<a href="#100" id="100">100</a>
-<a href="#101" id="101">101</a>
-<a href="#102" id="102">102</a>
-<a href="#103" id="103">103</a>
-<a href="#104" id="104">104</a>
-<a href="#105" id="105">105</a>
-<a href="#106" id="106">106</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt;
 
 <span class="kw">use </span><span class="kw">super</span>::ArgumentConvert;
@@ -112,11 +103,10 @@
 
 <span class="doccomment">/// Error that can be returned from [`User::convert`].
 </span><span class="attr">#[non_exhaustive]
-#[derive(Copy, Clone, Debug, Eq, Hash, PartialEq)]
-#[allow(clippy::enum_variant_names)]
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 </span><span class="kw">pub enum </span>UserParseError {
-    <span class="doccomment">/// The provided user string failed to parse, or the parsed result cannot be found in the
-    /// guild cache data.
+    <span class="doccomment">/// The provided user string failed to parse, or the parsed result cannot be found in the guild
+    /// cache data.
     </span>NotFoundOrMalformed,
 }
 
@@ -131,34 +121,26 @@
 }
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
-</span><span class="kw">fn </span>lookup_by_global_cache(ctx: <span class="kw-2">&amp;</span>Context, s: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;User&gt; {
-    <span class="kw">let </span>users = <span class="kw-2">&amp;</span>ctx.cache.users;
+</span><span class="kw">fn </span>lookup_by_global_cache(ctx: <span class="kw">impl </span>CacheHttp, s: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;User&gt; {
+    <span class="kw">let </span>users = <span class="kw-2">&amp;</span>ctx.cache()<span class="question-mark">?</span>.users;
 
-    <span class="kw">let </span>lookup_by_id = || users.get(<span class="kw-2">&amp;</span>UserId(s.parse().ok()<span class="question-mark">?</span>)).map(|u| u.clone());
+    <span class="kw">let </span>lookup_by_id = || users.get(<span class="kw-2">&amp;</span>s.parse().ok()<span class="question-mark">?</span>).map(|u| u.clone());
 
-    <span class="kw">let </span>lookup_by_mention =
-        || users.get(<span class="kw-2">&amp;</span>UserId(<span class="kw">crate</span>::utils::parse_username(s)<span class="question-mark">?</span>)).map(|u| u.clone());
+    <span class="kw">let </span>lookup_by_mention = || users.get(<span class="kw-2">&amp;</span><span class="kw">crate</span>::utils::parse_user_mention(s)<span class="question-mark">?</span>).map(|u| u.clone());
 
     <span class="kw">let </span>lookup_by_name_and_discrim = || {
         <span class="kw">let </span>(name, discrim) = <span class="kw">crate</span>::utils::parse_user_tag(s)<span class="question-mark">?</span>;
         users.iter().find_map(|m| {
             <span class="kw">let </span>user = m.value();
-            <span class="kw">if </span>user.discriminator == discrim &amp;&amp; user.name.eq_ignore_ascii_case(name) {
-                <span class="prelude-val">Some</span>(user.clone())
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
+            (user.discriminator == discrim &amp;&amp; user.name.eq_ignore_ascii_case(name))
+                .then(|| user.clone())
         })
     };
 
     <span class="kw">let </span>lookup_by_name = || {
         users.iter().find_map(|m| {
             <span class="kw">let </span>user = m.value();
-            <span class="kw">if </span>user.name == s {
-                <span class="prelude-val">Some</span>(user.clone())
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
+            (user.name == s).then(|| user.clone())
         })
     };
 
@@ -182,27 +164,27 @@
     <span class="kw">type </span><span class="prelude-val">Err </span>= UserParseError;
 
     <span class="kw">async fn </span>convert(
-        ctx: <span class="kw-2">&amp;</span>Context,
+        ctx: <span class="kw">impl </span>CacheHttp,
         guild_id: <span class="prelude-ty">Option</span>&lt;GuildId&gt;,
         channel_id: <span class="prelude-ty">Option</span>&lt;ChannelId&gt;,
         s: <span class="kw-2">&amp;</span>str,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Err&gt; {
         <span class="comment">// Try to look up in global user cache via a variety of methods
         </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
-        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(user) = lookup_by_global_cache(ctx, s) {
+        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(user) = lookup_by_global_cache(<span class="kw-2">&amp;</span>ctx, s) {
             <span class="kw">return </span><span class="prelude-val">Ok</span>(user);
         }
 
         <span class="comment">// If not successful, convert as a Member which uses HTTP endpoints instead of cache
-        </span><span class="kw">if let </span><span class="prelude-val">Ok</span>(member) = Member::convert(ctx, guild_id, channel_id, s).<span class="kw">await </span>{
+        </span><span class="kw">if let </span><span class="prelude-val">Ok</span>(member) = Member::convert(<span class="kw-2">&amp;</span>ctx, guild_id, channel_id, s).<span class="kw">await </span>{
             <span class="kw">return </span><span class="prelude-val">Ok</span>(member.user);
         }
 
         <span class="comment">// If string is a raw user ID or a mention
-        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(user_id) = s.parse().ok().or_else(|| <span class="kw">crate</span>::utils::parse_username(s)) {
-            <span class="comment">// Now, we can still try UserId::to_user because it works for all users from all guilds the
-            // bot is joined
-            </span><span class="kw">if let </span><span class="prelude-val">Ok</span>(user) = UserId(user_id).to_user(ctx).<span class="kw">await </span>{
+        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(user_id) = s.parse().ok().or_else(|| <span class="kw">crate</span>::utils::parse_user_mention(s)) {
+            <span class="comment">// Now, we can still try UserId::to_user because it works for all users from all guilds
+            // the bot is joined
+            </span><span class="kw">if let </span><span class="prelude-val">Ok</span>(user) = user_id.to_user(<span class="kw-2">&amp;</span>ctx).<span class="kw">await </span>{
                 <span class="kw">return </span><span class="prelude-val">Ok</span>(user);
             }
         }

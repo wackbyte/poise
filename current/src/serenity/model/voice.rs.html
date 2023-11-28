@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/model/voice.rs`."><title>voice.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (f5dc2653f 2023-11-25)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.12.0/src/model/voice.rs`."><title>voice.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -69,59 +69,12 @@
 <a href="#69" id="69">69</a>
 <a href="#70" id="70">70</a>
 <a href="#71" id="71">71</a>
-<a href="#72" id="72">72</a>
-<a href="#73" id="73">73</a>
-<a href="#74" id="74">74</a>
-<a href="#75" id="75">75</a>
-<a href="#76" id="76">76</a>
-<a href="#77" id="77">77</a>
-<a href="#78" id="78">78</a>
-<a href="#79" id="79">79</a>
-<a href="#80" id="80">80</a>
-<a href="#81" id="81">81</a>
-<a href="#82" id="82">82</a>
-<a href="#83" id="83">83</a>
-<a href="#84" id="84">84</a>
-<a href="#85" id="85">85</a>
-<a href="#86" id="86">86</a>
-<a href="#87" id="87">87</a>
-<a href="#88" id="88">88</a>
-<a href="#89" id="89">89</a>
-<a href="#90" id="90">90</a>
-<a href="#91" id="91">91</a>
-<a href="#92" id="92">92</a>
-<a href="#93" id="93">93</a>
-<a href="#94" id="94">94</a>
-<a href="#95" id="95">95</a>
-<a href="#96" id="96">96</a>
-<a href="#97" id="97">97</a>
-<a href="#98" id="98">98</a>
-<a href="#99" id="99">99</a>
-<a href="#100" id="100">100</a>
-<a href="#101" id="101">101</a>
-<a href="#102" id="102">102</a>
-<a href="#103" id="103">103</a>
-<a href="#104" id="104">104</a>
-<a href="#105" id="105">105</a>
-<a href="#106" id="106">106</a>
-<a href="#107" id="107">107</a>
-<a href="#108" id="108">108</a>
-<a href="#109" id="109">109</a>
-<a href="#110" id="110">110</a>
-<a href="#111" id="111">111</a>
-<a href="#112" id="112">112</a>
-<a href="#113" id="113">113</a>
-<a href="#114" id="114">114</a>
-<a href="#115" id="115">115</a>
-<a href="#116" id="116">116</a>
-<a href="#117" id="117">117</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Representations of voice information.
 
-</span><span class="kw">use </span>std::fmt;
+</span><span class="kw">use </span>serde::de::{Deserialize, Deserializer};
+<span class="kw">use </span>serde::Serialize;
 
-<span class="kw">use </span>serde::de::{Deserialize, Deserializer};
-
-<span class="kw">use </span><span class="kw">crate</span>::model::guild::{InterimMember, Member};
+<span class="kw">use </span><span class="kw">crate</span>::model::guild::Member;
 <span class="kw">use </span><span class="kw">crate</span>::model::id::{ChannelId, GuildId, UserId};
 <span class="kw">use </span><span class="kw">crate</span>::model::Timestamp;
 
@@ -146,7 +99,9 @@
 <span class="doccomment">/// A user&#39;s state within a voice channel.
 ///
 /// [Discord docs](https://discord.com/developers/docs/resources/voice#voice-state-object).
-</span><span class="attr">#[derive(Clone, Serialize)]
+</span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;typesize&quot;</span>, derive(typesize::derive::TypeSize))]
+#[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(remote = <span class="string">&quot;Self&quot;</span>)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>VoiceState {
     <span class="kw">pub </span>channel_id: <span class="prelude-ty">Option</span>&lt;ChannelId&gt;,
@@ -160,76 +115,29 @@
     <span class="kw">pub </span>self_video: bool,
     <span class="kw">pub </span>session_id: String,
     <span class="kw">pub </span>suppress: bool,
-    <span class="kw">pub </span>token: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="kw">pub </span>user_id: UserId,
-    <span class="doccomment">/// When unsuppressed, non-bot users will have this set to the current time.
-    /// Bot users will be set to [`None`]. When suppressed, the user will have
-    /// their [`Self::request_to_speak_timestamp`] removed.
+    <span class="doccomment">/// When unsuppressed, non-bot users will have this set to the current time. Bot users will be
+    /// set to [`None`]. When suppressed, the user will have their
+    /// [`Self::request_to_speak_timestamp`] removed.
     </span><span class="kw">pub </span>request_to_speak_timestamp: <span class="prelude-ty">Option</span>&lt;Timestamp&gt;,
 }
 
-<span class="kw">impl </span>fmt::Debug <span class="kw">for </span>VoiceState {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-        f.debug_struct(<span class="string">&quot;VoiceState&quot;</span>)
-            .field(<span class="string">&quot;channel_id&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.channel_id)
-            .field(<span class="string">&quot;deaf&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.deaf)
-            .field(<span class="string">&quot;guild_id&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.guild_id)
-            .field(<span class="string">&quot;member&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.member)
-            .field(<span class="string">&quot;mute&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.mute)
-            .field(<span class="string">&quot;self_deaf&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.self_deaf)
-            .field(<span class="string">&quot;self_mute&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.self_mute)
-            .field(<span class="string">&quot;self_stream&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.self_stream)
-            .field(<span class="string">&quot;self_video&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.self_video)
-            .field(<span class="string">&quot;session_id&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.session_id)
-            .field(<span class="string">&quot;suppress&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.suppress)
-            .field(<span class="string">&quot;user_id&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.user_id)
-            .field(<span class="string">&quot;request_to_speak_timestamp&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.request_to_speak_timestamp)
-            .finish()
-    }
-}
-
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>VoiceState {
+<span class="comment">// Manual impl needed to insert guild_id into Member
+</span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>VoiceState {
     <span class="kw">fn </span>deserialize&lt;D: Deserializer&lt;<span class="lifetime">&#39;de</span>&gt;&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, D::Error&gt; {
-        <span class="attr">#[derive(Deserialize)]
-        </span><span class="kw">struct </span>InterimVoiceState {
-            channel_id: <span class="prelude-ty">Option</span>&lt;ChannelId&gt;,
-            deaf: bool,
-            guild_id: <span class="prelude-ty">Option</span>&lt;GuildId&gt;,
-            member: <span class="prelude-ty">Option</span>&lt;InterimMember&gt;,
-            mute: bool,
-            self_deaf: bool,
-            self_mute: bool,
-            self_stream: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-            self_video: bool,
-            session_id: String,
-            suppress: bool,
-            token: <span class="prelude-ty">Option</span>&lt;String&gt;,
-            user_id: UserId,
-            request_to_speak_timestamp: <span class="prelude-ty">Option</span>&lt;Timestamp&gt;,
-        }
-
-        <span class="kw">let </span><span class="kw-2">mut </span>state = InterimVoiceState::deserialize(deserializer)<span class="question-mark">?</span>;
-
+        <span class="comment">// calls #[serde(remote)]-generated inherent method
+        </span><span class="kw">let </span><span class="kw-2">mut </span>state = <span class="self">Self</span>::deserialize(deserializer)<span class="question-mark">?</span>;
         <span class="kw">if let </span>(<span class="prelude-val">Some</span>(guild_id), <span class="prelude-val">Some</span>(member)) = (state.guild_id, state.member.as_mut()) {
             member.guild_id = guild_id;
         }
+        <span class="prelude-val">Ok</span>(state)
+    }
+}
 
-        <span class="prelude-val">Ok</span>(VoiceState {
-            channel_id: state.channel_id,
-            deaf: state.deaf,
-            guild_id: state.guild_id,
-            member: state.member.map(Member::from),
-            mute: state.mute,
-            self_deaf: state.self_deaf,
-            self_mute: state.self_mute,
-            self_stream: state.self_stream,
-            self_video: state.self_video,
-            session_id: state.session_id,
-            suppress: state.suppress,
-            token: state.token,
-            user_id: state.user_id,
-            request_to_speak_timestamp: state.request_to_speak_timestamp,
-        })
+<span class="kw">impl </span>Serialize <span class="kw">for </span>VoiceState {
+    <span class="kw">fn </span>serialize&lt;S: serde::Serializer&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt; {
+        <span class="comment">// calls #[serde(remote)]-generated inherent method
+        </span><span class="self">Self</span>::serialize(<span class="self">self</span>, serializer)
     }
 }
 </code></pre></div></section></main></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/builder/edit_member.rs`."><title>edit_member.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (f5dc2653f 2023-11-25)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.12.0/src/builder/edit_member.rs`."><title>edit_member.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -126,94 +126,147 @@
 <a href="#126" id="126">126</a>
 <a href="#127" id="127">127</a>
 <a href="#128" id="128">128</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+<a href="#161" id="161">161</a>
+<a href="#162" id="162">162</a>
+<a href="#163" id="163">163</a>
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+</pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">super</span>::Builder;
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">crate</span>::http::CacheHttp;
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
+<span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
 
-<span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
-<span class="kw">use </span><span class="kw">crate</span>::json::{from_number, NULL};
-<span class="kw">use </span><span class="kw">crate</span>::model::id::{ChannelId, RoleId};
-<span class="kw">use </span><span class="kw">crate</span>::model::Timestamp;
-
-<span class="doccomment">/// A builder which edits the properties of a [`Member`], to be used in
-/// conjunction with [`Member::edit`].
+<span class="doccomment">/// A builder which edits the properties of a [`Member`], to be used in conjunction with
+/// [`Member::edit`].
 ///
-/// [`Member`]: crate::model::guild::Member
-/// [`Member::edit`]: crate::model::guild::Member::edit
-</span><span class="attr">#[derive(Clone, Debug, Default)]
-</span><span class="kw">pub struct </span>EditMember(<span class="kw">pub </span>HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, Value&gt;);
+/// [Discord docs](https://discord.com/developers/docs/resources/guild#modify-guild-member)
+</span><span class="attr">#[derive(Clone, Debug, Default, Serialize)]
+#[must_use]
+</span><span class="kw">pub struct </span>EditMember&lt;<span class="lifetime">&#39;a</span>&gt; {
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>nick: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>roles: <span class="prelude-ty">Option</span>&lt;Vec&lt;RoleId&gt;&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>mute: <span class="prelude-ty">Option</span>&lt;bool&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>deaf: <span class="prelude-ty">Option</span>&lt;bool&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>channel_id: <span class="prelude-ty">Option</span>&lt;<span class="prelude-ty">Option</span>&lt;ChannelId&gt;&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>communication_disabled_until: <span class="prelude-ty">Option</span>&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>flags: <span class="prelude-ty">Option</span>&lt;GuildMemberFlags&gt;,
 
-<span class="kw">impl </span>EditMember {
+    <span class="attr">#[serde(skip)]
+    </span>audit_log_reason: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt;,
+}
+
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; EditMember&lt;<span class="lifetime">&#39;a</span>&gt; {
+    <span class="doccomment">/// Equivalent to [`Self::default`].
+    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>::default()
+    }
+
     <span class="doccomment">/// Whether to deafen the member.
     ///
-    /// Requires the [Deafen Members] permission.
+    /// **Note**: Requires the [Deafen Members] permission.
     ///
-    /// [Deafen Members]: crate::model::permissions::Permissions::DEAFEN_MEMBERS
-    </span><span class="kw">pub fn </span>deafen(<span class="kw-2">&amp;mut </span><span class="self">self</span>, deafen: bool) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;deaf&quot;</span>, Value::from(deafen));
+    /// [Deafen Members]: Permissions::DEAFEN_MEMBERS
+    </span><span class="kw">pub fn </span>deafen(<span class="kw-2">mut </span><span class="self">self</span>, deafen: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.deaf = <span class="prelude-val">Some</span>(deafen);
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Whether to mute the member.
     ///
-    /// Requires the [Mute Members] permission.
+    /// **Note**: Requires the [Mute Members] permission.
     ///
-    /// [Mute Members]: crate::model::permissions::Permissions::MUTE_MEMBERS
-    </span><span class="kw">pub fn </span>mute(<span class="kw-2">&amp;mut </span><span class="self">self</span>, mute: bool) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;mute&quot;</span>, Value::from(mute));
+    /// [Mute Members]: Permissions::MUTE_MEMBERS
+    </span><span class="kw">pub fn </span>mute(<span class="kw-2">mut </span><span class="self">self</span>, mute: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.mute = <span class="prelude-val">Some</span>(mute);
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// Changes the member&#39;s nickname. Pass an empty string to reset the
-    /// nickname.
+    <span class="doccomment">/// Changes the member&#39;s nickname. Pass an empty string to reset the nickname.
     ///
-    /// Requires the [Manage Nicknames] permission.
+    /// **Note**: Requires the [Manage Nicknames] permission.
     ///
-    /// [Manage Nicknames]: crate::model::permissions::Permissions::MANAGE_NICKNAMES
-    </span><span class="kw">pub fn </span>nickname&lt;S: ToString&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, nickname: S) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;nick&quot;</span>, Value::from(nickname.to_string()));
+    /// [Manage Nicknames]: Permissions::MANAGE_NICKNAMES
+    </span><span class="kw">pub fn </span>nickname(<span class="kw-2">mut </span><span class="self">self</span>, nickname: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.nick = <span class="prelude-val">Some</span>(nickname.into());
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Set the list of roles that the member should have.
     ///
-    /// Requires the [Manage Roles] permission to modify.
+    /// **Note**: Requires the [Manage Roles] permission to modify.
     ///
-    /// [Manage Roles]: crate::model::permissions::Permissions::MANAGE_ROLES
-    </span><span class="kw">pub fn </span>roles&lt;T: AsRef&lt;RoleId&gt;, It: IntoIterator&lt;Item = T&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, roles: It) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="kw">let </span>role_ids = roles.into_iter().map(|x| from_number(x.as_ref().<span class="number">0</span>)).collect();
-
-        <span class="self">self</span>._roles(role_ids);
+    /// [Manage Roles]: Permissions::MANAGE_ROLES
+    </span><span class="kw">pub fn </span>roles(<span class="kw-2">mut </span><span class="self">self</span>, roles: <span class="kw">impl </span>IntoIterator&lt;Item = <span class="kw">impl </span>Into&lt;RoleId&gt;&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.roles = <span class="prelude-val">Some</span>(roles.into_iter().map(Into::into).collect());
         <span class="self">self
     </span>}
 
-    <span class="kw">fn </span>_roles(<span class="kw-2">&amp;mut </span><span class="self">self</span>, roles: Vec&lt;Value&gt;) {
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;roles&quot;</span>, Value::from(roles));
-    }
-
-    <span class="doccomment">/// The Id of the voice channel to move the member to.
+    <span class="doccomment">/// Move the member into a voice channel.
     ///
-    /// Requires the [Move Members] permission.
+    /// **Note**: Requires the [Move Members] permission.
     ///
-    /// [Move Members]: crate::model::permissions::Permissions::MOVE_MEMBERS
+    /// [Move Members]: Permissions::MOVE_MEMBERS
     </span><span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>voice_channel&lt;C: Into&lt;ChannelId&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, channel_id: C) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>._voice_channel(channel_id.into());
-
+    </span><span class="kw">pub fn </span>voice_channel(<span class="kw-2">mut </span><span class="self">self</span>, channel_id: <span class="kw">impl </span>Into&lt;ChannelId&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.channel_id = <span class="prelude-val">Some</span>(<span class="prelude-val">Some</span>(channel_id.into()));
         <span class="self">self
     </span>}
 
-    <span class="kw">fn </span>_voice_channel(<span class="kw-2">&amp;mut </span><span class="self">self</span>, channel_id: ChannelId) {
-        <span class="kw">let </span>num = from_number(channel_id.<span class="number">0</span>);
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;channel_id&quot;</span>, num);
-    }
-
-    <span class="doccomment">/// Disconnects the user from their voice channel if any
+    <span class="doccomment">/// Disconnects the user from their voice channel, if any.
     ///
-    /// Requires the [Move Members] permission.
+    /// **Note**: Requires the [Move Members] permission.
     ///
-    /// [Move Members]: crate::model::permissions::Permissions::MOVE_MEMBERS
-    </span><span class="kw">pub fn </span>disconnect_member(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;channel_id&quot;</span>, NULL);
-
+    /// [Move Members]: Permissions::MOVE_MEMBERS
+    </span><span class="kw">pub fn </span>disconnect_member(<span class="kw-2">mut </span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.channel_id = <span class="prelude-val">Some</span>(<span class="prelude-val">None</span>);
         <span class="self">self
     </span>}
 
@@ -222,36 +275,69 @@
     /// `time` is considered invalid if it is not a valid ISO8601 timestamp or if it is greater
     /// than 28 days from the current time.
     ///
-    /// Requires the [Moderate Members] permission.
+    /// **Note**: Requires the [Moderate Members] permission.
     ///
-    /// [Moderate Members]: crate::model::permissions::Permissions::MODERATE_MEMBERS
+    /// [Moderate Members]: Permissions::MODERATE_MEMBERS
     </span><span class="attr">#[doc(alias = <span class="string">&quot;timeout&quot;</span>)]
-    </span><span class="kw">pub fn </span>disable_communication_until(<span class="kw-2">&amp;mut </span><span class="self">self</span>, time: String) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;communication_disabled_until&quot;</span>, Value::from(time));
+    </span><span class="kw">pub fn </span>disable_communication_until(<span class="kw-2">mut </span><span class="self">self</span>, time: String) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.communication_disabled_until = <span class="prelude-val">Some</span>(<span class="prelude-val">Some</span>(time));
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Times the user out until `time`.
     ///
     /// `time` is considered invalid if it is greater than 28 days from the current time.
-    /// Requires the [Moderate Members] permission.
     ///
-    /// [Moderate Members]: crate::model::permissions::Permissions::MODERATE_MEMBERS
+    /// **Note**: Requires the [Moderate Members] permission.
+    ///
+    /// [Moderate Members]: Permissions::MODERATE_MEMBERS
     </span><span class="attr">#[doc(alias = <span class="string">&quot;timeout&quot;</span>)]
-    </span><span class="kw">pub fn </span>disable_communication_until_datetime(<span class="kw-2">&amp;mut </span><span class="self">self</span>, time: Timestamp) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;communication_disabled_until&quot;</span>, Value::from(time.to_string()));
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>disable_communication_until_datetime(<span class="self">self</span>, time: Timestamp) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.disable_communication_until(time.to_string())
+    }
 
     <span class="doccomment">/// Allow a user to communicate, removing their timeout, if there is one.
     ///
-    /// Requires the [Moderate Members] permission.
+    /// **Note**: Requires the [Moderate Members] permission.
     ///
-    /// [Moderate Members]: crate::model::permissions::Permissions::MODERATE_MEMBERS
+    /// [Moderate Members]: Permissions::MODERATE_MEMBERS
     </span><span class="attr">#[doc(alias = <span class="string">&quot;timeout&quot;</span>)]
-    </span><span class="kw">pub fn </span>enable_communication(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;communication_disabled_until&quot;</span>, NULL);
+    </span><span class="kw">pub fn </span>enable_communication(<span class="kw-2">mut </span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.communication_disabled_until = <span class="prelude-val">Some</span>(<span class="prelude-val">None</span>);
         <span class="self">self
+    </span>}
+
+    <span class="kw">pub fn </span>flags(<span class="kw-2">mut </span><span class="self">self</span>, flags: GuildMemberFlags) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.flags = <span class="prelude-val">Some</span>(flags);
+        <span class="self">self
+    </span>}
+
+    <span class="doccomment">/// Sets the request&#39;s audit log reason.
+    </span><span class="kw">pub fn </span>audit_log_reason(<span class="kw-2">mut </span><span class="self">self</span>, reason: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.audit_log_reason = <span class="prelude-val">Some</span>(reason);
+        <span class="self">self
+    </span>}
+}
+
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+#[async_trait::async_trait]
+</span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Builder <span class="kw">for </span>EditMember&lt;<span class="lifetime">&#39;a</span>&gt; {
+    <span class="kw">type </span>Context&lt;<span class="lifetime">&#39;ctx</span>&gt; = (GuildId, UserId);
+    <span class="kw">type </span>Built = Member;
+
+    <span class="doccomment">/// Edits the properties of the guild member.
+    ///
+    /// For details on permissions requirements, refer to each specific method.
+    ///
+    /// # Errors
+    ///
+    /// Returns [`Error::Http`] if the current user lacks permission, or if invalid data is given.
+    </span><span class="kw">async fn </span>execute(
+        <span class="self">self</span>,
+        cache_http: <span class="kw">impl </span>CacheHttp,
+        ctx: <span class="self">Self</span>::Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>::Built&gt; {
+        cache_http.http().edit_member(ctx.<span class="number">0</span>, ctx.<span class="number">1</span>, <span class="kw-2">&amp;</span><span class="self">self</span>, <span class="self">self</span>.audit_log_reason).<span class="kw">await
     </span>}
 }
 </code></pre></div></section></main></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/utils/message_builder.rs`."><title>message_builder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (f5dc2653f 2023-11-25)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.12.0/src/utils/message_builder.rs`."><title>message_builder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1446,39 +1446,6 @@
 <a href="#1446" id="1446">1446</a>
 <a href="#1447" id="1447">1447</a>
 <a href="#1448" id="1448">1448</a>
-<a href="#1449" id="1449">1449</a>
-<a href="#1450" id="1450">1450</a>
-<a href="#1451" id="1451">1451</a>
-<a href="#1452" id="1452">1452</a>
-<a href="#1453" id="1453">1453</a>
-<a href="#1454" id="1454">1454</a>
-<a href="#1455" id="1455">1455</a>
-<a href="#1456" id="1456">1456</a>
-<a href="#1457" id="1457">1457</a>
-<a href="#1458" id="1458">1458</a>
-<a href="#1459" id="1459">1459</a>
-<a href="#1460" id="1460">1460</a>
-<a href="#1461" id="1461">1461</a>
-<a href="#1462" id="1462">1462</a>
-<a href="#1463" id="1463">1463</a>
-<a href="#1464" id="1464">1464</a>
-<a href="#1465" id="1465">1465</a>
-<a href="#1466" id="1466">1466</a>
-<a href="#1467" id="1467">1467</a>
-<a href="#1468" id="1468">1468</a>
-<a href="#1469" id="1469">1469</a>
-<a href="#1470" id="1470">1470</a>
-<a href="#1471" id="1471">1471</a>
-<a href="#1472" id="1472">1472</a>
-<a href="#1473" id="1473">1473</a>
-<a href="#1474" id="1474">1474</a>
-<a href="#1475" id="1475">1475</a>
-<a href="#1476" id="1476">1476</a>
-<a href="#1477" id="1477">1477</a>
-<a href="#1478" id="1478">1478</a>
-<a href="#1479" id="1479">1479</a>
-<a href="#1480" id="1480">1480</a>
-<a href="#1481" id="1481">1481</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::{<span class="self">self </span><span class="kw">as </span>fmt, Write};
 <span class="kw">use </span>std::ops::Add;
 
@@ -1486,8 +1453,8 @@
 <span class="kw">use </span><span class="kw">crate</span>::model::id::{ChannelId, RoleId, UserId};
 <span class="kw">use </span><span class="kw">crate</span>::model::mention::Mentionable;
 
-<span class="doccomment">/// The Message Builder is an ergonomic utility to easily build a message,
-/// by adding text and mentioning mentionable structs.
+<span class="doccomment">/// The Message Builder is an ergonomic utility to easily build a message, by adding text and
+/// mentioning mentionable structs.
 ///
 /// The finalized value can be accessed via [`Self::build`] or the inner value.
 ///
@@ -1540,14 +1507,14 @@
     ///
     /// # Examples
     ///
-    /// Create a string mentioning a channel by Id, and then suffixing `&quot;!&quot;`,
-    /// and finally building it to retrieve the inner String:
+    /// Create a string mentioning a channel by Id, and then suffixing `&quot;!&quot;`, and finally building
+    /// it to retrieve the inner String:
     ///
     /// ```rust
     /// use serenity::model::id::ChannelId;
     /// use serenity::utils::MessageBuilder;
     ///
-    /// let channel_id = ChannelId(81384788765712384);
+    /// let channel_id = ChannelId::new(81384788765712384);
     ///
     /// let content = MessageBuilder::new().channel(channel_id).push(&quot;!&quot;).build();
     ///
@@ -1570,11 +1537,11 @@
 
     <span class="doccomment">/// Mentions the [`GuildChannel`] in the built message.
     ///
-    /// This accepts anything that converts _into_ a [`ChannelId`]. Refer to
-    /// [`ChannelId`]&#39;s documentation for more information.
+    /// This accepts anything that converts _into_ a [`ChannelId`]. Refer to [`ChannelId`]&#39;s
+    /// documentation for more information.
     ///
-    /// Refer to [`ChannelId`]&#39;s [Display implementation] for more information on
-    /// how this is formatted.
+    /// Refer to [`ChannelId`]&#39;s [Display implementation] for more information on how this is
+    /// formatted.
     ///
     /// # Examples
     ///
@@ -1584,7 +1551,7 @@
     /// use serenity::model::id::ChannelId;
     /// use serenity::utils::MessageBuilder;
     ///
-    /// let channel_id = ChannelId(81384788765712384);
+    /// let channel_id = ChannelId::new(81384788765712384);
     ///
     /// let content = MessageBuilder::new().push(&quot;The channel is: &quot;).channel(channel_id).build();
     ///
@@ -1600,27 +1567,26 @@
     }
 
     <span class="kw">fn </span>_channel(<span class="kw-2">&amp;mut </span><span class="self">self</span>, channel: ChannelId) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>channel.mention().to_string());
+        <span class="self">self</span>._push(<span class="kw-2">&amp;</span>channel.mention());
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Displays the given emoji in the built message.
     ///
-    /// Refer to [`Emoji`]s [Display implementation] for more information on how
-    /// this is formatted.
+    /// Refer to [`Emoji`]s [Display implementation] for more information on how this is formatted.
     ///
     /// # Examples
     ///
     /// Mention an emoji in a message&#39;s content:
     ///
     /// ```rust
-    /// # use serde_json::{json, from_value};
+    /// # use serenity::json::{json, from_value};
     /// # use serenity::model::guild::Emoji;
     /// # use serenity::model::id::EmojiId;
     /// # use serenity::utils::MessageBuilder;
     ///
     /// # let emoji = from_value::&lt;Emoji&gt;(json!({
-    /// #     &quot;id&quot;: EmojiId(302516740095606785),
+    /// #     &quot;id&quot;: EmojiId::new(302516740095606785),
     /// #     &quot;name&quot;: &quot;smugAnimeFace&quot;,
     /// # })).unwrap();
     ///
@@ -1631,21 +1597,20 @@
     ///
     /// [Display implementation]: crate::model::guild::Emoji#impl-Display
     </span><span class="kw">pub fn </span>emoji(<span class="kw-2">&amp;mut </span><span class="self">self</span>, emoji: <span class="kw-2">&amp;</span>Emoji) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>emoji.to_string());
+        <span class="self">self</span>._push(<span class="kw-2">&amp;</span>emoji);
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Mentions something that implements the [`Mentionable`] trait.
     </span><span class="kw">pub fn </span>mention&lt;M: Mentionable&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>M) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>item.mention().to_string());
+        <span class="self">self</span>._push(<span class="kw-2">&amp;</span>item.mention());
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Pushes a string to the internal message content.
     ///
-    /// Note that this does not mutate either the given data or the internal
-    /// message content in anyway prior to appending the given content to the
-    /// internal message.
+    /// Note that this does not mutate either the given data or the internal message content in
+    /// anyway prior to appending the given content to the internal message.
     ///
     /// # Examples
     ///
@@ -1665,11 +1630,12 @@
     /// ```
     </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>push(<span class="kw-2">&amp;mut </span><span class="self">self</span>, content: <span class="kw">impl </span>Into&lt;Content&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>._push(<span class="kw-2">&amp;</span>content.into().to_string())
+        <span class="self">self</span>._push(<span class="kw-2">&amp;</span>content.into())
     }
 
-    <span class="kw">fn </span>_push(<span class="kw-2">&amp;mut </span><span class="self">self</span>, content: <span class="kw-2">&amp;</span>str) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.push_str(content);
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>_push&lt;C: std::fmt::Display + <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, content: <span class="kw-2">&amp;</span>C) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
+        <span class="macro">write!</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="string">&quot;{content}&quot;</span>).unwrap();
 
         <span class="self">self
     </span>}
@@ -1724,7 +1690,7 @@
         }
 
         <span class="self">self</span>.<span class="number">0</span>.push(<span class="string">&#39;\n&#39;</span>);
-        <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>content.into().to_string());
+        <span class="self">self</span>._push(<span class="kw-2">&amp;</span>content.into());
         <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="string">&quot;\n```&quot;</span>);
 
         <span class="self">self
@@ -1756,7 +1722,7 @@
     /// ```
     </span><span class="kw">pub fn </span>push_mono(<span class="kw-2">&amp;mut </span><span class="self">self</span>, content: <span class="kw">impl </span>Into&lt;Content&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.push(<span class="string">&#39;`&#39;</span>);
-        <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>content.into().to_string());
+        <span class="self">self</span>._push(<span class="kw-2">&amp;</span>content.into());
         <span class="self">self</span>.<span class="number">0</span>.push(<span class="string">&#39;`&#39;</span>);
 
         <span class="self">self
@@ -1785,7 +1751,7 @@
     /// ```
     </span><span class="kw">pub fn </span>push_italic(<span class="kw-2">&amp;mut </span><span class="self">self</span>, content: <span class="kw">impl </span>Into&lt;Content&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.push(<span class="string">&#39;_&#39;</span>);
-        <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>content.into().to_string());
+        <span class="self">self</span>._push(<span class="kw-2">&amp;</span>content.into());
         <span class="self">self</span>.<span class="number">0</span>.push(<span class="string">&#39;_&#39;</span>);
 
         <span class="self">self
@@ -1794,7 +1760,7 @@
     <span class="doccomment">/// Pushes an inline bold text to the content.
     </span><span class="kw">pub fn </span>push_bold(<span class="kw-2">&amp;mut </span><span class="self">self</span>, content: <span class="kw">impl </span>Into&lt;Content&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="string">&quot;**&quot;</span>);
-        <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>content.into().to_string());
+        <span class="self">self</span>._push(<span class="kw-2">&amp;</span>content.into());
         <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="string">&quot;**&quot;</span>);
 
         <span class="self">self
@@ -1803,7 +1769,7 @@
     <span class="doccomment">/// Pushes an underlined inline text to the content.
     </span><span class="kw">pub fn </span>push_underline(<span class="kw-2">&amp;mut </span><span class="self">self</span>, content: <span class="kw">impl </span>Into&lt;Content&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="string">&quot;__&quot;</span>);
-        <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>content.into().to_string());
+        <span class="self">self</span>._push(<span class="kw-2">&amp;</span>content.into());
         <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="string">&quot;__&quot;</span>);
 
         <span class="self">self
@@ -1812,7 +1778,7 @@
     <span class="doccomment">/// Pushes a strikethrough inline text to the content.
     </span><span class="kw">pub fn </span>push_strike(<span class="kw-2">&amp;mut </span><span class="self">self</span>, content: <span class="kw">impl </span>Into&lt;Content&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="string">&quot;~~&quot;</span>);
-        <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>content.into().to_string());
+        <span class="self">self</span>._push(<span class="kw-2">&amp;</span>content.into());
         <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="string">&quot;~~&quot;</span>);
 
         <span class="self">self
@@ -1821,7 +1787,7 @@
     <span class="doccomment">/// Pushes a spoiler&#39;d inline text to the content.
     </span><span class="kw">pub fn </span>push_spoiler(<span class="kw-2">&amp;mut </span><span class="self">self</span>, content: <span class="kw">impl </span>Into&lt;Content&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="string">&quot;||&quot;</span>);
-        <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>content.into().to_string());
+        <span class="self">self</span>._push(<span class="kw-2">&amp;</span>content.into());
         <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="string">&quot;||&quot;</span>);
 
         <span class="self">self
@@ -1830,7 +1796,7 @@
     <span class="doccomment">/// Pushes a quoted inline text to the content
     </span><span class="kw">pub fn </span>push_quote(<span class="kw-2">&amp;mut </span><span class="self">self</span>, content: <span class="kw">impl </span>Into&lt;Content&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="string">&quot;&gt; &quot;</span>);
-        <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>content.into().to_string());
+        <span class="self">self</span>._push(<span class="kw-2">&amp;</span>content.into());
 
         <span class="self">self
     </span>}
@@ -1995,15 +1961,15 @@
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// Pushes text to your message, but normalizing content - that means
-    /// ensuring that there&#39;s no unwanted formatting, mention spam etc.
+    <span class="doccomment">/// Pushes text to your message, but normalizing content - that means ensuring that there&#39;s no
+    /// unwanted formatting, mention spam etc.
     </span><span class="kw">pub fn </span>push_safe(<span class="kw-2">&amp;mut </span><span class="self">self</span>, content: <span class="kw">impl </span>Into&lt;Content&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         {
             <span class="kw">let </span><span class="kw-2">mut </span>c = content.into();
             c.inner =
                 normalize(<span class="kw-2">&amp;</span>c.inner).replace(<span class="string">&#39;*&#39;</span>, <span class="string">&quot;\\*&quot;</span>).replace(<span class="string">&#39;`&#39;</span>, <span class="string">&quot;\\`&quot;</span>).replace(<span class="string">&#39;_&#39;</span>, <span class="string">&quot;\\_&quot;</span>);
 
-            <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>c.to_string());
+            <span class="self">self</span>._push(<span class="kw-2">&amp;</span>c);
         }
 
         <span class="self">self
@@ -2025,7 +1991,7 @@
         {
             <span class="kw">let </span><span class="kw-2">mut </span>c = content.into();
             c.inner = normalize(<span class="kw-2">&amp;</span>c.inner).replace(<span class="string">&quot;```&quot;</span>, <span class="string">&quot; &quot;</span>);
-            <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>c.to_string());
+            <span class="self">self</span>._push(<span class="kw-2">&amp;</span>c);
         }
         <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="string">&quot;\n```&quot;</span>);
 
@@ -2038,7 +2004,7 @@
         {
             <span class="kw">let </span><span class="kw-2">mut </span>c = content.into();
             c.inner = normalize(<span class="kw-2">&amp;</span>c.inner).replace(<span class="string">&#39;`&#39;</span>, <span class="string">&quot;&#39;&quot;</span>);
-            <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>c.to_string());
+            <span class="self">self</span>._push(<span class="kw-2">&amp;</span>c);
         }
         <span class="self">self</span>.<span class="number">0</span>.push(<span class="string">&#39;`&#39;</span>);
 
@@ -2051,7 +2017,7 @@
         {
             <span class="kw">let </span><span class="kw-2">mut </span>c = content.into();
             c.inner = normalize(<span class="kw-2">&amp;</span>c.inner).replace(<span class="string">&#39;_&#39;</span>, <span class="string">&quot; &quot;</span>);
-            <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>c.to_string());
+            <span class="self">self</span>._push(<span class="kw-2">&amp;</span>c);
         }
         <span class="self">self</span>.<span class="number">0</span>.push(<span class="string">&#39;_&#39;</span>);
 
@@ -2064,7 +2030,7 @@
         {
             <span class="kw">let </span><span class="kw-2">mut </span>c = content.into();
             c.inner = normalize(<span class="kw-2">&amp;</span>c.inner).replace(<span class="string">&quot;**&quot;</span>, <span class="string">&quot; &quot;</span>);
-            <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>c.to_string());
+            <span class="self">self</span>._push(<span class="kw-2">&amp;</span>c);
         }
         <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="string">&quot;**&quot;</span>);
 
@@ -2077,7 +2043,7 @@
         {
             <span class="kw">let </span><span class="kw-2">mut </span>c = content.into();
             c.inner = normalize(<span class="kw-2">&amp;</span>c.inner).replace(<span class="string">&quot;__&quot;</span>, <span class="string">&quot; &quot;</span>);
-            <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>c.to_string());
+            <span class="self">self</span>._push(<span class="kw-2">&amp;</span>c);
         }
         <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="string">&quot;__&quot;</span>);
 
@@ -2090,7 +2056,7 @@
         {
             <span class="kw">let </span><span class="kw-2">mut </span>c = content.into();
             c.inner = normalize(<span class="kw-2">&amp;</span>c.inner).replace(<span class="string">&quot;~~&quot;</span>, <span class="string">&quot; &quot;</span>);
-            <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>c.to_string());
+            <span class="self">self</span>._push(<span class="kw-2">&amp;</span>c);
         }
         <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="string">&quot;~~&quot;</span>);
 
@@ -2103,7 +2069,7 @@
         {
             <span class="kw">let </span><span class="kw-2">mut </span>c = content.into();
             c.inner = normalize(<span class="kw-2">&amp;</span>c.inner).replace(<span class="string">&quot;||&quot;</span>, <span class="string">&quot; &quot;</span>);
-            <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>c.to_string());
+            <span class="self">self</span>._push(<span class="kw-2">&amp;</span>c);
         }
         <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="string">&quot;||&quot;</span>);
 
@@ -2116,7 +2082,7 @@
         {
             <span class="kw">let </span><span class="kw-2">mut </span>c = content.into();
             c.inner = normalize(<span class="kw-2">&amp;</span>c.inner).replace(<span class="string">&quot;&gt; &quot;</span>, <span class="string">&quot; &quot;</span>);
-            <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>c.to_string());
+            <span class="self">self</span>._push(<span class="kw-2">&amp;</span>c);
         }
 
         <span class="self">self
@@ -2229,8 +2195,7 @@
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// Pushes a strikethrough inline text with added newline to the content normalizing
-    /// content.
+    <span class="doccomment">/// Pushes a strikethrough inline text with added newline to the content normalizing content.
     ///
     /// # Examples
     ///
@@ -2251,8 +2216,7 @@
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// Pushes a spoiler&#39;d inline text with added newline to the content normalizing
-    /// content.
+    <span class="doccomment">/// Pushes a spoiler&#39;d inline text with added newline to the content normalizing content.
     ///
     /// # Examples
     ///
@@ -2273,8 +2237,7 @@
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// Pushes a quoted inline text with added newline to the content normalizing
-    /// content.
+    <span class="doccomment">/// Pushes a quoted inline text with added newline to the content normalizing content.
     ///
     /// # Examples
     ///
@@ -2304,31 +2267,31 @@
 
     <span class="doccomment">/// Mentions the [`Role`] in the built message.
     ///
-    /// This accepts anything that converts _into_ a [`RoleId`]. Refer to
-    /// [`RoleId`]&#39;s documentation for more information.
+    /// This accepts anything that converts _into_ a [`RoleId`]. Refer to [`RoleId`]&#39;s
+    /// documentation for more information.
     ///
-    /// Refer to [`RoleId`]&#39;s [Display implementation] for more information on how
-    /// this is formatted.
+    /// Refer to [`RoleId`]&#39;s [Display implementation] for more information on how this is
+    /// formatted.
     ///
     /// [`Role`]: crate::model::guild::Role
     /// [Display implementation]: RoleId#impl-Display
     </span><span class="kw">pub fn </span>role&lt;R: Into&lt;RoleId&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, role: R) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>role.into().mention().to_string());
+        <span class="self">self</span>._push(<span class="kw-2">&amp;</span>role.into().mention());
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Mentions the [`User`] in the built message.
     ///
-    /// This accepts anything that converts _into_ a [`UserId`]. Refer to
-    /// [`UserId`]&#39;s documentation for more information.
+    /// This accepts anything that converts _into_ a [`UserId`]. Refer to [`UserId`]&#39;s
+    /// documentation for more information.
     ///
-    /// Refer to [`UserId`]&#39;s [Display implementation] for more information on how
-    /// this is formatted.
+    /// Refer to [`UserId`]&#39;s [Display implementation] for more information on how this is
+    /// formatted.
     ///
     /// [`User`]: crate::model::user::User
     /// [Display implementation]: UserId#impl-Display
     </span><span class="kw">pub fn </span>user&lt;U: Into&lt;UserId&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, user: U) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>user.into().mention().to_string());
+        <span class="self">self</span>._push(<span class="kw-2">&amp;</span>user.into().mention());
         <span class="self">self
     </span>}
 }
@@ -2336,8 +2299,8 @@
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>MessageBuilder {
     <span class="doccomment">/// Formats the message builder into a string.
     ///
-    /// This is done by simply taking the internal value of the tuple-struct and
-    /// writing it into the formatter.
+    /// This is done by simply taking the internal value of the tuple-struct and writing it into
+    /// the formatter.
     ///
     /// # Examples
     ///
@@ -2352,11 +2315,11 @@
     }
 }
 
-<span class="doccomment">/// A trait with additional functionality over the [`MessageBuilder`] for
-/// creating content with additional functionality available only in embeds.
+<span class="doccomment">/// A trait with additional functionality over the [`MessageBuilder`] for creating content with
+/// additional functionality available only in embeds.
 ///
-/// Namely, this allows you to create named links via the non-escaping
-/// [`Self::push_named_link`] method and the escaping [`Self::push_named_link_safe`] method.
+/// Namely, this allows you to create named links via the non-escaping [`Self::push_named_link`]
+/// method and the escaping [`Self::push_named_link_safe`] method.
 ///
 /// # Examples
 ///
@@ -2390,8 +2353,8 @@
     /// ```
     </span><span class="kw">fn </span>push_named_link(<span class="kw-2">&amp;mut </span><span class="self">self</span>, name: <span class="kw">impl </span>Into&lt;Content&gt;, url: <span class="kw">impl </span>Into&lt;Content&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self</span>;
 
-    <span class="doccomment">/// Pushes a named link intended for use in an embed, but with a normalized
-    /// name to avoid escaping issues.
+    <span class="doccomment">/// Pushes a named link intended for use in an embed, but with a normalized name to avoid
+    /// escaping issues.
     ///
     /// Refer to [`Self::push_named_link`] for more information.
     ///
@@ -2416,10 +2379,7 @@
 
 <span class="kw">impl </span>EmbedMessageBuilding <span class="kw">for </span>MessageBuilder {
     <span class="kw">fn </span>push_named_link(<span class="kw-2">&amp;mut </span><span class="self">self</span>, name: <span class="kw">impl </span>Into&lt;Content&gt;, url: <span class="kw">impl </span>Into&lt;Content&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="kw">let </span>name = name.into().to_string();
-        <span class="kw">let </span>url = url.into().to_string();
-
-        <span class="macro">write!</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="string">&quot;[{}]({})&quot;</span>, name, url).unwrap();
+        <span class="macro">write!</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="string">&quot;[{}]({})&quot;</span>, name.into(), url.into()).unwrap();
 
         <span class="self">self
     </span>}
@@ -2433,13 +2393,13 @@
         {
             <span class="kw">let </span><span class="kw-2">mut </span>c = name.into();
             c.inner = normalize(<span class="kw-2">&amp;</span>c.inner).replace(<span class="string">&#39;]&#39;</span>, <span class="string">&quot; &quot;</span>);
-            <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>c.to_string());
+            <span class="self">self</span>._push(<span class="kw-2">&amp;</span>c);
         }
         <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="string">&quot;](&quot;</span>);
         {
             <span class="kw">let </span><span class="kw-2">mut </span>c = url.into();
             c.inner = normalize(<span class="kw-2">&amp;</span>c.inner).replace(<span class="string">&#39;)&#39;</span>, <span class="string">&quot; &quot;</span>);
-            <span class="self">self</span>.<span class="number">0</span>.push_str(<span class="kw-2">&amp;</span>c.to_string());
+            <span class="self">self</span>._push(<span class="kw-2">&amp;</span>c);
         }
         <span class="self">self</span>.<span class="number">0</span>.push(<span class="string">&#39;)&#39;</span>);
 
@@ -2449,8 +2409,8 @@
 
 <span class="doccomment">/// Formatting modifiers for MessageBuilder content pushes
 ///
-/// Provides an enum of formatting modifiers for a string, for combination with
-/// string types and Content types.
+/// Provides an enum of formatting modifiers for a string, for combination with string types and
+/// Content types.
 ///
 /// # Examples
 ///
@@ -2472,7 +2432,7 @@
 }
 
 <span class="doccomment">/// Describes formatting on string content
-</span><span class="attr">#[derive(Debug, Default, Clone)]
+</span><span class="attr">#[derive(Clone, Debug, Default)]
 </span><span class="kw">pub struct </span>Content {
     <span class="kw">pub </span>italic: bool,
     <span class="kw">pub </span>bold: bool,
@@ -2483,23 +2443,22 @@
     <span class="kw">pub </span>spoiler: bool,
 }
 
-<span class="kw">impl</span>&lt;T: ToString&gt; Add&lt;T&gt; <span class="kw">for </span>Content {
+<span class="kw">impl</span>&lt;T: AsRef&lt;str&gt;&gt; Add&lt;T&gt; <span class="kw">for </span>Content {
     <span class="kw">type </span>Output = Content;
 
     <span class="kw">fn </span>add(<span class="kw-2">mut </span><span class="self">self</span>, rhs: T) -&gt; Content {
-        <span class="self">self</span>.inner += <span class="kw-2">&amp;</span>rhs.to_string();
+        <span class="self">self</span>.inner += rhs.as_ref();
 
         <span class="self">self
     </span>}
 }
 
-<span class="kw">impl</span>&lt;T: ToString&gt; Add&lt;T&gt; <span class="kw">for </span>ContentModifier {
+<span class="kw">impl</span>&lt;T: AsRef&lt;str&gt;&gt; Add&lt;T&gt; <span class="kw">for </span>ContentModifier {
     <span class="kw">type </span>Output = Content;
 
     <span class="kw">fn </span>add(<span class="self">self</span>, rhs: T) -&gt; Content {
         <span class="kw">let </span><span class="kw-2">mut </span>nc = <span class="self">self</span>.to_content();
-        nc.inner += <span class="kw-2">&amp;</span>rhs.to_string();
-
+        nc.inner += rhs.as_ref();
         nc
     }
 }
@@ -2557,105 +2516,76 @@
             },
         }
     }
+}
 
-    <span class="attr">#[allow(clippy::inherent_to_string)]
-    #[must_use]
-    </span><span class="kw">pub fn </span>to_string(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
-        <span class="kw">trait </span>UnwrapWith {
-            <span class="kw">fn </span>unwrap_with(<span class="kw-2">&amp;</span><span class="self">self</span>, n: usize) -&gt; usize;
-        }
-
-        <span class="kw">impl </span>UnwrapWith <span class="kw">for </span>bool {
-            <span class="kw">fn </span>unwrap_with(<span class="kw-2">&amp;</span><span class="self">self</span>, n: usize) -&gt; usize {
-                <span class="kw">if </span><span class="kw-2">*</span><span class="self">self </span>{
-                    n
-                } <span class="kw">else </span>{
-                    <span class="number">0
-                </span>}
-            }
-        }
-
-        <span class="kw">let </span>capacity = <span class="self">self</span>.inner.len()
-            + <span class="self">self</span>.spoiler.unwrap_with(<span class="number">4</span>)
-            + <span class="self">self</span>.bold.unwrap_with(<span class="number">4</span>)
-            + <span class="self">self</span>.italic.unwrap_with(<span class="number">2</span>)
-            + <span class="self">self</span>.strikethrough.unwrap_with(<span class="number">4</span>)
-            + <span class="self">self</span>.underline.unwrap_with(<span class="number">4</span>)
-            + <span class="self">self</span>.code.unwrap_with(<span class="number">2</span>);
-
-        <span class="kw">let </span><span class="kw-2">mut </span>new_str = String::with_capacity(capacity);
-
+<span class="kw">impl </span>std::fmt::Display <span class="kw">for </span>Content {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, fmt: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; std::fmt::Result {
         <span class="kw">if </span><span class="self">self</span>.spoiler {
-            new_str.push_str(<span class="string">&quot;||&quot;</span>);
+            fmt.write_str(<span class="string">&quot;||&quot;</span>)<span class="question-mark">?</span>;
         }
 
         <span class="kw">if </span><span class="self">self</span>.bold {
-            new_str.push_str(<span class="string">&quot;**&quot;</span>);
+            fmt.write_str(<span class="string">&quot;**&quot;</span>)<span class="question-mark">?</span>;
         }
 
         <span class="kw">if </span><span class="self">self</span>.italic {
-            new_str.push(<span class="string">&#39;*&#39;</span>);
+            fmt.write_char(<span class="string">&#39;*&#39;</span>)<span class="question-mark">?</span>;
         }
 
         <span class="kw">if </span><span class="self">self</span>.strikethrough {
-            new_str.push_str(<span class="string">&quot;~~&quot;</span>);
+            fmt.write_str(<span class="string">&quot;~~&quot;</span>)<span class="question-mark">?</span>;
         }
 
         <span class="kw">if </span><span class="self">self</span>.underline {
-            new_str.push_str(<span class="string">&quot;__&quot;</span>);
+            fmt.write_str(<span class="string">&quot;__&quot;</span>)<span class="question-mark">?</span>;
         }
 
         <span class="kw">if </span><span class="self">self</span>.code {
-            new_str.push(<span class="string">&#39;`&#39;</span>);
+            fmt.write_char(<span class="string">&#39;`&#39;</span>)<span class="question-mark">?</span>;
         }
 
-        new_str.push_str(<span class="kw-2">&amp;</span><span class="self">self</span>.inner);
+        fmt.write_str(<span class="kw-2">&amp;</span><span class="self">self</span>.inner)<span class="question-mark">?</span>;
 
         <span class="kw">if </span><span class="self">self</span>.code {
-            new_str.push(<span class="string">&#39;`&#39;</span>);
+            fmt.write_char(<span class="string">&#39;`&#39;</span>)<span class="question-mark">?</span>;
         }
 
         <span class="kw">if </span><span class="self">self</span>.underline {
-            new_str.push_str(<span class="string">&quot;__&quot;</span>);
+            fmt.write_str(<span class="string">&quot;__&quot;</span>)<span class="question-mark">?</span>;
         }
 
         <span class="kw">if </span><span class="self">self</span>.strikethrough {
-            new_str.push_str(<span class="string">&quot;~~&quot;</span>);
+            fmt.write_str(<span class="string">&quot;~~&quot;</span>)<span class="question-mark">?</span>;
         }
 
         <span class="kw">if </span><span class="self">self</span>.italic {
-            new_str.push(<span class="string">&#39;*&#39;</span>);
+            fmt.write_char(<span class="string">&#39;*&#39;</span>)<span class="question-mark">?</span>;
         }
 
         <span class="kw">if </span><span class="self">self</span>.bold {
-            new_str.push_str(<span class="string">&quot;**&quot;</span>);
+            fmt.write_str(<span class="string">&quot;**&quot;</span>)<span class="question-mark">?</span>;
         }
 
         <span class="kw">if </span><span class="self">self</span>.spoiler {
-            new_str.push_str(<span class="string">&quot;||&quot;</span>);
+            fmt.write_str(<span class="string">&quot;||&quot;</span>)<span class="question-mark">?</span>;
         }
 
-        new_str
+        <span class="prelude-val">Ok</span>(())
     }
 }
 
-<span class="kw">impl</span>&lt;T: fmt::Display&gt; From&lt;T&gt; <span class="kw">for </span>Content {
+<span class="kw">impl</span>&lt;T: Into&lt;String&gt;&gt; From&lt;T&gt; <span class="kw">for </span>Content {
     <span class="kw">fn </span>from(t: T) -&gt; Content {
         Content {
-            italic: <span class="bool-val">false</span>,
-            bold: <span class="bool-val">false</span>,
-            strikethrough: <span class="bool-val">false</span>,
-            inner: t.to_string(),
-            code: <span class="bool-val">false</span>,
-            underline: <span class="bool-val">false</span>,
-            spoiler: <span class="bool-val">false</span>,
+            inner: t.into(),
+            ..Default::default()
         }
     }
 }
 
 <span class="kw">fn </span>normalize(text: <span class="kw-2">&amp;</span>str) -&gt; String {
-    <span class="comment">// Remove invite links and popular scam websites, mostly to prevent the
-    // current user from triggering various ad detectors and prevent embeds.
+    <span class="comment">// Remove invite links and popular scam websites, mostly to prevent the current user from
+    // triggering various ad detectors and prevent embeds.
     </span>text.replace(<span class="string">&quot;discord.gg&quot;</span>, <span class="string">&quot;discord\u{2024}gg&quot;</span>)
         .replace(<span class="string">&quot;discord.me&quot;</span>, <span class="string">&quot;discord\u{2024}me&quot;</span>)
         .replace(<span class="string">&quot;discordlist.net&quot;</span>, <span class="string">&quot;discordlist\u{2024}net&quot;</span>)
@@ -2671,8 +2601,8 @@
             </span><span class="string">&#39;\u{200D}&#39;</span>, <span class="comment">// Zero-width joiner
             </span><span class="string">&#39;\u{200C}&#39;</span>, <span class="comment">// Zero-width non-joiner
         </span>], <span class="string">&quot; &quot;</span>)
-        <span class="comment">// Remove everyone and here mentions. Has to be put after ZWS replacement
-        // because it utilises it itself.
+        <span class="comment">// Remove everyone and here mentions. Has to be put after ZWS replacement because it
+        // utilises it itself.
         </span>.replace(<span class="string">&quot;@everyone&quot;</span>, <span class="string">&quot;@\u{200B}everyone&quot;</span>)
         .replace(<span class="string">&quot;@here&quot;</span>, <span class="string">&quot;@\u{200B}here&quot;</span>)
 }
@@ -2717,7 +2647,7 @@
             .emoji(<span class="kw-2">&amp;</span>Emoji {
                 animated: <span class="bool-val">false</span>,
                 available: <span class="bool-val">true</span>,
-                id: EmojiId(<span class="number">32</span>),
+                id: EmojiId::new(<span class="number">32</span>),
                 name: <span class="string">&quot;Rohrkatze&quot;</span>.to_string(),
                 managed: <span class="bool-val">false</span>,
                 require_colons: <span class="bool-val">true</span>,
@@ -2725,8 +2655,12 @@
                 user: <span class="prelude-val">None</span>,
             })
             .build();
-        <span class="kw">let </span>content_mentions =
-            MessageBuilder::new().channel(<span class="number">1</span>).mention(<span class="kw-2">&amp;</span>UserId(<span class="number">2</span>)).role(<span class="number">3</span>).user(<span class="number">4</span>).build();
+        <span class="kw">let </span>content_mentions = MessageBuilder::new()
+            .channel(ChannelId::new(<span class="number">1</span>))
+            .mention(<span class="kw-2">&amp;</span>UserId::new(<span class="number">2</span>))
+            .role(RoleId::new(<span class="number">3</span>))
+            .user(UserId::new(<span class="number">4</span>))
+            .build();
         <span class="macro">assert_eq!</span>(content_mentions, <span class="string">&quot;&lt;#1&gt;&lt;@2&gt;&lt;@&amp;3&gt;&lt;@4&gt;&quot;</span>);
         <span class="macro">assert_eq!</span>(content_emoji, <span class="string">&quot;&lt;:Rohrkatze:32&gt;&quot;</span>);
     }

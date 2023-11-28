@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/prefix_argument/macros.rs`."><title>macros.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (f5dc2653f 2023-11-25)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/prefix_argument/macros.rs`."><title>macros.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -457,7 +457,7 @@
     ) =&gt; {
         <span class="kw">let </span>input = <span class="macro-nonterminal">$args</span>.trim_start();
         <span class="kw">if </span>input.is_empty() {
-            <span class="macro-nonterminal">$error </span>= (<span class="macro-nonterminal">$crate::TooFewArguments</span>.into(), <span class="prelude-val">None</span>);
+            <span class="macro-nonterminal">$error </span>= (<span class="macro-nonterminal">$crate::TooFewArguments::default</span>().into(), <span class="prelude-val">None</span>);
         } <span class="kw">else </span>{
             <span class="kw">match </span>&lt;<span class="macro-nonterminal">$</span><span class="kw">type as </span><span class="macro-nonterminal">$crate::serenity_prelude::ArgumentConvert</span>&gt;::convert(
                 <span class="macro-nonterminal">$ctx</span>, <span class="macro-nonterminal">$msg</span>.guild_id, <span class="prelude-val">Some</span>(<span class="macro-nonterminal">$msg</span>.channel_id), input
@@ -513,15 +513,13 @@ Macro for parsing an argument string into multiple parameter types.
 An invocation of this macro is generated by the [`crate::command`] macro, so you usually don&#39;t need
 to use this macro directly.
 
-```rust
+```rust,no_run
 # #[tokio::main] async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 # use poise::serenity_prelude as serenity;
 # let ctx = serenity::Context {
-#     data: std::sync::Arc::new(serenity::RwLock::new(serenity::TypeMap::new())),
-#     shard: ::serenity::client::bridge::gateway::ShardMessenger::new(
-#         futures::channel::mpsc::unbounded().0,
-#     ),
-#     shard_id: Default::default(),
+#     data: Default::default(),
+#     shard: todo!(),
+#     shard_id: todo!(),
 #     http: std::sync::Arc::new(::serenity::http::Http::new(&quot;example&quot;)),
 #     #[cfg(feature = &quot;cache&quot;)]
 #     cache: Default::default(),
@@ -570,7 +568,7 @@ assert_eq!(
             <span class="kw">let </span>attachment_index = <span class="macro-nonterminal">$attachment_index</span>;
 
             <span class="kw">let </span><span class="kw-2">mut </span>error: (Box&lt;<span class="kw">dyn </span>std::error::Error + Send + Sync&gt;, <span class="prelude-ty">Option</span>&lt;String&gt;)
-                = (Box::new(<span class="macro-nonterminal">$crate::TooManyArguments</span>) <span class="kw">as _</span>, <span class="prelude-val">None</span>);
+                = (Box::new(<span class="macro-nonterminal">$crate::TooManyArguments </span>{ __non_exhaustive: () }) <span class="kw">as _</span>, <span class="prelude-val">None</span>);
 
             <span class="macro-nonterminal">$</span><span class="macro">crate::_parse_prefix!</span>(
                 <span class="macro-nonterminal">ctx </span>msg args attachment_index =&gt; [error]
@@ -588,15 +586,16 @@ assert_eq!(
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
     <span class="attr">#[tokio::test]
+    #[cfg(not(test))] </span><span class="comment">// Cannot fake serenity Context anymore
     </span><span class="kw">async fn </span>test_parse_args() {
         <span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
 
         <span class="comment">// Create dummy discord context; it will not be accessed in this test
         </span><span class="kw">let </span>ctx = serenity::Context {
-            data: std::sync::Arc::new(serenity::RwLock::new(serenity::TypeMap::new())),
-            shard: ::serenity::client::bridge::gateway::ShardMessenger::new(
-                futures::channel::mpsc::unbounded().<span class="number">0</span>,
-            ),
+            data: std::sync::Arc::new(serenity::prelude::RwLock::new(
+                serenity::prelude::TypeMap::new(),
+            )),
+            shard: serenity::ShardMessenger::new(futures::channel::mpsc::unbounded().<span class="number">0</span>),
             shard_id: Default::default(),
             http: std::sync::Arc::new(::serenity::http::Http::new(<span class="string">&quot;example&quot;</span>)),
             <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
@@ -636,8 +635,9 @@ assert_eq!(
                 <span class="string">&quot;yoo&quot;</span>.into(),
                 <span class="kw">crate</span>::CodeBlock {
                     code: <span class="string">&quot;that&#39;s cool&quot;</span>.into(),
-                    language: <span class="prelude-val">None
-                </span>},
+                    language: <span class="prelude-val">None</span>,
+                    __non_exhaustive: (),
+                },
                 <span class="string">&quot;!&quot;</span>.into()
             ),
         );

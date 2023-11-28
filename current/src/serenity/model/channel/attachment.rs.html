@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/model/channel/attachment.rs`."><title>attachment.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (f5dc2653f 2023-11-25)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.12.0/src/model/channel/attachment.rs`."><title>attachment.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -137,37 +137,75 @@
 <a href="#137" id="137">137</a>
 <a href="#138" id="138">138</a>
 <a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
 </pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span>reqwest::Client <span class="kw">as </span>ReqwestClient;
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
-<span class="kw">use </span><span class="kw">crate</span>::model::id::AttachmentId;
+<span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::model::utils::is_false;
+
+<span class="kw">fn </span>base64_bytes&lt;<span class="lifetime">&#39;de</span>, D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;Vec&lt;u8&gt;&gt;, D::Error&gt;
+<span class="kw">where
+    </span>D: serde::Deserializer&lt;<span class="lifetime">&#39;de</span>&gt;,
+{
+    <span class="kw">use </span>base64::Engine <span class="kw">as _</span>;
+    <span class="kw">use </span>serde::de::Error;
+
+    <span class="kw">let </span>base64 = &lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt;::deserialize(deserializer)<span class="question-mark">?</span>;
+    <span class="kw">let </span>bytes = <span class="kw">match </span>base64 {
+        <span class="prelude-val">Some</span>(base64) =&gt; {
+            <span class="prelude-val">Some</span>(base64::prelude::BASE64_STANDARD.decode(base64).map_err(D::Error::custom)<span class="question-mark">?</span>)
+        },
+        <span class="prelude-val">None </span>=&gt; <span class="prelude-val">None</span>,
+    };
+    <span class="prelude-val">Ok</span>(bytes)
+}
 
 <span class="doccomment">/// A file uploaded with a message. Not to be confused with [`Embed`]s.
 ///
 /// [Discord docs](https://discord.com/developers/docs/resources/channel#attachment-object).
 ///
 /// [`Embed`]: super::Embed
-</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;typesize&quot;</span>, derive(typesize::derive::TypeSize))]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>Attachment {
     <span class="doccomment">/// The unique ID given to this attachment.
     </span><span class="kw">pub </span>id: AttachmentId,
-    <span class="doccomment">/// The filename of the file that was uploaded. This is equivalent to what
-    /// the uploader had their file named.
+    <span class="doccomment">/// The filename of the file that was uploaded. This is equivalent to what the uploader had
+    /// their file named.
     </span><span class="kw">pub </span>filename: String,
+    <span class="doccomment">/// Sescription for the file (max 1024 characters).
+    </span><span class="kw">pub </span>description: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="doccomment">/// If the attachment is an image, then the height of the image is provided.
-    </span><span class="kw">pub </span>height: <span class="prelude-ty">Option</span>&lt;u64&gt;,
+    </span><span class="kw">pub </span>height: <span class="prelude-ty">Option</span>&lt;u32&gt;,
     <span class="doccomment">/// The proxy URL.
     </span><span class="kw">pub </span>proxy_url: String,
     <span class="doccomment">/// The size of the file in bytes.
-    </span><span class="kw">pub </span>size: u64,
+    </span><span class="kw">pub </span>size: u32,
     <span class="doccomment">/// The URL of the uploaded attachment.
     </span><span class="kw">pub </span>url: String,
     <span class="doccomment">/// If the attachment is an image, then the width of the image is provided.
-    </span><span class="kw">pub </span>width: <span class="prelude-ty">Option</span>&lt;u64&gt;,
+    </span><span class="kw">pub </span>width: <span class="prelude-ty">Option</span>&lt;u32&gt;,
     <span class="doccomment">/// The attachment&#39;s [media type].
     ///
     /// [media type]: https://en.wikipedia.org/wiki/Media_type
@@ -176,18 +214,30 @@
     ///
     /// Ephemeral attachments will automatically be removed after a set period of time.
     ///
-    /// Ephemeral attachments on messages are guaranteed to be available as long as
-    /// the message itself exists.
+    /// Ephemeral attachments on messages are guaranteed to be available as long as the message
+    /// itself exists.
     </span><span class="attr">#[serde(default, skip_serializing_if = <span class="string">&quot;is_false&quot;</span>)]
     </span><span class="kw">pub </span>ephemeral: bool,
+    <span class="doccomment">/// The duration of the audio file (present if [`MessageFlags::IS_VOICE_MESSAGE`]).
+    </span><span class="kw">pub </span>duration_secs: <span class="prelude-ty">Option</span>&lt;f64&gt;,
+    <span class="doccomment">/// List of bytes representing a sampled waveform (present if
+    /// [`MessageFlags::IS_VOICE_MESSAGE`]).
+    ///
+    /// The waveform is intended to be a preview of the entire voice message, with 1 byte per
+    /// datapoint. Clients sample the recording at most once per 100 milliseconds, but will
+    /// downsample so that no more than 256 datapoints are in the waveform.
+    ///
+    /// The waveform details are a Discord implementation detail and may change without warning or
+    /// documentation.
+    </span><span class="attr">#[serde(default, deserialize_with = <span class="string">&quot;base64_bytes&quot;</span>)]
+    </span><span class="kw">pub </span>waveform: <span class="prelude-ty">Option</span>&lt;Vec&lt;u8&gt;&gt;,
 }
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">impl </span>Attachment {
-    <span class="doccomment">/// If this attachment is an image, then a tuple of the width and height
-    /// in pixels is returned.
+    <span class="doccomment">/// If this attachment is an image, then a tuple of the width and height in pixels is returned.
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>dimensions(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(u64, u64)&gt; {
+    </span><span class="kw">pub fn </span>dimensions(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(u32, u32)&gt; {
         <span class="self">self</span>.width.and_then(|width| <span class="self">self</span>.height.map(|height| (width, height)))
     }
 
@@ -198,8 +248,6 @@
     /// Download all of the attachments associated with a [`Message`]:
     ///
     /// ```rust,no_run
-    /// # #[cfg(feature = &quot;client&quot;)]
-    /// # async fn run() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     /// use std::io::Write;
     /// use std::path::Path;
     ///
@@ -208,9 +256,10 @@
     /// use tokio::fs::File;
     /// use tokio::io::AsyncWriteExt;
     ///
-    /// struct Handler;
+    /// # struct Handler;
     ///
     /// #[serenity::async_trait]
+    /// # #[cfg(feature = &quot;client&quot;)]
     /// impl EventHandler for Handler {
     ///     async fn message(&amp;self, context: Context, mut message: Message) {
     ///         for attachment in message.attachments {
@@ -247,27 +296,14 @@
     ///                 .await;
     ///         }
     ///     }
-    ///
-    ///     async fn ready(&amp;self, _: Context, ready: Ready) {
-    ///         println!(&quot;{} is connected!&quot;, ready.user.name);
-    ///     }
     /// }
-    /// let token = std::env::var(&quot;DISCORD_TOKEN&quot;)?;
-    /// let mut client =
-    ///     Client::builder(&amp;token, GatewayIntents::default()).event_handler(Handler).await?;
-    ///
-    /// client.start().await?;
-    /// #     Ok(())
-    /// # }
     /// ```
     ///
     /// # Errors
     ///
-    /// Returns an [`Error::Io`] when there is a problem reading the contents
-    /// of the HTTP response.
+    /// Returns an [`Error::Io`] when there is a problem reading the contents of the HTTP response.
     ///
-    /// Returns an [`Error::Http`] when there is a problem retrieving the
-    /// attachment.
+    /// Returns an [`Error::Http`] when there is a problem retrieving the attachment.
     ///
     /// [`Message`]: super::Message
     </span><span class="kw">pub async fn </span>download(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;u8&gt;&gt; {

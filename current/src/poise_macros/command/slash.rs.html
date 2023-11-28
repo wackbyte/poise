@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `macros/src/command/slash.rs`."><title>slash.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise_macros" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (f5dc2653f 2023-11-25)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `macros/src/command/slash.rs`."><title>slash.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise_macros" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -221,9 +221,6 @@
 <a href="#221" id="221">221</a>
 <a href="#222" id="222">222</a>
 <a href="#223" id="223">223</a>
-<a href="#224" id="224">224</a>
-<a href="#225" id="225">225</a>
-<a href="#226" id="226">226</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::Invocation;
 <span class="kw">use </span><span class="kw">crate</span>::util::extract_type_parameter;
 <span class="kw">use </span>quote::format_ident;
@@ -268,21 +265,15 @@
                     <span class="kw">let </span>choices_stream = <span class="macro">::poise::into_stream!</span>(
                         #autocomplete_fn(ctx.into(), partial).<span class="kw">await
                     </span>);
-                    <span class="kw">let </span>choices_json = choices_stream
+                    <span class="kw">let </span>choices_vec = choices_stream
                         .take(<span class="number">25</span>)
                         <span class="comment">// T or AutocompleteChoice&lt;T&gt; -&gt; AutocompleteChoice&lt;T&gt;
-                        </span>.map(|value| poise::AutocompleteChoice::from(value))
-                        <span class="comment">// AutocompleteChoice&lt;T&gt; -&gt; serde_json::Value
-                        </span>.map(|choice| <span class="macro">poise::serenity_prelude::json::json!</span>({
-                            <span class="string">&quot;name&quot;</span>: choice.name,
-                            <span class="string">&quot;value&quot;</span>: choice.value,
-                        }))
+                        </span>.map(poise::serenity_prelude::AutocompleteChoice::from)
                         .collect()
                         .<span class="kw">await</span>;
 
                     <span class="kw">let </span><span class="kw-2">mut </span>response = poise::serenity_prelude::CreateAutocompleteResponse::default();
-                    response.set_choices(poise::serenity_prelude::json::Value::Array(choices_json));
-                    <span class="prelude-val">Ok</span>(response)
+                    <span class="prelude-val">Ok</span>(response.set_choices(choices_vec))
                 })) }
             }
             <span class="prelude-val">None </span>=&gt; <span class="macro">quote::quote! </span>{ <span class="prelude-val">None </span>},
@@ -291,31 +282,32 @@
         <span class="comment">// We can just cast to f64 here because Discord only uses f64 precision anyways
         // TODO: move this to poise::CommandParameter::{min, max} fields
         </span><span class="kw">let </span>min_value_setter = <span class="kw">match </span><span class="kw-2">&amp;</span>param.args.min {
-            <span class="prelude-val">Some</span>(x) =&gt; <span class="macro">quote::quote! </span>{ o.min_number_value(#x <span class="kw">as </span>f64); },
+            <span class="prelude-val">Some</span>(x) =&gt; <span class="macro">quote::quote! </span>{ .min_number_value(#x <span class="kw">as </span>f64) },
             <span class="prelude-val">None </span>=&gt; <span class="macro">quote::quote! </span>{},
         };
         <span class="kw">let </span>max_value_setter = <span class="kw">match </span><span class="kw-2">&amp;</span>param.args.max {
-            <span class="prelude-val">Some</span>(x) =&gt; <span class="macro">quote::quote! </span>{ o.max_number_value(#x <span class="kw">as </span>f64); },
+            <span class="prelude-val">Some</span>(x) =&gt; <span class="macro">quote::quote! </span>{ .max_number_value(#x <span class="kw">as </span>f64) },
             <span class="prelude-val">None </span>=&gt; <span class="macro">quote::quote! </span>{},
         };
         <span class="comment">// TODO: move this to poise::CommandParameter::{min_length, max_length} fields
         </span><span class="kw">let </span>min_length_setter = <span class="kw">match </span><span class="kw-2">&amp;</span>param.args.min_length {
-            <span class="prelude-val">Some</span>(x) =&gt; <span class="macro">quote::quote! </span>{ o.min_length(#x); },
+            <span class="prelude-val">Some</span>(x) =&gt; <span class="macro">quote::quote! </span>{ .min_length(#x) },
             <span class="prelude-val">None </span>=&gt; <span class="macro">quote::quote! </span>{},
         };
         <span class="kw">let </span>max_length_setter = <span class="kw">match </span><span class="kw-2">&amp;</span>param.args.max_length {
-            <span class="prelude-val">Some</span>(x) =&gt; <span class="macro">quote::quote! </span>{ o.max_length(#x); },
+            <span class="prelude-val">Some</span>(x) =&gt; <span class="macro">quote::quote! </span>{ .max_length(#x) },
             <span class="prelude-val">None </span>=&gt; <span class="macro">quote::quote! </span>{},
         };
         <span class="kw">let </span>type_setter = <span class="kw">match </span>inv.args.slash_command {
             <span class="bool-val">true </span>=&gt; <span class="macro">quote::quote! </span>{ <span class="prelude-val">Some</span>(|o| {
-                <span class="macro">poise::create_slash_argument!</span>(#type_, o);
+                <span class="macro">poise::create_slash_argument!</span>(#type_, o)
                 #min_value_setter #max_value_setter
                 #min_length_setter #max_length_setter
             }) },
             <span class="bool-val">false </span>=&gt; <span class="macro">quote::quote! </span>{ <span class="prelude-val">None </span>},
         };
         <span class="comment">// TODO: theoretically a problem that we don&#39;t store choices for non slash commands
+        // TODO: move this to poise::CommandParameter::choices (is there a reason not to?)
         </span><span class="kw">let </span>choices = <span class="kw">match </span>inv.args.slash_command {
             <span class="bool-val">true </span>=&gt; <span class="macro">quote::quote! </span>{ <span class="macro">poise::slash_argument_choices!</span>(#type_) },
             <span class="bool-val">false </span>=&gt; <span class="macro">quote::quote! </span>{ <span class="macro">vec!</span>[] },
@@ -344,6 +336,7 @@
                     type_setter: #type_setter,
                     choices: #choices,
                     autocomplete_callback: #autocomplete_callback,
+                    __non_exhaustive: (),
                 }
             },
             required,
@@ -394,28 +387,29 @@
                 ctx.serenity_context, ctx.interaction, ctx.args =&gt;
                 #( (#param_names: #param_types), )*
             ).<span class="kw">await</span>.map_err(|error| <span class="kw">match </span>error {
-                poise::SlashArgError::CommandStructureMismatch(description) =&gt; {
-                    poise::FrameworkError::CommandStructureMismatch { ctx, description }
+                poise::SlashArgError::CommandStructureMismatch { description, .. } =&gt; {
+                    poise::FrameworkError::new_command_structure_mismatch(ctx, description)
                 },
-                poise::SlashArgError::Parse { error, input } =&gt; {
-                    poise::FrameworkError::ArgumentParse {
-                        ctx: ctx.into(),
+                poise::SlashArgError::Parse { error, input, .. } =&gt; {
+                    poise::FrameworkError::new_argument_parse(
+                        ctx.into(),
+                        <span class="prelude-val">Some</span>(input),
                         error,
-                        input: <span class="prelude-val">Some</span>(input),
-                    }
+                    )
                 },
+                poise::SlashArgError::__NonExhaustive =&gt; <span class="macro">unreachable!</span>(),
             })<span class="question-mark">?</span>;
 
             <span class="kw">if </span>!ctx.framework.options.manual_cooldowns {
-                ctx.command.cooldowns.lock().unwrap().start_cooldown(ctx.into());
+                ctx.command.cooldowns.lock().unwrap().start_cooldown(ctx.cooldown_context());
             }
 
             inner(ctx.into(), #( #param_identifiers, )<span class="kw-2">*</span>)
                 .<span class="kw">await
-                </span>.map_err(|error| poise::FrameworkError::Command {
+                </span>.map_err(|error| poise::FrameworkError::new_command(
+                    ctx.into(),
                     error,
-                    ctx: ctx.into(),
-                })
+                ))
         })
     })
 }
@@ -437,15 +431,15 @@
         &lt;#param_type <span class="kw">as </span>::poise::ContextMenuParameter&lt;<span class="kw">_</span>, <span class="kw">_</span>&gt;&gt;::to_action(|ctx, value| {
             Box::pin(<span class="kw">async move </span>{
                 <span class="kw">if </span>!ctx.framework.options.manual_cooldowns {
-                    ctx.command.cooldowns.lock().unwrap().start_cooldown(ctx.into());
+                    ctx.command.cooldowns.lock().unwrap().start_cooldown(ctx.cooldown_context());
                 }
 
                 inner(ctx.into(), value)
                     .<span class="kw">await
-                    </span>.map_err(|error| poise::FrameworkError::Command {
+                    </span>.map_err(|error| poise::FrameworkError::new_command(
+                        ctx.into(),
                         error,
-                        ctx: ctx.into(),
-                    })
+                    ))
             })
         })
     })

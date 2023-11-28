@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/http/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (f5dc2653f 2023-11-25)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.12.0/src/http/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -191,51 +191,34 @@
 <a href="#191" id="191">191</a>
 <a href="#192" id="192">192</a>
 <a href="#193" id="193">193</a>
-<a href="#194" id="194">194</a>
-<a href="#195" id="195">195</a>
-<a href="#196" id="196">196</a>
-<a href="#197" id="197">197</a>
-<a href="#198" id="198">198</a>
-<a href="#199" id="199">199</a>
-<a href="#200" id="200">200</a>
-<a href="#201" id="201">201</a>
-<a href="#202" id="202">202</a>
-<a href="#203" id="203">203</a>
-<a href="#204" id="204">204</a>
-<a href="#205" id="205">205</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! The HTTP module which provides functions for performing requests to
-//! endpoints in Discord&#39;s API.
+</pre></div><pre class="rust"><code><span class="doccomment">//! The HTTP module which provides functions for performing requests to endpoints in Discord&#39;s API.
 //!
-//! An important function of the REST API is ratelimiting. Requests to endpoints
-//! are ratelimited to prevent spam, and once ratelimited Discord will stop
-//! performing requests. The library implements protection to pre-emptively
-//! ratelimit, to ensure that no wasted requests are made.
+//! An important function of the REST API is ratelimiting. Requests to endpoints are ratelimited to
+//! prevent spam, and once ratelimited Discord will stop performing requests. The library
+//! implements protection to pre-emptively ratelimit, to ensure that no wasted requests are made.
 //!
 //! The HTTP module comprises of two types of requests:
-//!
 //! - REST API requests, which require an authorization token;
 //! - Other requests, which do not require an authorization token.
 //!
-//! The former require a [`Client`] to have logged in, while the latter may be
-//! made regardless of any other usage of the library.
+//! The former require a [`Client`] to have logged in, while the latter may be made regardless of
+//! any other usage of the library.
 //!
 //! If a request spuriously fails, it will be retried once.
 //!
-//! Note that you may want to perform requests through a [model]s&#39;
-//! instance methods where possible, as they each offer different
-//! levels of a high-level interface to the HTTP module.
+//! Note that you may want to perform requests through a [model]s&#39; instance methods where possible,
+//! as they each offer different levels of a high-level interface to the HTTP module.
 //!
 //! [`Client`]: crate::Client
 //! [model]: crate::model
 
-</span><span class="kw">pub mod </span>client;
-<span class="kw">pub mod </span>error;
-<span class="kw">pub mod </span>multipart;
-<span class="kw">pub mod </span>ratelimiting;
-<span class="kw">pub mod </span>request;
-<span class="kw">pub mod </span>routing;
-<span class="kw">pub mod </span>typing;
-<span class="kw">mod </span>utils;
+</span><span class="kw">mod </span>client;
+<span class="kw">mod </span>error;
+<span class="kw">mod </span>multipart;
+<span class="kw">mod </span>ratelimiting;
+<span class="kw">mod </span>request;
+<span class="kw">mod </span>routing;
+<span class="kw">mod </span>typing;
 
 <span class="kw">use </span>std::sync::Arc;
 
@@ -243,31 +226,31 @@
 <span class="kw">pub use </span>reqwest::StatusCode;
 
 <span class="kw">pub use </span><span class="self">self</span>::client::<span class="kw-2">*</span>;
-<span class="kw">pub use </span><span class="self">self</span>::error::Error <span class="kw">as </span>HttpError;
-<span class="kw">use </span><span class="self">self</span>::request::Request;
+<span class="kw">pub use </span><span class="self">self</span>::error::<span class="kw-2">*</span>;
+<span class="kw">pub use </span><span class="self">self</span>::multipart::<span class="kw-2">*</span>;
+<span class="kw">pub use </span><span class="self">self</span>::ratelimiting::<span class="kw-2">*</span>;
+<span class="kw">pub use </span><span class="self">self</span>::request::<span class="kw-2">*</span>;
+<span class="kw">pub use </span><span class="self">self</span>::routing::<span class="kw-2">*</span>;
 <span class="kw">pub use </span><span class="self">self</span>::typing::<span class="kw-2">*</span>;
 <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::cache::Cache;
 <span class="attr">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::client::Context;
 <span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
-<span class="attr">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
-</span><span class="kw">use </span><span class="kw">crate</span>::CacheAndHttp;
 
-<span class="doccomment">/// This trait will be required by functions that need [`Http`] and can
-/// optionally use a [`Cache`] to potentially avoid REST-requests.
+<span class="doccomment">/// This trait will be required by functions that need [`Http`] and can optionally use a [`Cache`]
+/// to potentially avoid REST-requests.
 ///
-/// The types [`Context`] and [`Http`] implement this trait
-/// and thus passing these to functions expecting `impl CacheHttp` is possible. For the full list
-/// of implementations, see the Implementors and Implementations on Foreign Types section in the
-/// generated docs.
+/// The types [`Context`] and [`Http`] implement this trait and thus passing these to functions
+/// expecting `impl CacheHttp` is possible. For the full list of implementations, see the
+/// Implementors and Implementations on Foreign Types section in the generated docs.
 ///
-/// In a situation where you have the `cache`-feature enabled but you do not
-/// pass a cache, the function will behave as if no `cache`-feature is active.
+/// In a situation where you have the `cache`-feature enabled but you do not pass a cache, the
+/// function will behave as if no `cache`-feature is active.
 ///
-/// If you are calling a function that expects `impl CacheHttp` as argument
-/// and you wish to utilise the `cache`-feature but you got no access to a
-/// [`Context`], you can pass a tuple of `(&amp;Arc&lt;Cache&gt;, &amp;Http)`.
+/// If you are calling a function that expects `impl CacheHttp` as argument and you wish to utilise
+/// the `cache`-feature but you got no access to a [`Context`], you can pass a tuple of
+/// `(&amp;Arc&lt;Cache&gt;, &amp;Http)`.
 </span><span class="kw">pub trait </span>CacheHttp: Send + Sync {
     <span class="kw">fn </span>http(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Http;
 
@@ -306,17 +289,6 @@
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
 </span><span class="kw">impl </span>CacheHttp <span class="kw">for </span>Context {
-    <span class="kw">fn </span>http(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Http {
-        <span class="kw-2">&amp;</span><span class="self">self</span>.http
-    }
-    <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
-    </span><span class="kw">fn </span>cache(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Arc&lt;Cache&gt;&gt; {
-        <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.cache)
-    }
-}
-
-<span class="attr">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
-</span><span class="kw">impl </span>CacheHttp <span class="kw">for </span>CacheAndHttp {
     <span class="kw">fn </span>http(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Http {
         <span class="kw-2">&amp;</span><span class="self">self</span>.http
     }
@@ -375,7 +347,7 @@
 
 <span class="kw">impl </span>LightMethod {
     <span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>reqwest_method(<span class="self">self</span>) -&gt; Method {
+    </span><span class="kw">pub const fn </span>reqwest_method(<span class="self">self</span>) -&gt; Method {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::Delete =&gt; Method::DELETE,
             <span class="self">Self</span>::Get =&gt; Method::GET,
@@ -386,10 +358,7 @@
     }
 }
 
-<span class="doccomment">/// Representation of the method of a query to send for the [`get_guilds`]
-/// function.
-///
-/// [`get_guilds`]: Http::get_guilds
+<span class="doccomment">/// Representation of the method of a query to send for the [`Http::get_guilds`] function.
 </span><span class="attr">#[non_exhaustive]
 </span><span class="kw">pub enum </span>GuildPagination {
     <span class="doccomment">/// The Id to get the guilds after.
@@ -398,14 +367,21 @@
     </span>Before(GuildId),
 }
 
-<span class="doccomment">/// Representation of the method of a query to send for the [`get_scheduled_event_users`] function.
-///
-/// [`get_scheduled_event_users`]: Http::get_scheduled_event_users
+<span class="doccomment">/// Representation of the method of a query to send for the [`Http::get_scheduled_event_users`] and
+/// [`Http::get_bans`] functions.
 </span><span class="attr">#[non_exhaustive]
 </span><span class="kw">pub enum </span>UserPagination {
     <span class="doccomment">/// The Id to get the users after.
     </span>After(UserId),
     <span class="doccomment">/// The Id to get the users before.
     </span>Before(UserId),
+}
+
+<span class="attr">#[derive(Clone, Copy, Debug)]
+#[non_exhaustive]
+</span><span class="kw">pub enum </span>MessagePagination {
+    After(MessageId),
+    Around(MessageId),
+    Before(MessageId),
 }
 </code></pre></div></section></main></body></html>

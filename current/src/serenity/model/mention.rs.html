@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/model/mention.rs`."><title>mention.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (f5dc2653f 2023-11-25)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.12.0/src/model/mention.rs`."><title>mention.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -215,92 +215,6 @@
 <a href="#215" id="215">215</a>
 <a href="#216" id="216">216</a>
 <a href="#217" id="217">217</a>
-<a href="#218" id="218">218</a>
-<a href="#219" id="219">219</a>
-<a href="#220" id="220">220</a>
-<a href="#221" id="221">221</a>
-<a href="#222" id="222">222</a>
-<a href="#223" id="223">223</a>
-<a href="#224" id="224">224</a>
-<a href="#225" id="225">225</a>
-<a href="#226" id="226">226</a>
-<a href="#227" id="227">227</a>
-<a href="#228" id="228">228</a>
-<a href="#229" id="229">229</a>
-<a href="#230" id="230">230</a>
-<a href="#231" id="231">231</a>
-<a href="#232" id="232">232</a>
-<a href="#233" id="233">233</a>
-<a href="#234" id="234">234</a>
-<a href="#235" id="235">235</a>
-<a href="#236" id="236">236</a>
-<a href="#237" id="237">237</a>
-<a href="#238" id="238">238</a>
-<a href="#239" id="239">239</a>
-<a href="#240" id="240">240</a>
-<a href="#241" id="241">241</a>
-<a href="#242" id="242">242</a>
-<a href="#243" id="243">243</a>
-<a href="#244" id="244">244</a>
-<a href="#245" id="245">245</a>
-<a href="#246" id="246">246</a>
-<a href="#247" id="247">247</a>
-<a href="#248" id="248">248</a>
-<a href="#249" id="249">249</a>
-<a href="#250" id="250">250</a>
-<a href="#251" id="251">251</a>
-<a href="#252" id="252">252</a>
-<a href="#253" id="253">253</a>
-<a href="#254" id="254">254</a>
-<a href="#255" id="255">255</a>
-<a href="#256" id="256">256</a>
-<a href="#257" id="257">257</a>
-<a href="#258" id="258">258</a>
-<a href="#259" id="259">259</a>
-<a href="#260" id="260">260</a>
-<a href="#261" id="261">261</a>
-<a href="#262" id="262">262</a>
-<a href="#263" id="263">263</a>
-<a href="#264" id="264">264</a>
-<a href="#265" id="265">265</a>
-<a href="#266" id="266">266</a>
-<a href="#267" id="267">267</a>
-<a href="#268" id="268">268</a>
-<a href="#269" id="269">269</a>
-<a href="#270" id="270">270</a>
-<a href="#271" id="271">271</a>
-<a href="#272" id="272">272</a>
-<a href="#273" id="273">273</a>
-<a href="#274" id="274">274</a>
-<a href="#275" id="275">275</a>
-<a href="#276" id="276">276</a>
-<a href="#277" id="277">277</a>
-<a href="#278" id="278">278</a>
-<a href="#279" id="279">279</a>
-<a href="#280" id="280">280</a>
-<a href="#281" id="281">281</a>
-<a href="#282" id="282">282</a>
-<a href="#283" id="283">283</a>
-<a href="#284" id="284">284</a>
-<a href="#285" id="285">285</a>
-<a href="#286" id="286">286</a>
-<a href="#287" id="287">287</a>
-<a href="#288" id="288">288</a>
-<a href="#289" id="289">289</a>
-<a href="#290" id="290">290</a>
-<a href="#291" id="291">291</a>
-<a href="#292" id="292">292</a>
-<a href="#293" id="293">293</a>
-<a href="#294" id="294">294</a>
-<a href="#295" id="295">295</a>
-<a href="#296" id="296">296</a>
-<a href="#297" id="297">297</a>
-<a href="#298" id="298">298</a>
-<a href="#299" id="299">299</a>
-<a href="#300" id="300">300</a>
-<a href="#301" id="301">301</a>
-<a href="#302" id="302">302</a>
-<a href="#303" id="303">303</a>
 </pre></div><pre class="rust"><code><span class="attr">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">use </span>std::error::Error <span class="kw">as </span>StdError;
 <span class="kw">use </span>std::fmt;
@@ -313,12 +227,10 @@
 
 <span class="doccomment">/// Allows something - such as a channel or role - to be mentioned in a message.
 </span><span class="kw">pub trait </span>Mentionable {
-    <span class="doccomment">/// Creates a [`Mention`] that will be able to notify or create a link to the
-    /// item.
+    <span class="doccomment">/// Creates a [`Mention`] that will be able to notify or create a link to the item.
     ///
-    /// [`Mention`] implements [`Display`], so [`ToString::to_string()`] can
-    /// be called on it, or inserted directly into a [`format_args!`] type of
-    /// macro.
+    /// [`Mention`] implements [`Display`], so [`ToString::to_string()`] can be called on it, or
+    /// inserted directly into a [`format_args!`] type of macro.
     ///
     /// [`Display`]: fmt::Display
     ///
@@ -326,6 +238,7 @@
     ///
     /// ```
     /// # #[cfg(feature = &quot;client&quot;)] {
+    /// # use serenity::builder::CreateMessage;
     /// # use serenity::model::guild::Member;
     /// # use serenity::model::channel::GuildChannel;
     /// # use serenity::model::id::ChannelId;
@@ -338,18 +251,14 @@
     ///     to_channel: GuildChannel,
     ///     rules_channel: ChannelId,
     /// ) -&gt; Result&lt;(), Error&gt; {
-    ///     to_channel
-    ///         .id
-    ///         .send_message(ctx, |m| {
-    ///             m.content(format_args!(
-    ///                 &quot;Hi {member}, welcome to the server! \
-    ///                 Please refer to {rules} for our code of conduct, \
-    ///                 and enjoy your stay.&quot;,
-    ///                 member = member.mention(),
-    ///                 rules = rules_channel.mention(),
-    ///             ))
-    ///         })
-    ///         .await?;
+    ///     let builder = CreateMessage::new().content(format!(
+    ///         &quot;Hi {member}, welcome to the server! \
+    ///         Please refer to {rules} for our code of conduct, \
+    ///         and enjoy your stay.&quot;,
+    ///         member = member.mention(),
+    ///         rules = rules_channel.mention(),
+    ///     ));
+    ///     to_channel.id.send_message(ctx, builder).await?;
     ///     Ok(())
     /// }
     /// # }
@@ -357,9 +266,9 @@
     /// ```
     /// # use serenity::model::id::{RoleId, ChannelId, UserId};
     /// use serenity::model::mention::Mentionable;
-    /// let user: UserId = 1.into();
-    /// let channel: ChannelId = 2.into();
-    /// let role: RoleId = 3.into();
+    /// let user = UserId::new(1);
+    /// let channel = ChannelId::new(2);
+    /// let role = RoleId::new(3);
     /// assert_eq!(
     ///     &quot;&lt;@1&gt; &lt;#2&gt; &lt;@&amp;3&gt;&quot;,
     ///     format!(&quot;{} {} {}&quot;, user.mention(), channel.mention(), role.mention(),),
@@ -368,13 +277,11 @@
     </span><span class="kw">fn </span>mention(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Mention;
 }
 
-<span class="doccomment">/// A struct that represents some way to insert a notification, link, or emoji
-/// into a message.
+<span class="doccomment">/// A struct that represents some way to insert a notification, link, or emoji into a message.
 ///
-/// [`Display`] is the primary way of utilizing a [`Mention`], either in a
-/// [`format_args!`] type of macro or with [`ToString::to_string()`]. A
-/// [`Mention`] is created using [`Mentionable::mention()`], or with
-/// [`From`]/[`Into`].
+/// [`Display`] is the primary way of utilizing a [`Mention`], either in a [`format_args!`] type of
+/// macro or with [`ToString::to_string()`]. A [`Mention`] is created using
+/// [`Mentionable::mention()`], or with [`From`]/[`Into`].
 ///
 /// [`Display`]: fmt::Display
 ///
@@ -383,20 +290,19 @@
 /// ```
 /// # use serenity::model::id::{RoleId, ChannelId, UserId};
 /// use serenity::model::mention::Mention;
-/// let user: UserId = 1.into();
-/// let channel: ChannelId = 2.into();
-/// let role: RoleId = 3.into();
+/// let user = UserId::new(1);
+/// let channel = ChannelId::new(2);
+/// let role = RoleId::new(3);
 /// assert_eq!(
 ///     &quot;&lt;@1&gt; &lt;#2&gt; &lt;@&amp;3&gt;&quot;,
 ///     format!(&quot;{} {} {}&quot;, Mention::from(user), Mention::from(channel), Mention::from(role),),
 /// )
 /// ```
-</span><span class="attr">#[derive(Debug, Clone, Copy)]
+</span><span class="attr">#[derive(Clone, Copy, Debug)]
 </span><span class="kw">pub enum </span>Mention {
     Channel(ChannelId),
     Role(RoleId),
     User(UserId),
-    Emoji(EmojiId, bool),
 }
 
 <span class="macro">macro_rules! </span>mention {
@@ -414,19 +320,14 @@
     ChannelId, Mention::Channel(value);
     RoleId, Mention::Role(value);
     UserId, Mention::User(value);
-    EmojiId, Mention::Emoji(value, <span class="bool-val">false</span>);
-    (EmojiId, bool), Mention::Emoji(value.<span class="number">0</span>, value.<span class="number">1</span>);
 );
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Mention {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            Mention::Channel(id) =&gt; f.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;&lt;#{}&gt;&quot;</span>, id.<span class="number">0</span>)),
-            Mention::Role(id) =&gt; f.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;&lt;@&amp;{}&gt;&quot;</span>, id.<span class="number">0</span>)),
-            Mention::User(id) =&gt; f.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;&lt;@{}&gt;&quot;</span>, id.<span class="number">0</span>)),
-            Mention::Emoji(id, animated) =&gt; {
-                f.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;&lt;{}:omitted:{}&gt;&quot;</span>, <span class="kw">if </span>animated { <span class="string">&quot;a&quot; </span>} <span class="kw">else </span>{ <span class="string">&quot;&quot; </span>}, id.<span class="number">0</span>,))
-            },
+            Mention::Channel(id) =&gt; f.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;&lt;#{id}&gt;&quot;</span>)),
+            Mention::Role(id) =&gt; f.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;&lt;@&amp;{id}&gt;&quot;</span>)),
+            Mention::User(id) =&gt; f.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;&lt;@{id}&gt;&quot;</span>)),
         }
     }
 }
@@ -452,14 +353,12 @@
     <span class="kw">type </span><span class="prelude-val">Err </span>= MentionParseError;
 
     <span class="kw">fn </span>from_str(s: <span class="kw-2">&amp;</span>str) -&gt; StdResult&lt;<span class="self">Self</span>, <span class="self">Self</span>::Err&gt; {
-        <span class="kw">let </span>m = <span class="kw">if let </span><span class="prelude-val">Some</span>(id) = utils::parse_channel(s) {
-            ChannelId(id).mention()
-        } <span class="kw">else if let </span><span class="prelude-val">Some</span>(id) = utils::parse_role(s) {
-            RoleId(id).mention()
-        } <span class="kw">else if let </span><span class="prelude-val">Some</span>(id) = utils::parse_username(s) {
-            UserId(id).mention()
-        } <span class="kw">else if let </span><span class="prelude-val">Some</span>(emoji_ident) = utils::parse_emoji(s) {
-            emoji_ident.mention()
+        <span class="kw">let </span>m = <span class="kw">if let </span><span class="prelude-val">Some</span>(id) = utils::parse_channel_mention(s) {
+            id.mention()
+        } <span class="kw">else if let </span><span class="prelude-val">Some</span>(id) = utils::parse_role_mention(s) {
+            id.mention()
+        } <span class="kw">else if let </span><span class="prelude-val">Some</span>(id) = utils::parse_user_mention(s) {
+            id.mention()
         } <span class="kw">else </span>{
             <span class="kw">return </span><span class="prelude-val">Err</span>(MentionParseError::InvalidMention);
         };
@@ -478,7 +377,7 @@
 }
 
 <span class="macro">macro_rules! </span>mentionable {
-    (<span class="macro-nonterminal">$i</span>:ident: $(<span class="macro-nonterminal">$t</span>:ty, <span class="macro-nonterminal">$e</span>:expr;)<span class="kw-2">*</span>) =&gt; {$(
+    (<span class="macro-nonterminal">$i</span>:ident: <span class="macro-nonterminal">$t</span>:ty, <span class="macro-nonterminal">$e</span>:expr) =&gt; {
         <span class="kw">impl </span>Mentionable <span class="kw">for </span><span class="macro-nonterminal">$t </span>{
             <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>mention(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Mention {
@@ -486,117 +385,46 @@
                 <span class="macro-nonterminal">$e</span>.into()
             }
         }
-    )<span class="kw-2">*</span>};
+    };
 }
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
-</span><span class="macro">mentionable!</span>(value: Channel, value.id(););
+</span><span class="macro">mentionable!</span>(value: Channel, value.id());
 
-<span class="macro">mentionable!</span>(value:
-    ChannelCategory, value.id;
-    GuildChannel, value.id;
-    PrivateChannel, value.id;
-    CurrentUser, value.id;
-    Member, value.user.id;
-    User, value.id;
-    Role, value.id;
-    Emoji, (value.id, value.animated);
-    EmojiIdentifier, (value.id, value.animated);
-);
+<span class="macro">mentionable!</span>(value: GuildChannel, value.id);
+<span class="macro">mentionable!</span>(value: PrivateChannel, value.id);
+<span class="macro">mentionable!</span>(value: Member, value.user.id);
+<span class="macro">mentionable!</span>(value: CurrentUser, value.id);
+<span class="macro">mentionable!</span>(value: User, value.id);
+<span class="macro">mentionable!</span>(value: Role, value.id);
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
 #[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
-    <span class="kw">use </span><span class="kw">crate</span>::utils::Colour;
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mention() {
         <span class="kw">let </span>channel = Channel::Guild(GuildChannel {
-            bitrate: <span class="prelude-val">None</span>,
-            parent_id: <span class="prelude-val">None</span>,
-            guild_id: GuildId(<span class="number">1</span>),
-            kind: ChannelType::Text,
-            id: ChannelId(<span class="number">4</span>),
-            owner_id: <span class="prelude-val">None</span>,
-            last_message_id: <span class="prelude-val">None</span>,
-            last_pin_timestamp: <span class="prelude-val">None</span>,
-            name: <span class="string">&quot;a&quot;</span>.to_string(),
-            permission_overwrites: <span class="macro">vec!</span>[],
-            position: <span class="number">1</span>,
-            topic: <span class="prelude-val">None</span>,
-            user_limit: <span class="prelude-val">None</span>,
-            nsfw: <span class="bool-val">false</span>,
-            rate_limit_per_user: <span class="prelude-val">Some</span>(<span class="number">0</span>),
-            rtc_region: <span class="prelude-val">None</span>,
-            video_quality_mode: <span class="prelude-val">None</span>,
-            message_count: <span class="prelude-val">None</span>,
-            member_count: <span class="prelude-val">None</span>,
-            thread_metadata: <span class="prelude-val">None</span>,
-            member: <span class="prelude-val">None</span>,
-            default_auto_archive_duration: <span class="prelude-val">None</span>,
-            flags: ChannelFlags::empty(),
-            total_message_sent: <span class="prelude-val">None</span>,
-            available_tags: Vec::new(),
-            applied_tags: Vec::new(),
-            default_reaction_emoji: <span class="prelude-val">None</span>,
-            default_thread_rate_limit_per_user: <span class="prelude-val">None</span>,
-            default_sort_order: <span class="prelude-val">None</span>,
+            id: ChannelId::new(<span class="number">4</span>),
+            ..Default::default()
         });
-        <span class="kw">let </span>emoji = Emoji {
-            animated: <span class="bool-val">false</span>,
-            available: <span class="bool-val">true</span>,
-            id: EmojiId(<span class="number">5</span>),
-            name: <span class="string">&quot;a&quot;</span>.to_string(),
-            managed: <span class="bool-val">true</span>,
-            require_colons: <span class="bool-val">true</span>,
-            roles: <span class="macro">vec!</span>[],
-            user: <span class="prelude-val">None</span>,
-        };
         <span class="kw">let </span>role = Role {
-            id: RoleId(<span class="number">2</span>),
-            guild_id: GuildId(<span class="number">1</span>),
-            colour: Colour::ROSEWATER,
-            hoist: <span class="bool-val">false</span>,
-            managed: <span class="bool-val">false</span>,
-            mentionable: <span class="bool-val">false</span>,
-            name: <span class="string">&quot;fake role&quot;</span>.to_string(),
-            permissions: Permissions::empty(),
-            position: <span class="number">1</span>,
-            tags: RoleTags::default(),
-            icon: <span class="prelude-val">None</span>,
-            unicode_emoji: <span class="prelude-val">None</span>,
+            id: RoleId::new(<span class="number">2</span>),
+            ..Default::default()
         };
         <span class="kw">let </span>user = User {
-            id: UserId(<span class="number">6</span>),
-            avatar: <span class="prelude-val">None</span>,
-            bot: <span class="bool-val">false</span>,
-            discriminator: <span class="number">4132</span>,
-            name: <span class="string">&quot;fake&quot;</span>.to_string(),
-            public_flags: <span class="prelude-val">None</span>,
-            banner: <span class="prelude-val">None</span>,
-            accent_colour: <span class="prelude-val">None</span>,
-            member: <span class="prelude-val">None</span>,
+            id: UserId::new(<span class="number">6</span>),
+            ..Default::default()
         };
         <span class="kw">let </span>member = Member {
-            deaf: <span class="bool-val">false</span>,
-            guild_id: GuildId(<span class="number">2</span>),
-            joined_at: <span class="prelude-val">None</span>,
-            mute: <span class="bool-val">false</span>,
-            nick: <span class="prelude-val">None</span>,
-            roles: <span class="macro">vec!</span>[],
             user: user.clone(),
-            pending: <span class="bool-val">false</span>,
-            premium_since: <span class="prelude-val">None</span>,
-            permissions: <span class="prelude-val">None</span>,
-            avatar: <span class="prelude-val">None</span>,
-            communication_disabled_until: <span class="prelude-val">None</span>,
+            ..Default::default()
         };
 
-        <span class="macro">assert_eq!</span>(ChannelId(<span class="number">1</span>).mention().to_string(), <span class="string">&quot;&lt;#1&gt;&quot;</span>);
+        <span class="macro">assert_eq!</span>(ChannelId::new(<span class="number">1</span>).mention().to_string(), <span class="string">&quot;&lt;#1&gt;&quot;</span>);
         <span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
         </span><span class="macro">assert_eq!</span>(channel.mention().to_string(), <span class="string">&quot;&lt;#4&gt;&quot;</span>);
-        <span class="macro">assert_eq!</span>(emoji.mention().to_string(), <span class="string">&quot;&lt;:omitted:5&gt;&quot;</span>);
         <span class="macro">assert_eq!</span>(member.mention().to_string(), <span class="string">&quot;&lt;@6&gt;&quot;</span>);
         <span class="macro">assert_eq!</span>(role.mention().to_string(), <span class="string">&quot;&lt;@&amp;2&gt;&quot;</span>);
         <span class="macro">assert_eq!</span>(role.id.mention().to_string(), <span class="string">&quot;&lt;@&amp;2&gt;&quot;</span>);

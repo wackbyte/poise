@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/reply/builder.rs`."><title>builder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (f5dc2653f 2023-11-25)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/reply/builder.rs`."><title>builder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -246,56 +246,34 @@
 <a href="#246" id="246">246</a>
 <a href="#247" id="247">247</a>
 <a href="#248" id="248">248</a>
-<a href="#249" id="249">249</a>
-<a href="#250" id="250">250</a>
-<a href="#251" id="251">251</a>
-<a href="#252" id="252">252</a>
-<a href="#253" id="253">253</a>
-<a href="#254" id="254">254</a>
-<a href="#255" id="255">255</a>
-<a href="#256" id="256">256</a>
-<a href="#257" id="257">257</a>
-<a href="#258" id="258">258</a>
-<a href="#259" id="259">259</a>
-<a href="#260" id="260">260</a>
-<a href="#261" id="261">261</a>
-<a href="#262" id="262">262</a>
-<a href="#263" id="263">263</a>
-<a href="#264" id="264">264</a>
-<a href="#265" id="265">265</a>
-<a href="#266" id="266">266</a>
-<a href="#267" id="267">267</a>
-<a href="#268" id="268">268</a>
-<a href="#269" id="269">269</a>
-<a href="#270" id="270">270</a>
-<a href="#271" id="271">271</a>
-<a href="#272" id="272">272</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! The builder to create a new reply
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
 
 <span class="doccomment">/// Message builder that abstracts over prefix and application command responses
 </span><span class="attr">#[derive(Default, Clone)]
-</span><span class="kw">pub struct </span>CreateReply&lt;<span class="lifetime">&#39;att</span>&gt; {
+</span><span class="kw">pub struct </span>CreateReply {
     <span class="doccomment">/// Message content.
     </span><span class="kw">pub </span>content: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="doccomment">/// Embeds, if present.
     </span><span class="kw">pub </span>embeds: Vec&lt;serenity::CreateEmbed&gt;,
     <span class="doccomment">/// Message attachments.
-    </span><span class="kw">pub </span>attachments: Vec&lt;serenity::AttachmentType&lt;<span class="lifetime">&#39;att</span>&gt;&gt;,
+    </span><span class="kw">pub </span>attachments: Vec&lt;serenity::CreateAttachment&gt;,
     <span class="doccomment">/// Whether the message is ephemeral (only has an effect in application commands)
-    </span><span class="kw">pub </span>ephemeral: bool,
+    </span><span class="kw">pub </span>ephemeral: <span class="prelude-ty">Option</span>&lt;bool&gt;,
     <span class="doccomment">/// Message components, that is, buttons and select menus.
-    </span><span class="kw">pub </span>components: <span class="prelude-ty">Option</span>&lt;serenity::CreateComponents&gt;,
+    </span><span class="kw">pub </span>components: <span class="prelude-ty">Option</span>&lt;Vec&lt;serenity::CreateActionRow&gt;&gt;,
     <span class="doccomment">/// The allowed mentions for the message.
     </span><span class="kw">pub </span>allowed_mentions: <span class="prelude-ty">Option</span>&lt;serenity::CreateAllowedMentions&gt;,
     <span class="doccomment">/// Whether this message is an inline reply.
     </span><span class="kw">pub </span>reply: bool,
+    <span class="attr">#[doc(hidden)]
+    </span><span class="kw">pub </span>__non_exhaustive: (),
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;att</span>&gt; CreateReply&lt;<span class="lifetime">&#39;att</span>&gt; {
+<span class="kw">impl </span>CreateReply {
     <span class="doccomment">/// Set the content of the message.
-    </span><span class="kw">pub fn </span>content(<span class="kw-2">&amp;mut </span><span class="self">self</span>, content: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>content(<span class="kw-2">mut </span><span class="self">self</span>, content: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.content = <span class="prelude-val">Some</span>(content.into());
         <span class="self">self
     </span>}
@@ -303,12 +281,7 @@
     <span class="doccomment">/// Adds an embed to the message.
     ///
     /// Existing embeds are kept.
-    </span><span class="kw">pub fn </span>embed(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;mut </span>serenity::CreateEmbed) -&gt; <span class="kw-2">&amp;mut </span>serenity::CreateEmbed,
-    ) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="kw">let </span><span class="kw-2">mut </span>embed = serenity::CreateEmbed::default();
-        f(<span class="kw-2">&amp;mut </span>embed);
+    </span><span class="kw">pub fn </span>embed(<span class="kw-2">mut </span><span class="self">self</span>, embed: serenity::CreateEmbed) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.embeds.push(embed);
         <span class="self">self
     </span>}
@@ -316,12 +289,7 @@
     <span class="doccomment">/// Set components (buttons and select menus) for this message.
     ///
     /// Any previously set components will be overwritten.
-    </span><span class="kw">pub fn </span>components(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;mut </span>serenity::CreateComponents) -&gt; <span class="kw-2">&amp;mut </span>serenity::CreateComponents,
-    ) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="kw">let </span><span class="kw-2">mut </span>components = serenity::CreateComponents::default();
-        f(<span class="kw-2">&amp;mut </span>components);
+    </span><span class="kw">pub fn </span>components(<span class="kw-2">mut </span><span class="self">self</span>, components: Vec&lt;serenity::CreateActionRow&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.components = <span class="prelude-val">Some</span>(components);
         <span class="self">self
     </span>}
@@ -329,7 +297,7 @@
     <span class="doccomment">/// Add an attachment.
     ///
     /// This will not have an effect in a slash command&#39;s initial response!
-    </span><span class="kw">pub fn </span>attachment(<span class="kw-2">&amp;mut </span><span class="self">self</span>, attachment: serenity::AttachmentType&lt;<span class="lifetime">&#39;att</span>&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>attachment(<span class="kw-2">mut </span><span class="self">self</span>, attachment: serenity::CreateAttachment) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.attachments.push(attachment);
         <span class="self">self
     </span>}
@@ -337,20 +305,15 @@
     <span class="doccomment">/// Toggles whether the message is an ephemeral response (only invoking user can see it).
     ///
     /// This only has an effect in slash commands!
-    </span><span class="kw">pub fn </span>ephemeral(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ephemeral: bool) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.ephemeral = ephemeral;
+    </span><span class="kw">pub fn </span>ephemeral(<span class="kw-2">mut </span><span class="self">self</span>, ephemeral: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.ephemeral = <span class="prelude-val">Some</span>(ephemeral);
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Set the allowed mentions for the message.
     ///
     /// See [`serenity::CreateAllowedMentions`] for more information.
-    </span><span class="kw">pub fn </span>allowed_mentions(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;mut </span>serenity::CreateAllowedMentions) -&gt; <span class="kw-2">&amp;mut </span>serenity::CreateAllowedMentions,
-    ) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="kw">let </span><span class="kw-2">mut </span>allowed_mentions = serenity::CreateAllowedMentions::default();
-        f(<span class="kw-2">&amp;mut </span>allowed_mentions);
+    </span><span class="kw">pub fn </span>allowed_mentions(<span class="kw-2">mut </span><span class="self">self</span>, allowed_mentions: serenity::CreateAllowedMentions) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.allowed_mentions = <span class="prelude-val">Some</span>(allowed_mentions);
         <span class="self">self
     </span>}
@@ -360,7 +323,7 @@
     ///
     /// To disable the ping, set [`Self::allowed_mentions`] with
     /// [`serenity::CreateAllowedMentions::replied_user`] set to false.
-    </span><span class="kw">pub fn </span>reply(<span class="kw-2">&amp;mut </span><span class="self">self</span>, reply: bool) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>reply(<span class="kw-2">mut </span><span class="self">self</span>, reply: bool) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.reply = reply;
         <span class="self">self
     </span>}
@@ -368,9 +331,12 @@
 
 <span class="doccomment">/// Methods to create a message builder from any type from this [`CreateReply`]. Used by poise
 /// internally to actually send a response to Discord
-</span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;att</span>&gt; CreateReply&lt;<span class="lifetime">&#39;att</span>&gt; {
-    <span class="doccomment">/// Serialize this response builder to a [`serenity::CreateInteractionResponseData`]
-    </span><span class="kw">pub fn </span>to_slash_initial_response(<span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>serenity::CreateInteractionResponseData&lt;<span class="lifetime">&#39;att</span>&gt;) {
+</span><span class="kw">impl </span>CreateReply {
+    <span class="doccomment">/// Serialize this response builder to a [`serenity::CreateInteractionResponseMessage`]
+    </span><span class="kw">pub fn </span>to_slash_initial_response(
+        <span class="self">self</span>,
+        <span class="kw-2">mut </span>builder: serenity::CreateInteractionResponseMessage,
+    ) -&gt; serenity::CreateInteractionResponseMessage {
         <span class="kw">let </span><span class="kw">crate</span>::CreateReply {
             content,
             embeds,
@@ -379,33 +345,30 @@
             ephemeral,
             allowed_mentions,
             reply: <span class="kw">_</span>, <span class="comment">// can&#39;t reply to a message in interactions
-        </span>} = <span class="self">self</span>;
+            </span>__non_exhaustive: (),
+        } = <span class="self">self</span>;
 
         <span class="kw">if let </span><span class="prelude-val">Some</span>(content) = content {
-            f.content(content);
+            builder = builder.content(content);
         }
-        f.set_embeds(embeds);
         <span class="kw">if let </span><span class="prelude-val">Some</span>(allowed_mentions) = allowed_mentions {
-            f.allowed_mentions(|f| {
-                <span class="kw-2">*</span>f = allowed_mentions.clone();
-                f
-            });
+            builder = builder.allowed_mentions(allowed_mentions);
         }
         <span class="kw">if let </span><span class="prelude-val">Some</span>(components) = components {
-            f.components(|f| {
-                f.<span class="number">0 </span>= components.<span class="number">0</span>;
-                f
-            });
+            builder = builder.components(components);
         }
-        f.ephemeral(ephemeral);
-        f.add_files(attachments);
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(ephemeral) = ephemeral {
+            builder = builder.ephemeral(ephemeral);
+        }
+
+        builder.add_files(attachments).embeds(embeds)
     }
 
     <span class="doccomment">/// Serialize this response builder to a [`serenity::CreateInteractionResponseFollowup`]
     </span><span class="kw">pub fn </span>to_slash_followup_response(
         <span class="self">self</span>,
-        f: <span class="kw-2">&amp;mut </span>serenity::CreateInteractionResponseFollowup&lt;<span class="lifetime">&#39;att</span>&gt;,
-    ) {
+        <span class="kw-2">mut </span>builder: serenity::CreateInteractionResponseFollowup,
+    ) -&gt; serenity::CreateInteractionResponseFollowup {
         <span class="kw">let </span><span class="kw">crate</span>::CreateReply {
             content,
             embeds,
@@ -414,30 +377,31 @@
             ephemeral,
             allowed_mentions,
             reply: <span class="kw">_</span>,
+            __non_exhaustive: (),
         } = <span class="self">self</span>;
 
         <span class="kw">if let </span><span class="prelude-val">Some</span>(content) = content {
-            f.content(content);
+            builder = builder.content(content);
         }
-        f.set_embeds(embeds);
+        builder = builder.embeds(embeds);
         <span class="kw">if let </span><span class="prelude-val">Some</span>(components) = components {
-            f.components(|c| {
-                c.<span class="number">0 </span>= components.<span class="number">0</span>;
-                c
-            });
+            builder = builder.components(components)
         }
         <span class="kw">if let </span><span class="prelude-val">Some</span>(allowed_mentions) = allowed_mentions {
-            f.allowed_mentions(|f| {
-                <span class="kw-2">*</span>f = allowed_mentions.clone();
-                f
-            });
+            builder = builder.allowed_mentions(allowed_mentions);
         }
-        f.ephemeral(ephemeral);
-        f.add_files(attachments);
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(ephemeral) = ephemeral {
+            builder = builder.ephemeral(ephemeral);
+        }
+
+        builder.add_files(attachments)
     }
 
     <span class="doccomment">/// Serialize this response builder to a [`serenity::EditInteractionResponse`]
-    </span><span class="kw">pub fn </span>to_slash_initial_response_edit(<span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>serenity::EditInteractionResponse) {
+    </span><span class="kw">pub fn </span>to_slash_initial_response_edit(
+        <span class="self">self</span>,
+        <span class="kw-2">mut </span>builder: serenity::EditInteractionResponse,
+    ) -&gt; serenity::EditInteractionResponse {
         <span class="kw">let </span><span class="kw">crate</span>::CreateReply {
             content,
             embeds,
@@ -446,28 +410,24 @@
             ephemeral: <span class="kw">_</span>, <span class="comment">// can&#39;t edit ephemerality in retrospect
             </span>allowed_mentions,
             reply: <span class="kw">_</span>,
+            __non_exhaustive: (),
         } = <span class="self">self</span>;
 
         <span class="kw">if let </span><span class="prelude-val">Some</span>(content) = content {
-            f.content(content);
+            builder = builder.content(content);
         }
-        f.set_embeds(embeds);
         <span class="kw">if let </span><span class="prelude-val">Some</span>(components) = components {
-            f.components(|c| {
-                c.<span class="number">0 </span>= components.<span class="number">0</span>;
-                c
-            });
+            builder = builder.components(components);
         }
         <span class="kw">if let </span><span class="prelude-val">Some</span>(allowed_mentions) = allowed_mentions {
-            f.allowed_mentions(|f| {
-                <span class="kw-2">*</span>f = allowed_mentions.clone();
-                f
-            });
+            builder = builder.allowed_mentions(allowed_mentions);
         }
+
+        builder.embeds(embeds)
     }
 
     <span class="doccomment">/// Serialize this response builder to a [`serenity::EditMessage`]
-    </span><span class="kw">pub fn </span>to_prefix_edit(<span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>serenity::EditMessage&lt;<span class="lifetime">&#39;att</span>&gt;) {
+    </span><span class="kw">pub fn </span>to_prefix_edit(<span class="self">self</span>, <span class="kw-2">mut </span>builder: serenity::EditMessage) -&gt; serenity::EditMessage {
         <span class="kw">let </span><span class="kw">crate</span>::CreateReply {
             content,
             embeds,
@@ -476,37 +436,32 @@
             ephemeral: <span class="kw">_</span>, <span class="comment">// not supported in prefix
             </span>allowed_mentions,
             reply: <span class="kw">_</span>, <span class="comment">// can&#39;t edit reference message afterwards
-        </span>} = <span class="self">self</span>;
+            </span>__non_exhaustive: (),
+        } = <span class="self">self</span>;
+
+        <span class="kw">let </span><span class="kw-2">mut </span>attachments_builder = serenity::EditAttachments::new();
+        <span class="kw">for </span>attachment <span class="kw">in </span>attachments {
+            attachments_builder = attachments_builder.add(attachment);
+        }
 
         <span class="kw">if let </span><span class="prelude-val">Some</span>(content) = content {
-            f.content(content);
+            builder = builder.content(content);
         }
-        f.add_embeds(embeds);
-        <span class="kw">for </span>attachment <span class="kw">in </span>attachments {
-            f.attachment(attachment);
-        }
-
         <span class="kw">if let </span><span class="prelude-val">Some</span>(allowed_mentions) = allowed_mentions {
-            f.allowed_mentions(|b| {
-                <span class="kw-2">*</span>b = allowed_mentions;
-                b
-            });
+            builder = builder.allowed_mentions(allowed_mentions);
+        }
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(components) = components {
+            builder = builder.components(components);
         }
 
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(components) = components {
-            f.components(|f| {
-                <span class="kw-2">*</span>f = components;
-                f
-            });
-        }
+        builder.embeds(embeds).attachments(attachments_builder)
     }
 
     <span class="doccomment">/// Serialize this response builder to a [`serenity::CreateMessage`]
     </span><span class="kw">pub fn </span>to_prefix(
         <span class="self">self</span>,
-        m: <span class="kw-2">&amp;mut </span>serenity::CreateMessage&lt;<span class="lifetime">&#39;att</span>&gt;,
-        invocation_message: <span class="kw-2">&amp;</span>serenity::Message,
-    ) {
+        invocation_message: serenity::MessageReference,
+    ) -&gt; serenity::CreateMessage {
         <span class="kw">let </span><span class="kw">crate</span>::CreateReply {
             content,
             embeds,
@@ -515,31 +470,28 @@
             ephemeral: <span class="kw">_</span>, <span class="comment">// not supported in prefix
             </span>allowed_mentions,
             reply,
+            __non_exhaustive: (),
         } = <span class="self">self</span>;
 
+        <span class="kw">let </span><span class="kw-2">mut </span>builder = serenity::CreateMessage::new();
         <span class="kw">if let </span><span class="prelude-val">Some</span>(content) = content {
-            m.content(content);
+            builder = builder.content(content);
         }
-        m.set_embeds(embeds);
         <span class="kw">if let </span><span class="prelude-val">Some</span>(allowed_mentions) = allowed_mentions {
-            m.allowed_mentions(|m| {
-                <span class="kw-2">*</span>m = allowed_mentions;
-                m
-            });
+            builder = builder.allowed_mentions(allowed_mentions);
         }
         <span class="kw">if let </span><span class="prelude-val">Some</span>(components) = components {
-            m.components(|c| {
-                c.<span class="number">0 </span>= components.<span class="number">0</span>;
-                c
-            });
+            builder = builder.components(components);
         }
         <span class="kw">if </span>reply {
-            m.reference_message(invocation_message);
+            builder = builder.reference_message(invocation_message);
         }
 
         <span class="kw">for </span>attachment <span class="kw">in </span>attachments {
-            m.add_file(attachment);
+            builder = builder.add_file(attachment);
         }
+
+        builder.embeds(embeds)
     }
 }
 </code></pre></div></section></main></body></html>

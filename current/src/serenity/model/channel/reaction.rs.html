@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/model/channel/reaction.rs`."><title>reaction.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (f5dc2653f 2023-11-25)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.12.0/src/model/channel/reaction.rs`."><title>reaction.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -569,125 +569,16 @@
 <a href="#569" id="569">569</a>
 <a href="#570" id="570">570</a>
 <a href="#571" id="571">571</a>
-<a href="#572" id="572">572</a>
-<a href="#573" id="573">573</a>
-<a href="#574" id="574">574</a>
-<a href="#575" id="575">575</a>
-<a href="#576" id="576">576</a>
-<a href="#577" id="577">577</a>
-<a href="#578" id="578">578</a>
-<a href="#579" id="579">579</a>
-<a href="#580" id="580">580</a>
-<a href="#581" id="581">581</a>
-<a href="#582" id="582">582</a>
-<a href="#583" id="583">583</a>
-<a href="#584" id="584">584</a>
-<a href="#585" id="585">585</a>
-<a href="#586" id="586">586</a>
-<a href="#587" id="587">587</a>
-<a href="#588" id="588">588</a>
-<a href="#589" id="589">589</a>
-<a href="#590" id="590">590</a>
-<a href="#591" id="591">591</a>
-<a href="#592" id="592">592</a>
-<a href="#593" id="593">593</a>
-<a href="#594" id="594">594</a>
-<a href="#595" id="595">595</a>
-<a href="#596" id="596">596</a>
-<a href="#597" id="597">597</a>
-<a href="#598" id="598">598</a>
-<a href="#599" id="599">599</a>
-<a href="#600" id="600">600</a>
-<a href="#601" id="601">601</a>
-<a href="#602" id="602">602</a>
-<a href="#603" id="603">603</a>
-<a href="#604" id="604">604</a>
-<a href="#605" id="605">605</a>
-<a href="#606" id="606">606</a>
-<a href="#607" id="607">607</a>
-<a href="#608" id="608">608</a>
-<a href="#609" id="609">609</a>
-<a href="#610" id="610">610</a>
-<a href="#611" id="611">611</a>
-<a href="#612" id="612">612</a>
-<a href="#613" id="613">613</a>
-<a href="#614" id="614">614</a>
-<a href="#615" id="615">615</a>
-<a href="#616" id="616">616</a>
-<a href="#617" id="617">617</a>
-<a href="#618" id="618">618</a>
-<a href="#619" id="619">619</a>
-<a href="#620" id="620">620</a>
-<a href="#621" id="621">621</a>
-<a href="#622" id="622">622</a>
-<a href="#623" id="623">623</a>
-<a href="#624" id="624">624</a>
-<a href="#625" id="625">625</a>
-<a href="#626" id="626">626</a>
-<a href="#627" id="627">627</a>
-<a href="#628" id="628">628</a>
-<a href="#629" id="629">629</a>
-<a href="#630" id="630">630</a>
-<a href="#631" id="631">631</a>
-<a href="#632" id="632">632</a>
-<a href="#633" id="633">633</a>
-<a href="#634" id="634">634</a>
-<a href="#635" id="635">635</a>
-<a href="#636" id="636">636</a>
-<a href="#637" id="637">637</a>
-<a href="#638" id="638">638</a>
-<a href="#639" id="639">639</a>
-<a href="#640" id="640">640</a>
-<a href="#641" id="641">641</a>
-<a href="#642" id="642">642</a>
-<a href="#643" id="643">643</a>
-<a href="#644" id="644">644</a>
-<a href="#645" id="645">645</a>
-<a href="#646" id="646">646</a>
-<a href="#647" id="647">647</a>
-<a href="#648" id="648">648</a>
-<a href="#649" id="649">649</a>
-<a href="#650" id="650">650</a>
-<a href="#651" id="651">651</a>
-<a href="#652" id="652">652</a>
-<a href="#653" id="653">653</a>
-<a href="#654" id="654">654</a>
-<a href="#655" id="655">655</a>
-<a href="#656" id="656">656</a>
-<a href="#657" id="657">657</a>
-<a href="#658" id="658">658</a>
-<a href="#659" id="659">659</a>
-<a href="#660" id="660">660</a>
-<a href="#661" id="661">661</a>
-<a href="#662" id="662">662</a>
-<a href="#663" id="663">663</a>
-<a href="#664" id="664">664</a>
-<a href="#665" id="665">665</a>
-<a href="#666" id="666">666</a>
-<a href="#667" id="667">667</a>
-<a href="#668" id="668">668</a>
-<a href="#669" id="669">669</a>
-<a href="#670" id="670">670</a>
-<a href="#671" id="671">671</a>
-<a href="#672" id="672">672</a>
-<a href="#673" id="673">673</a>
-<a href="#674" id="674">674</a>
-<a href="#675" id="675">675</a>
-<a href="#676" id="676">676</a>
-<a href="#677" id="677">677</a>
-<a href="#678" id="678">678</a>
-<a href="#679" id="679">679</a>
-</pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
-</span><span class="kw">use </span>std::cmp::Ordering;
+</pre></div><pre class="rust"><code><span class="kw">use </span>std::cmp::Ordering;
 <span class="kw">use </span>std::convert::TryFrom;
 <span class="attr">#[cfg(doc)]
 </span><span class="kw">use </span>std::fmt::Display <span class="kw">as _</span>;
 <span class="kw">use </span>std::fmt::{<span class="self">self</span>, Write <span class="kw">as _</span>};
 <span class="kw">use </span>std::str::FromStr;
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="kw">use </span>percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
-<span class="kw">use </span>serde::de::{Deserialize, Error <span class="kw">as </span>DeError, MapAccess, Visitor};
+<span class="kw">use </span>serde::de::{Deserialize, Error <span class="kw">as </span>DeError};
 <span class="kw">use </span>serde::ser::{Serialize, SerializeMap, Serializer};
 <span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span>tracing::warn;
@@ -700,95 +591,58 @@
 <span class="doccomment">/// An emoji reaction to a message.
 ///
 /// [Discord docs](https://discord.com/developers/docs/topics/gateway#message-reaction-add-message-reaction-add-event-fields).
-</span><span class="attr">#[derive(Clone, Debug, Serialize)]
+</span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;typesize&quot;</span>, derive(typesize::derive::TypeSize))]
+#[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(remote = <span class="string">&quot;Self&quot;</span>)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>Reaction {
-    <span class="doccomment">/// The [`Channel`] of the associated [`Message`].
-    </span><span class="kw">pub </span>channel_id: ChannelId,
-    <span class="doccomment">/// The reactive emoji used.
-    </span><span class="kw">pub </span>emoji: ReactionType,
-    <span class="doccomment">/// The Id of the [`Message`] that was reacted to.
-    </span><span class="kw">pub </span>message_id: MessageId,
     <span class="doccomment">/// The Id of the [`User`] that sent the reaction.
     ///
+    /// Always present when received from gateway.
     /// Set to [`None`] by [`Message::react`] when cache is not available.
     </span><span class="kw">pub </span>user_id: <span class="prelude-ty">Option</span>&lt;UserId&gt;,
+    <span class="doccomment">/// The [`Channel`] of the associated [`Message`].
+    </span><span class="kw">pub </span>channel_id: ChannelId,
+    <span class="doccomment">/// The Id of the [`Message`] that was reacted to.
+    </span><span class="kw">pub </span>message_id: MessageId,
     <span class="doccomment">/// The optional Id of the [`Guild`] where the reaction was sent.
     </span><span class="kw">pub </span>guild_id: <span class="prelude-ty">Option</span>&lt;GuildId&gt;,
     <span class="doccomment">/// The optional object of the member which added the reaction.
-    </span><span class="kw">pub </span>member: <span class="prelude-ty">Option</span>&lt;PartialMember&gt;,
+    </span><span class="kw">pub </span>member: <span class="prelude-ty">Option</span>&lt;Member&gt;,
+    <span class="doccomment">/// The reactive emoji used.
+    </span><span class="kw">pub </span>emoji: ReactionType,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>Reaction {
+<span class="comment">// Manual impl needed to insert guild_id into PartialMember
+</span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>Reaction {
     <span class="kw">fn </span>deserialize&lt;D: Deserializer&lt;<span class="lifetime">&#39;de</span>&gt;&gt;(deserializer: D) -&gt; StdResult&lt;<span class="self">Self</span>, D::Error&gt; {
-        <span class="kw">let </span><span class="kw-2">mut </span>map = JsonMap::deserialize(deserializer)<span class="question-mark">?</span>;
-
-        <span class="kw">let </span>channel_id = map
-            .remove(<span class="string">&quot;channel_id&quot;</span>)
-            .ok_or_else(|| DeError::custom(<span class="string">&quot;expected channel_id&quot;</span>))
-            .and_then(ChannelId::deserialize)
-            .map_err(DeError::custom)<span class="question-mark">?</span>;
-
-        <span class="kw">let </span>message_id = map
-            .remove(<span class="string">&quot;message_id&quot;</span>)
-            .ok_or_else(|| DeError::custom(<span class="string">&quot;expected message_id&quot;</span>))
-            .and_then(MessageId::deserialize)
-            .map_err(DeError::custom)<span class="question-mark">?</span>;
-
-        <span class="kw">let </span>emoji = map
-            .remove(<span class="string">&quot;emoji&quot;</span>)
-            .ok_or_else(|| DeError::custom(<span class="string">&quot;expected emoji&quot;</span>))
-            .and_then(ReactionType::deserialize)
-            .map_err(DeError::custom)<span class="question-mark">?</span>;
-
-        <span class="kw">let </span>user_id =
-            map.remove(<span class="string">&quot;user_id&quot;</span>).map(UserId::deserialize).transpose().map_err(DeError::custom)<span class="question-mark">?</span>;
-
-        <span class="kw">let </span>guild_id = map
-            .remove(<span class="string">&quot;guild_id&quot;</span>)
-            .map(GuildId::deserialize)
-            .transpose()
-            .map_err(DeError::custom)<span class="question-mark">?</span>;
-
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(id) = guild_id {
-            <span class="kw">if let </span><span class="prelude-val">Some</span>(member) = map.get_mut(<span class="string">&quot;member&quot;</span>) {
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(object) = member.as_object_mut() {
-                    object.insert(<span class="string">&quot;guild_id&quot;</span>.to_owned(), Value::from(id.to_string()));
-                }
-            }
+        <span class="kw">let </span><span class="kw-2">mut </span>reaction = <span class="self">Self</span>::deserialize(deserializer)<span class="question-mark">?</span>; <span class="comment">// calls #[serde(remote)]-generated inherent method
+        </span><span class="kw">if let </span>(<span class="prelude-val">Some</span>(guild_id), <span class="prelude-val">Some</span>(member)) = (reaction.guild_id, reaction.member.as_mut()) {
+            member.guild_id = guild_id;
         }
-
-        <span class="kw">let </span>member = map
-            .remove(<span class="string">&quot;member&quot;</span>)
-            .map(PartialMember::deserialize)
-            .transpose()
-            .map_err(DeError::custom)<span class="question-mark">?</span>;
-
-        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
-            channel_id,
-            emoji,
-            message_id,
-            user_id,
-            guild_id,
-            member,
-        })
+        <span class="prelude-val">Ok</span>(reaction)
     }
+}
+
+<span class="kw">impl </span>Serialize <span class="kw">for </span>Reaction {
+    <span class="kw">fn </span>serialize&lt;S: serde::Serializer&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; StdResult&lt;S::Ok, S::Error&gt; {
+        <span class="self">Self</span>::serialize(<span class="self">self</span>, serializer) <span class="comment">// calls #[serde(remote)]-generated inherent method
+    </span>}
 }
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">impl </span>Reaction {
     <span class="doccomment">/// Retrieves the associated the reaction was made in.
     ///
-    /// If the cache is enabled, this will search for the already-cached
-    /// channel. If not - or the channel was not found - this will perform a
-    /// request over the REST API for the channel.
+    /// If the cache is enabled, this will search for the already-cached channel. If not - or the
+    /// channel was not found - this will perform a request over the REST API for the channel.
     ///
     /// Requires the [Read Message History] permission.
     ///
     /// # Errors
     ///
-    /// Returns [`Error::Http`] if the current user lacks permission,
-    /// or if the channel no longer exists.
+    /// Returns [`Error::Http`] if the current user lacks permission, or if the channel no longer
+    /// exists.
     ///
     /// [Read Message History]: Permissions::READ_MESSAGE_HISTORY
     </span><span class="attr">#[inline]
@@ -796,48 +650,44 @@
         <span class="self">self</span>.channel_id.to_channel(cache_http).<span class="kw">await
     </span>}
 
-    <span class="doccomment">/// Deletes the reaction, but only if the current user is the user who made
-    /// the reaction or has permission to.
+    <span class="doccomment">/// Deletes the reaction, but only if the current user is the user who made the reaction or has
+    /// permission to.
     ///
-    /// Requires the [Manage Messages] permission, _if_ the current
-    /// user did not perform the reaction.
+    /// Requires the [Manage Messages] permission, _if_ the current user did not perform the
+    /// reaction.
     ///
     /// # Errors
     ///
-    /// If the `cache` is enabled, then returns a
-    /// [`ModelError::InvalidPermissions`] if the current user does not have
-    /// the required [permissions].
+    /// If the `cache` is enabled, then returns a [`ModelError::InvalidPermissions`] if the current
+    /// user does not have the required [permissions].
     ///
     /// Otherwise returns [`Error::Http`] if the current user lacks permission.
     ///
     /// [Manage Messages]: Permissions::MANAGE_MESSAGES
-    /// [permissions]: super::permissions
+    /// [permissions]: crate::model::permissions
     </span><span class="kw">pub async fn </span>delete(<span class="kw-2">&amp;</span><span class="self">self</span>, cache_http: <span class="kw">impl </span>CacheHttp) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="comment">// Silences a warning when compiling without the `cache` feature.
-        </span><span class="attr">#[allow(unused_mut)]
-        </span><span class="kw">let </span><span class="kw-2">mut </span>user_id = <span class="self">self</span>.user_id.map(|id| id.<span class="number">0</span>);
+        <span class="attr">#[cfg_attr(not(feature = <span class="string">&quot;cache&quot;</span>), allow(unused_mut))]
+        </span><span class="kw">let </span><span class="kw-2">mut </span>user_id = <span class="self">self</span>.user_id;
 
         <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
         </span>{
             <span class="kw">if let </span><span class="prelude-val">Some</span>(cache) = cache_http.cache() {
-                <span class="kw">if </span><span class="self">self</span>.user_id.is_some() &amp;&amp; <span class="self">self</span>.user_id == <span class="prelude-val">Some</span>(cache.current_user().id) {
+                <span class="kw">if </span><span class="self">self</span>.user_id == <span class="prelude-val">Some</span>(cache.current_user().id) {
                     user_id = <span class="prelude-val">None</span>;
                 }
 
                 <span class="kw">if </span>user_id.is_some() {
-                    utils::user_has_perms_cache(
+                    <span class="kw">crate</span>::utils::user_has_perms_cache(
                         cache,
                         <span class="self">self</span>.channel_id,
-                        <span class="self">self</span>.guild_id,
                         Permissions::MANAGE_MESSAGES,
                     )<span class="question-mark">?</span>;
                 }
             }
         }
 
-        cache_http
-            .http()
-            .delete_reaction(<span class="self">self</span>.channel_id.<span class="number">0</span>, <span class="self">self</span>.message_id.<span class="number">0</span>, user_id, <span class="kw-2">&amp;</span><span class="self">self</span>.emoji)
+        <span class="self">self</span>.channel_id
+            .delete_reaction(cache_http.http(), <span class="self">self</span>.message_id, user_id, <span class="self">self</span>.emoji.clone())
             .<span class="kw">await
     </span>}
 
@@ -847,22 +697,20 @@
     ///
     /// # Errors
     ///
-    /// If the `cache` is enabled, then returns a
-    /// [`ModelError::InvalidPermissions`] if the current user does not have
-    /// the required [permissions].
+    /// If the `cache` is enabled, then returns a [`ModelError::InvalidPermissions`] if the current
+    /// user does not have the required [permissions].
     ///
     /// Otherwise returns [`Error::Http`] if the current user lacks permission.
     ///
     /// [Manage Messages]: Permissions::MANAGE_MESSAGES
-    /// [permissions]: super::permissions
+    /// [permissions]: crate::model::permissions
     </span><span class="kw">pub async fn </span>delete_all(<span class="kw-2">&amp;</span><span class="self">self</span>, cache_http: <span class="kw">impl </span>CacheHttp) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
         </span>{
             <span class="kw">if let </span><span class="prelude-val">Some</span>(cache) = cache_http.cache() {
-                utils::user_has_perms_cache(
+                <span class="kw">crate</span>::utils::user_has_perms_cache(
                     cache,
                     <span class="self">self</span>.channel_id,
-                    <span class="self">self</span>.guild_id,
                     Permissions::MANAGE_MESSAGES,
                 )<span class="question-mark">?</span>;
             }
@@ -870,7 +718,7 @@
         cache_http
             .http()
             .as_ref()
-            .delete_message_reaction_emoji(<span class="self">self</span>.channel_id.<span class="number">0</span>, <span class="self">self</span>.message_id.<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.emoji)
+            .delete_message_reaction_emoji(<span class="self">self</span>.channel_id, <span class="self">self</span>.message_id, <span class="kw-2">&amp;</span><span class="self">self</span>.emoji)
             .<span class="kw">await
     </span>}
 
@@ -878,31 +726,26 @@
     ///
     /// Requires the [Read Message History] permission.
     ///
-    /// **Note**: This will send a request to the REST API. Prefer maintaining
-    /// your own message cache or otherwise having the message available if
-    /// possible.
-    ///
     /// # Errors
     ///
-    /// Returns [`Error::Http`] if the current user lacks permission to
-    /// read message history, or if the message was deleted.
+    /// Returns [`Error::Http`] if the current user lacks permission to read message history, or if
+    /// the message was deleted.
     ///
     /// [Read Message History]: Permissions::READ_MESSAGE_HISTORY
     </span><span class="attr">#[inline]
-    </span><span class="kw">pub async fn </span>message(<span class="kw-2">&amp;</span><span class="self">self</span>, http: <span class="kw">impl </span>AsRef&lt;Http&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Message&gt; {
-        <span class="self">self</span>.channel_id.message(<span class="kw-2">&amp;</span>http, <span class="self">self</span>.message_id).<span class="kw">await
+    </span><span class="kw">pub async fn </span>message(<span class="kw-2">&amp;</span><span class="self">self</span>, cache_http: <span class="kw">impl </span>CacheHttp) -&gt; <span class="prelude-ty">Result</span>&lt;Message&gt; {
+        <span class="self">self</span>.channel_id.message(cache_http, <span class="self">self</span>.message_id).<span class="kw">await
     </span>}
 
     <span class="doccomment">/// Retrieves the user that made the reaction.
     ///
-    /// If the cache is enabled, this will search for the already-cached user.
-    /// If not - or the user was not found - this will perform a request over
-    /// the REST API for the user.
+    /// If the cache is enabled, this will search for the already-cached user. If not - or the user
+    /// was not found - this will perform a request over the REST API for the user.
     ///
     /// # Errors
     ///
-    /// Returns [`Error::Http`] if the user that made the reaction is unable to be
-    /// retrieved from the API.
+    /// Returns [`Error::Http`] if the user that made the reaction is unable to be retrieved from
+    /// the API.
     </span><span class="kw">pub async fn </span>user(<span class="kw-2">&amp;</span><span class="self">self</span>, cache_http: <span class="kw">impl </span>CacheHttp) -&gt; <span class="prelude-ty">Result</span>&lt;User&gt; {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(id) = <span class="self">self</span>.user_id {
             id.to_user(cache_http).<span class="kw">await
@@ -912,7 +755,7 @@
             </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
             </span>{
                 <span class="kw">if let </span><span class="prelude-val">Some</span>(cache) = cache_http.cache() {
-                    <span class="kw">return </span><span class="prelude-val">Ok</span>(User::from(<span class="kw-2">&amp;</span>cache.current_user()));
+                    <span class="kw">return </span><span class="prelude-val">Ok</span>(cache.current_user().clone().into());
                 }
             }
 
@@ -920,15 +763,14 @@
         }
     }
 
-    <span class="doccomment">/// Retrieves the list of [`User`]s who have reacted to a [`Message`] with a
-    /// certain [`Emoji`].
+    <span class="doccomment">/// Retrieves the list of [`User`]s who have reacted to a [`Message`] with a certain [`Emoji`].
     ///
-    /// The default `limit` is `50` - specify otherwise to receive a different
-    /// maximum number of users. The maximum that may be retrieve at a time is
-    /// `100`, if a greater number is provided then it is automatically reduced.
+    /// The default `limit` is `50` - specify otherwise to receive a different maximum number of
+    /// users. The maximum that may be retrieve at a time is `100`, if a greater number is provided
+    /// then it is automatically reduced.
     ///
-    /// The optional `after` attribute is to retrieve the users after a certain
-    /// user. This is useful for pagination.
+    /// The optional `after` attribute is to retrieve the users after a certain user. This is
+    /// useful for pagination.
     ///
     /// Requires the [Read Message History] permission.
     ///
@@ -936,11 +778,11 @@
     ///
     /// # Errors
     ///
-    /// Returns a [`ModelError::InvalidPermissions`] if the current user does
-    /// not have the required [permissions].
+    /// Returns a [`ModelError::InvalidPermissions`] if the current user does not have the required
+    /// [permissions].
     ///
     /// [Read Message History]: Permissions::READ_MESSAGE_HISTORY
-    /// [permissions]: super::permissions
+    /// [permissions]: crate::model::permissions
     </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>users&lt;R, U&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -953,7 +795,7 @@
         </span>R: Into&lt;ReactionType&gt;,
         U: Into&lt;UserId&gt;,
     {
-        <span class="self">self</span>._users(<span class="kw-2">&amp;</span>http, <span class="kw-2">&amp;</span>reaction_type.into(), limit, after.map(Into::into)).<span class="kw">await
+        <span class="self">self</span>._users(http, <span class="kw-2">&amp;</span>reaction_type.into(), limit, after.map(Into::into)).<span class="kw">await
     </span>}
 
     <span class="kw">async fn </span>_users(
@@ -972,102 +814,55 @@
 
         http.as_ref()
             .get_reaction_users(
-                <span class="self">self</span>.channel_id.<span class="number">0</span>,
-                <span class="self">self</span>.message_id.<span class="number">0</span>,
+                <span class="self">self</span>.channel_id,
+                <span class="self">self</span>.message_id,
                 reaction_type,
                 limit,
-                after.map(|u| u.<span class="number">0</span>),
+                after.map(UserId::get),
             )
             .<span class="kw">await
     </span>}
 }
 
 <span class="doccomment">/// The type of a [`Reaction`] sent.
-</span><span class="attr">#[derive(Clone, Debug, Eq, PartialEq, Hash)]
+</span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;typesize&quot;</span>, derive(typesize::derive::TypeSize))]
+#[derive(Clone, Debug, Eq, PartialEq, Hash)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>ReactionType {
-    <span class="doccomment">/// A reaction with a [`Guild`]s custom [`Emoji`], which is unique to the
-    /// guild.
+    <span class="doccomment">/// A reaction with a [`Guild`]s custom [`Emoji`], which is unique to the guild.
     </span>Custom {
         <span class="doccomment">/// Whether the emoji is animated.
         </span>animated: bool,
         <span class="doccomment">/// The Id of the custom [`Emoji`].
         </span>id: EmojiId,
-        <span class="doccomment">/// The name of the custom emoji. This is primarily used for decoration
-        /// and distinguishing the emoji client-side.
+        <span class="doccomment">/// The name of the custom emoji. This is primarily used for decoration and distinguishing
+        /// the emoji client-side.
         </span>name: <span class="prelude-ty">Option</span>&lt;String&gt;,
     },
     <span class="doccomment">/// A reaction with a twemoji.
     </span>Unicode(String),
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>ReactionType {
-    <span class="attr">#[allow(clippy::unwrap_used)] </span><span class="comment">// allow unwrap here because name being none is unreachable
-    </span><span class="kw">fn </span>deserialize&lt;D: Deserializer&lt;<span class="lifetime">&#39;de</span>&gt;&gt;(deserializer: D) -&gt; StdResult&lt;<span class="self">Self</span>, D::Error&gt; {
+<span class="comment">// Manual impl needed to decide enum variant by presence of `id`
+</span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>ReactionType {
+    <span class="kw">fn </span>deserialize&lt;D: Deserializer&lt;<span class="lifetime">&#39;de</span>&gt;&gt;(deserializer: D) -&gt; StdResult&lt;<span class="self">Self</span>, D::Error&gt; {
         <span class="attr">#[derive(Deserialize)]
-        #[serde(field_identifier, rename_all = <span class="string">&quot;snake_case&quot;</span>)]
-        </span><span class="kw">enum </span>Field {
-            Animated,
-            Id,
-            Name,
+        </span><span class="kw">struct </span>PartialEmoji {
+            <span class="attr">#[serde(default)]
+            </span>animated: bool,
+            id: <span class="prelude-ty">Option</span>&lt;EmojiId&gt;,
+            name: <span class="prelude-ty">Option</span>&lt;String&gt;,
         }
-
-        <span class="kw">struct </span>ReactionTypeVisitor;
-
-        <span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; Visitor&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>ReactionTypeVisitor {
-            <span class="kw">type </span>Value = ReactionType;
-
-            <span class="kw">fn </span>expecting(<span class="kw-2">&amp;</span><span class="self">self</span>, formatter: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-                formatter.write_str(<span class="string">&quot;enum ReactionType&quot;</span>)
-            }
-
-            <span class="kw">fn </span>visit_map&lt;V: MapAccess&lt;<span class="lifetime">&#39;de</span>&gt;&gt;(<span class="self">self</span>, <span class="kw-2">mut </span>map: V) -&gt; StdResult&lt;<span class="self">Self</span>::Value, V::Error&gt; {
-                <span class="kw">let </span><span class="kw-2">mut </span>animated = <span class="prelude-val">None</span>;
-                <span class="kw">let </span><span class="kw-2">mut </span>id = <span class="prelude-val">None</span>;
-                <span class="kw">let </span><span class="kw-2">mut </span>name = <span class="prelude-val">None</span>;
-
-                <span class="kw">while let </span><span class="prelude-val">Some</span>(key) = map.next_key()<span class="question-mark">? </span>{
-                    <span class="kw">match </span>key {
-                        Field::Animated =&gt; {
-                            <span class="kw">if </span>animated.is_some() {
-                                <span class="kw">return </span><span class="prelude-val">Err</span>(DeError::duplicate_field(<span class="string">&quot;animated&quot;</span>));
-                            }
-
-                            animated = <span class="prelude-val">Some</span>(map.next_value()<span class="question-mark">?</span>);
-                        },
-                        Field::Id =&gt; {
-                            <span class="kw">if </span>id.is_some() {
-                                <span class="kw">return </span><span class="prelude-val">Err</span>(DeError::duplicate_field(<span class="string">&quot;id&quot;</span>));
-                            }
-
-                            <span class="kw">if let </span><span class="prelude-val">Ok</span>(emoji_id) = map.next_value::&lt;EmojiId&gt;() {
-                                id = <span class="prelude-val">Some</span>(emoji_id);
-                            }
-                        },
-                        Field::Name =&gt; {
-                            <span class="kw">if </span>name.is_some() {
-                                <span class="kw">return </span><span class="prelude-val">Err</span>(DeError::duplicate_field(<span class="string">&quot;name&quot;</span>));
-                            }
-
-                            name = <span class="prelude-val">Some</span>(map.next_value::&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt;()<span class="question-mark">?</span>);
-                        },
-                    }
-                }
-
-                <span class="kw">let </span>rt = <span class="kw">match </span>(id, name) {
-                    (<span class="prelude-val">Some</span>(id), name) =&gt; ReactionType::Custom {
-                        animated: animated.unwrap_or_default(),
-                        id,
-                        name: name.flatten(),
-                    },
-                    (<span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(<span class="prelude-val">Some</span>(name))) =&gt; ReactionType::Unicode(name),
-                    <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(DeError::custom(<span class="string">&quot;invalid reaction type data&quot;</span>)),
-                };
-                <span class="prelude-val">Ok</span>(rt)
-            }
-        }
-
-        deserializer.deserialize_map(ReactionTypeVisitor)
+        <span class="kw">let </span>emoji = PartialEmoji::deserialize(deserializer)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(<span class="kw">match </span>(emoji.id, emoji.name) {
+            (<span class="prelude-val">Some</span>(id), name) =&gt; ReactionType::Custom {
+                animated: emoji.animated,
+                id,
+                name,
+            },
+            (<span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(name)) =&gt; ReactionType::Unicode(name),
+            (<span class="prelude-val">None</span>, <span class="prelude-val">None</span>) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(DeError::custom(<span class="string">&quot;invalid reaction type data&quot;</span>)),
+        })
     }
 }
 
@@ -1076,24 +871,24 @@
     <span class="kw">where
         </span>S: Serializer,
     {
-        <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
+        <span class="kw">match </span><span class="self">self </span>{
             ReactionType::Custom {
                 animated,
                 id,
-                <span class="kw-2">ref </span>name,
+                name,
             } =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>map = serializer.serialize_map(<span class="prelude-val">Some</span>(<span class="number">3</span>))<span class="question-mark">?</span>;
 
-                map.serialize_entry(<span class="string">&quot;animated&quot;</span>, <span class="kw-2">&amp;</span>animated)<span class="question-mark">?</span>;
-                map.serialize_entry(<span class="string">&quot;id&quot;</span>, <span class="kw-2">&amp;</span>id)<span class="question-mark">?</span>;
-                map.serialize_entry(<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span>name)<span class="question-mark">?</span>;
+                map.serialize_entry(<span class="string">&quot;animated&quot;</span>, animated)<span class="question-mark">?</span>;
+                map.serialize_entry(<span class="string">&quot;id&quot;</span>, id)<span class="question-mark">?</span>;
+                map.serialize_entry(<span class="string">&quot;name&quot;</span>, name)<span class="question-mark">?</span>;
 
                 map.end()
             },
-            ReactionType::Unicode(<span class="kw-2">ref </span>name) =&gt; {
+            ReactionType::Unicode(name) =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>map = serializer.serialize_map(<span class="prelude-val">Some</span>(<span class="number">1</span>))<span class="question-mark">?</span>;
 
-                map.serialize_entry(<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span>name)<span class="question-mark">?</span>;
+                map.serialize_entry(<span class="string">&quot;name&quot;</span>, name)<span class="question-mark">?</span>;
 
                 map.end()
             },
@@ -1101,16 +896,15 @@
     }
 }
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
-</span><span class="kw">impl </span>ReactionType {
-    <span class="doccomment">/// Creates a data-esque display of the type. This is not very useful for
-    /// displaying, as the primary client can not render it, but can be useful
-    /// for debugging.
+<span class="kw">impl </span>ReactionType {
+    <span class="doccomment">/// Creates a data-esque display of the type. This is not very useful for displaying, as the
+    /// primary client can not render it, but can be useful for debugging.
     ///
-    /// **Note**: This is mainly for use internally. There is otherwise most
-    /// likely little use for it.
+    /// **Note**: This is mainly for use internally. There is otherwise most likely little use for
+    /// it.
     </span><span class="attr">#[inline]
     #[must_use]
+    #[cfg(feature = <span class="string">&quot;http&quot;</span>)]
     </span><span class="kw">pub fn </span>as_data(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="kw">match </span><span class="self">self </span>{
             ReactionType::Custom {
@@ -1118,7 +912,7 @@
                 name,
                 ..
             } =&gt; {
-                <span class="macro">format!</span>(<span class="string">&quot;{}:{}&quot;</span>, name.as_deref().unwrap_or_default(), id)
+                <span class="macro">format!</span>(<span class="string">&quot;{}:{id}&quot;</span>, name.as_deref().unwrap_or_default())
             },
             ReactionType::Unicode(unicode) =&gt; {
                 utf8_percent_encode(unicode, NON_ALPHANUMERIC).to_string()
@@ -1126,9 +920,8 @@
         }
     }
 
-    <span class="doccomment">/// Helper function to allow testing equality of unicode emojis without
-    /// having to perform any allocation.
-    /// Will always return false if the reaction was not a unicode reaction.
+    <span class="doccomment">/// Helper function to allow testing equality of unicode emojis without having to perform any
+    /// allocation. Will always return false if the reaction was not a unicode reaction.
     </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>unicode_eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>str) -&gt; bool {
         <span class="kw">if let </span>ReactionType::Unicode(unicode) = <span class="kw-2">&amp;</span><span class="self">self </span>{
@@ -1139,8 +932,7 @@
         </span>}
     }
 
-    <span class="doccomment">/// Helper function to allow comparing unicode emojis without having
-    /// to perform any allocation.
+    <span class="doccomment">/// Helper function to allow comparing unicode emojis without having to perform any allocation.
     /// Will return None if the reaction was not a unicode reaction.
     </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>unicode_partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;Ordering&gt; {
@@ -1161,17 +953,13 @@
     /// Reacting to a message with an apple:
     ///
     /// ```rust,no_run
-    /// # #[cfg(feature = &quot;client&quot;)]
-    /// # use serenity::client::Context;
-    /// # #[cfg(feature = &quot;framework&quot;)]
-    /// # use serenity::framework::standard::{CommandResult, macros::command};
+    /// # #[cfg(feature = &quot;http&quot;)]
+    /// # use serenity::http::CacheHttp;
+    /// # use serenity::model::channel::Message;
     /// # use serenity::model::id::ChannelId;
     /// #
-    /// # #[cfg(all(feature = &quot;client&quot;, feature = &quot;framework&quot;, feature = &quot;http&quot;))]
-    /// # #[command]
-    /// # async fn example(ctx: &amp;Context) -&gt; CommandResult {
-    /// #   let message = ChannelId(0).message(&amp;ctx.http, 0).await?;
-    /// #
+    /// # #[cfg(feature = &quot;http&quot;)]
+    /// # async fn example(ctx: impl CacheHttp, message: Message) -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     /// message.react(ctx, &#39;🍎&#39;).await?;
     /// # Ok(())
     /// # }
@@ -1244,8 +1032,7 @@
     ///
     /// # Examples
     ///
-    /// Creating a [`ReactionType`] from a `🍎`, modeling a similar API as the
-    /// rest of the library:
+    /// Creating a [`ReactionType`] from a `🍎`, modeling a similar API as the rest of the library:
     ///
     /// ```rust
     /// use std::convert::TryInto;
@@ -1275,7 +1062,7 @@
     /// let reaction = ReactionType::try_from(emoji_string).unwrap();
     /// let reaction2 = ReactionType::Custom {
     ///     animated: false,
-    ///     id: EmojiId(600404340292059257),
+    ///     id: EmojiId::new(600404340292059257),
     ///     name: Some(&quot;customemoji&quot;.to_string()),
     /// };
     ///
@@ -1302,14 +1089,8 @@
         <span class="kw">let </span><span class="kw-2">mut </span>split_iter = emoji_str.split(<span class="string">&#39;:&#39;</span>);
 
         <span class="kw">let </span>animated = split_iter.next().ok_or(ReactionConversionError)<span class="question-mark">? </span>== <span class="string">&quot;a&quot;</span>;
-
         <span class="kw">let </span>name = split_iter.next().ok_or(ReactionConversionError)<span class="question-mark">?</span>.to_string().into();
-
-        <span class="kw">let </span>id = split_iter
-            .next()
-            .and_then(|s| s.parse::&lt;u64&gt;().ok())
-            .ok_or(ReactionConversionError)<span class="question-mark">?
-            </span>.into();
+        <span class="kw">let </span>id = split_iter.next().and_then(|s| s.parse().ok()).ok_or(ReactionConversionError)<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(ReactionType::Custom {
             animated,
@@ -1328,31 +1109,34 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>ReactionType {
-    <span class="doccomment">/// Formats the reaction type, displaying the associated emoji in a
-    /// way that clients can understand.
+    <span class="doccomment">/// Formats the reaction type, displaying the associated emoji in a way that clients can
+    /// understand.
     ///
-    /// If the type is a [custom][`ReactionType::Custom`] emoji, then refer to
-    /// the documentation for [emoji&#39;s formatter][`Emoji::fmt`] on how this is
-    /// displayed. Otherwise, if the type is a
+    /// If the type is a [custom][`ReactionType::Custom`] emoji, then refer to the documentation
+    /// for [emoji&#39;s formatter][`Emoji::fmt`] on how this is displayed. Otherwise, if the type is a
     /// [unicode][`ReactionType::Unicode`], then the inner unicode is displayed.
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-        <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
+        <span class="kw">match </span><span class="self">self </span>{
             ReactionType::Custom {
                 animated,
                 id,
-                <span class="kw-2">ref </span>name,
+                name,
             } =&gt; {
-                <span class="kw">if </span>animated {
+                <span class="kw">if </span><span class="kw-2">*</span>animated {
                     f.write_str(<span class="string">&quot;&lt;a:&quot;</span>)<span class="question-mark">?</span>;
                 } <span class="kw">else </span>{
                     f.write_str(<span class="string">&quot;&lt;:&quot;</span>)<span class="question-mark">?</span>;
                 }
-                f.write_str(name.as_ref().map_or(<span class="string">&quot;&quot;</span>, String::as_str))<span class="question-mark">?</span>;
+
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(name) = name {
+                    f.write_str(name)<span class="question-mark">?</span>;
+                }
+
                 f.write_char(<span class="string">&#39;:&#39;</span>)<span class="question-mark">?</span>;
-                fmt::Display::fmt(<span class="kw-2">&amp;</span>id, f)<span class="question-mark">?</span>;
+                fmt::Display::fmt(id, f)<span class="question-mark">?</span>;
                 f.write_char(<span class="string">&#39;&gt;&#39;</span>)
             },
-            ReactionType::Unicode(<span class="kw-2">ref </span>unicode) =&gt; f.write_str(unicode),
+            ReactionType::Unicode(unicode) =&gt; f.write_str(unicode),
         }
     }
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/utils/custom_message.rs`."><title>custom_message.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (f5dc2653f 2023-11-25)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.12.0/src/utils/custom_message.rs`."><title>custom_message.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -210,96 +210,22 @@
 <a href="#210" id="210">210</a>
 <a href="#211" id="211">211</a>
 <a href="#212" id="212">212</a>
-<a href="#213" id="213">213</a>
-<a href="#214" id="214">214</a>
-<a href="#215" id="215">215</a>
-<a href="#216" id="216">216</a>
-<a href="#217" id="217">217</a>
-<a href="#218" id="218">218</a>
-<a href="#219" id="219">219</a>
-<a href="#220" id="220">220</a>
-<a href="#221" id="221">221</a>
-<a href="#222" id="222">222</a>
-<a href="#223" id="223">223</a>
-<a href="#224" id="224">224</a>
-<a href="#225" id="225">225</a>
-<a href="#226" id="226">226</a>
-<a href="#227" id="227">227</a>
-<a href="#228" id="228">228</a>
-<a href="#229" id="229">229</a>
-<a href="#230" id="230">230</a>
-<a href="#231" id="231">231</a>
-<a href="#232" id="232">232</a>
-<a href="#233" id="233">233</a>
-<a href="#234" id="234">234</a>
-<a href="#235" id="235">235</a>
-<a href="#236" id="236">236</a>
-<a href="#237" id="237">237</a>
-<a href="#238" id="238">238</a>
-<a href="#239" id="239">239</a>
-<a href="#240" id="240">240</a>
-<a href="#241" id="241">241</a>
-<a href="#242" id="242">242</a>
-<a href="#243" id="243">243</a>
-<a href="#244" id="244">244</a>
-<a href="#245" id="245">245</a>
-<a href="#246" id="246">246</a>
-<a href="#247" id="247">247</a>
-<a href="#248" id="248">248</a>
-<a href="#249" id="249">249</a>
-<a href="#250" id="250">250</a>
-<a href="#251" id="251">251</a>
-<a href="#252" id="252">252</a>
-<a href="#253" id="253">253</a>
-<a href="#254" id="254">254</a>
-<a href="#255" id="255">255</a>
-<a href="#256" id="256">256</a>
-<a href="#257" id="257">257</a>
-<a href="#258" id="258">258</a>
-<a href="#259" id="259">259</a>
-<a href="#260" id="260">260</a>
-<a href="#261" id="261">261</a>
-<a href="#262" id="262">262</a>
-<a href="#263" id="263">263</a>
-<a href="#264" id="264">264</a>
-<a href="#265" id="265">265</a>
-<a href="#266" id="266">266</a>
-<a href="#267" id="267">267</a>
-<a href="#268" id="268">268</a>
-<a href="#269" id="269">269</a>
-<a href="#270" id="270">270</a>
-<a href="#271" id="271">271</a>
-<a href="#272" id="272">272</a>
-<a href="#273" id="273">273</a>
-<a href="#274" id="274">274</a>
-<a href="#275" id="275">275</a>
-<a href="#276" id="276">276</a>
-<a href="#277" id="277">277</a>
-<a href="#278" id="278">278</a>
-<a href="#279" id="279">279</a>
-<a href="#280" id="280">280</a>
-<a href="#281" id="281">281</a>
-<a href="#282" id="282">282</a>
-<a href="#283" id="283">283</a>
-<a href="#284" id="284">284</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::json::NULL;
-<span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
+</pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::model::Timestamp;
 
-<span class="doccomment">/// A builder for constructing a personal [`Message`] instance.
-/// This can be useful for emitting a manual [`dispatch`] to the framework,
-/// but you don&#39;t have a message in hand, or just have a fragment of its data.
+<span class="doccomment">/// A builder for constructing a personal [`Message`] instance. This can be useful for emitting a
+/// manual [`dispatch`] to the framework, but you don&#39;t have a message in hand, or just have a
+/// fragment of its data.
 ///
 /// [`dispatch`]: crate::framework::Framework::dispatch
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Clone, Default, Debug)]
 </span><span class="kw">pub struct </span>CustomMessage {
     msg: Message,
 }
 
 <span class="kw">impl </span>CustomMessage {
-    <span class="doccomment">/// Constructs a new instance of this builder, alongside a message
-    /// with dummy data. Use the methods to replace the individual bits
-    /// of this message with valid data.
+    <span class="doccomment">/// Constructs a new instance of this builder, alongside a message with dummy data. Use the
+    /// methods to replace the individual bits of this message with valid data.
     </span><span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
@@ -308,7 +234,7 @@
 
     <span class="doccomment">/// Assign the dummy message a proper ID for identification.
     ///
-    /// If not used, the default value is `MessageId(0)`.
+    /// If not used, the default value is `MessageId::new(1)`.
     </span><span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>id(<span class="kw-2">&amp;mut </span><span class="self">self</span>, id: MessageId) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
@@ -321,10 +247,7 @@
     ///
     /// If not used, the default value is an empty vector (`Vec::default()`).
     </span><span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>attachments&lt;It&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, attachments: It) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self
-    </span><span class="kw">where
-        </span>It: IntoIterator&lt;Item = Attachment&gt;,
-    {
+    </span><span class="kw">pub fn </span>attachments(<span class="kw-2">&amp;mut </span><span class="self">self</span>, attachments: <span class="kw">impl </span>IntoIterator&lt;Item = Attachment&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.msg.attachments = attachments.into_iter().collect();
 
         <span class="self">self
@@ -342,7 +265,7 @@
 
     <span class="doccomment">/// Assign the dummy message its origin channel&#39;s ID.
     ///
-    /// If not used, the default value is `ChannelId(0)`.
+    /// If not used, the default value is `ChannelId::new(1)`.
     </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>channel_id(<span class="kw-2">&amp;mut </span><span class="self">self</span>, channel_id: ChannelId) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.msg.channel_id = channel_id;
@@ -354,8 +277,8 @@
     ///
     /// If not used, the default value is an empty string (`String::default()`).
     </span><span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>content&lt;T: ToString&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, s: T) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.msg.content = s.to_string();
+    </span><span class="kw">pub fn </span>content(<span class="kw-2">&amp;mut </span><span class="self">self</span>, s: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
+        <span class="self">self</span>.msg.content = s.into();
 
         <span class="self">self
     </span>}
@@ -374,10 +297,7 @@
     ///
     /// If not used, the default value is an empty vector (`Vec::default()`).
     </span><span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>embeds&lt;It&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, embeds: It) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self
-    </span><span class="kw">where
-        </span>It: IntoIterator&lt;Item = Embed&gt;,
-    {
+    </span><span class="kw">pub fn </span>embeds(<span class="kw-2">&amp;mut </span><span class="self">self</span>, embeds: <span class="kw">impl </span>IntoIterator&lt;Item = Embed&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.msg.embeds = embeds.into_iter().collect();
 
         <span class="self">self
@@ -410,7 +330,7 @@
     /// [author]: Self::author
     </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>member(<span class="kw-2">&amp;mut </span><span class="self">self</span>, member: PartialMember) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.msg.member = <span class="prelude-val">Some</span>(member);
+        <span class="self">self</span>.msg.member = <span class="prelude-val">Some</span>(Box::new(member));
 
         <span class="self">self
     </span>}
@@ -429,10 +349,7 @@
     ///
     /// If not used, the default value is an empty vector (`Vec::default()`).
     </span><span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>mention_roles&lt;It&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, roles: It) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self
-    </span><span class="kw">where
-        </span>It: IntoIterator&lt;Item = RoleId&gt;,
-    {
+    </span><span class="kw">pub fn </span>mention_roles(<span class="kw-2">&amp;mut </span><span class="self">self</span>, roles: <span class="kw">impl </span>IntoIterator&lt;Item = RoleId&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.msg.mention_roles = roles.into_iter().collect();
 
         <span class="self">self
@@ -442,10 +359,7 @@
     ///
     /// If not used, the default value is an empty vector (`Vec::default()`).
     </span><span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>mentions&lt;It&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, mentions: It) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self
-    </span><span class="kw">where
-        </span>It: IntoIterator&lt;Item = User&gt;,
-    {
+    </span><span class="kw">pub fn </span>mentions(<span class="kw-2">&amp;mut </span><span class="self">self</span>, mentions: <span class="kw">impl </span>IntoIterator&lt;Item = User&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.msg.mentions = mentions.into_iter().collect();
 
         <span class="self">self
@@ -465,10 +379,7 @@
     ///
     /// If not used, the default value is an empty vector (`Vec::default()`).
     </span><span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>reactions&lt;It&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, reactions: It) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self
-    </span><span class="kw">where
-        </span>It: IntoIterator&lt;Item = MessageReaction&gt;,
-    {
+    </span><span class="kw">pub fn </span>reactions(<span class="kw-2">&amp;mut </span><span class="self">self</span>, reactions: <span class="kw">impl </span>IntoIterator&lt;Item = MessageReaction&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.msg.reactions = reactions.into_iter().collect();
 
         <span class="self">self
@@ -509,61 +420,6 @@
     #[must_use]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; Message {
         <span class="self">self</span>.msg
-    }
-}
-
-<span class="kw">impl </span>Default <span class="kw">for </span>CustomMessage {
-    <span class="attr">#[inline]
-    </span><span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
-        CustomMessage {
-            msg: dummy_message(),
-        }
-    }
-}
-
-<span class="attr">#[inline]
-</span><span class="kw">fn </span>dummy_message() -&gt; Message {
-    Message {
-        id: MessageId::default(),
-        attachments: Vec::new(),
-        author: User {
-            id: UserId::default(),
-            avatar: <span class="prelude-val">None</span>,
-            bot: <span class="bool-val">false</span>,
-            discriminator: <span class="number">0x0000</span>,
-            name: String::new(),
-            public_flags: <span class="prelude-val">None</span>,
-            banner: <span class="prelude-val">None</span>,
-            accent_colour: <span class="prelude-val">None</span>,
-            member: <span class="prelude-val">None</span>,
-        },
-        channel_id: ChannelId::default(),
-        content: String::new(),
-        edited_timestamp: <span class="prelude-val">None</span>,
-        embeds: Vec::new(),
-        guild_id: <span class="prelude-val">None</span>,
-        kind: MessageType::Regular,
-        member: <span class="prelude-val">None</span>,
-        mention_everyone: <span class="bool-val">false</span>,
-        mention_roles: Vec::new(),
-        mention_channels: Vec::new(),
-        mentions: Vec::new(),
-        nonce: NULL,
-        pinned: <span class="bool-val">false</span>,
-        reactions: Vec::new(),
-        tts: <span class="bool-val">false</span>,
-        webhook_id: <span class="prelude-val">None</span>,
-        timestamp: Timestamp::now(),
-        activity: <span class="prelude-val">None</span>,
-        application: <span class="prelude-val">None</span>,
-        message_reference: <span class="prelude-val">None</span>,
-        flags: <span class="prelude-val">None</span>,
-        sticker_items: Vec::new(),
-        referenced_message: <span class="prelude-val">None</span>,
-        interaction: <span class="prelude-val">None</span>,
-        components: <span class="macro">vec!</span>[],
-        application_id: <span class="prelude-val">None</span>,
-        thread: <span class="prelude-val">None</span>,
     }
 }
 </code></pre></div></section></main></body></html>

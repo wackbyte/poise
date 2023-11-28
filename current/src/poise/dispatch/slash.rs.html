@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/dispatch/slash.rs`."><title>slash.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (f5dc2653f 2023-11-25)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/dispatch/slash.rs`."><title>slash.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -297,26 +297,28 @@
 <span class="doccomment">/// Check if the interaction with the given name and arguments matches any framework command
 </span><span class="kw">fn </span>find_matching_command&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, U, E&gt;(
     interaction_name: <span class="kw-2">&amp;</span>str,
-    interaction_options: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>[serenity::CommandDataOption],
+    interaction_options: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>[serenity::ResolvedOption&lt;<span class="lifetime">&#39;b</span>&gt;],
     commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[<span class="kw">crate</span>::Command&lt;U, E&gt;],
     parent_commands: <span class="kw-2">&amp;mut </span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
-) -&gt; <span class="prelude-ty">Option</span>&lt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;, <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>[serenity::CommandDataOption])&gt; {
+) -&gt; <span class="prelude-ty">Option</span>&lt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;, <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>[serenity::ResolvedOption&lt;<span class="lifetime">&#39;b</span>&gt;])&gt; {
     commands.iter().find_map(|cmd| {
-        <span class="kw">if </span>interaction_name != cmd.name &amp;&amp; <span class="prelude-val">Some</span>(interaction_name) != cmd.context_menu_name {
+        <span class="kw">if </span>interaction_name != cmd.name
+            &amp;&amp; <span class="prelude-val">Some</span>(interaction_name) != cmd.context_menu_name.as_deref()
+        {
             <span class="kw">return </span><span class="prelude-val">None</span>;
         }
 
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(sub_interaction) = interaction_options.iter().find(|option| {
-            option.kind == serenity::CommandOptionType::SubCommand
-                || option.kind == serenity::CommandOptionType::SubCommandGroup
-        }) {
+        <span class="kw">if let </span><span class="prelude-val">Some</span>((sub_name, sub_interaction)) =
+            interaction_options
+                .iter()
+                .find_map(|option| <span class="kw">match </span><span class="kw-2">&amp;</span>option.value {
+                    serenity::ResolvedValue::SubCommand(o)
+                    | serenity::ResolvedValue::SubCommandGroup(o) =&gt; <span class="prelude-val">Some</span>((<span class="kw-2">&amp;</span>option.name, o)),
+                    <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
+                })
+        {
             parent_commands.push(cmd);
-            find_matching_command(
-                <span class="kw-2">&amp;</span>sub_interaction.name,
-                <span class="kw-2">&amp;</span>sub_interaction.options,
-                <span class="kw-2">&amp;</span>cmd.subcommands,
-                parent_commands,
-            )
+            find_matching_command(sub_name, sub_interaction, <span class="kw-2">&amp;</span>cmd.subcommands, parent_commands)
         } <span class="kw">else </span>{
             <span class="prelude-val">Some</span>((cmd, interaction_options))
         }
@@ -327,17 +329,20 @@
 ///
 /// After this, the [`crate::ApplicationContext`] should be passed into [`run_command`] or
 /// [`run_autocomplete`].
+</span><span class="attr">#[allow(clippy::too_many_arguments)] </span><span class="comment">// We need to pass them all in to create Context.
 </span><span class="kw">fn </span>extract_command&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
     framework: <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     ctx: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
-    interaction: <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;a</span>&gt;,
+    interaction: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::CommandInteraction,
+    interaction_type: <span class="kw">crate</span>::CommandInteractionType,
     has_sent_initial_response: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>std::sync::atomic::AtomicBool,
     invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
+    options: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[serenity::ResolvedOption&lt;<span class="lifetime">&#39;a</span>&gt;],
     parent_commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;, <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
     <span class="kw">let </span>search_result = find_matching_command(
-        <span class="kw-2">&amp;</span>interaction.data().name,
-        <span class="kw-2">&amp;</span>interaction.data().options,
+        <span class="kw-2">&amp;</span>interaction.data.name,
+        options,
         <span class="kw-2">&amp;</span>framework.options.commands,
         parent_commands,
     );
@@ -353,6 +358,7 @@
         serenity_context: ctx,
         framework,
         interaction,
+        interaction_type,
         args: leaf_interaction_options,
         command,
         parent_commands,
@@ -362,22 +368,26 @@
     })
 }
 
-<span class="doccomment">/// Given an interaction, finds the matching framework command and checks if the user is allowed
-/// access
+<span class="doccomment">/// Given an interaction, finds the matching framework command and checks if the user is allowed access
+</span><span class="attr">#[allow(clippy::too_many_arguments)] </span><span class="comment">// We need to pass them all in to create Context.
 </span><span class="kw">pub async fn </span>extract_command_and_run_checks&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
     framework: <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     ctx: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
-    interaction: <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;a</span>&gt;,
+    interaction: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::CommandInteraction,
+    interaction_type: <span class="kw">crate</span>::CommandInteractionType,
     has_sent_initial_response: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>std::sync::atomic::AtomicBool,
     invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
+    options: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[serenity::ResolvedOption&lt;<span class="lifetime">&#39;a</span>&gt;],
     parent_commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;, <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
     <span class="kw">let </span>ctx = extract_command(
         framework,
         ctx,
         interaction,
+        interaction_type,
         has_sent_initial_response,
         invocation_data,
+        options,
         parent_commands,
     )<span class="question-mark">?</span>;
     <span class="kw">super</span>::common::check_permissions_and_cooldown(ctx.into()).<span class="kw">await</span><span class="question-mark">?</span>;
@@ -400,7 +410,7 @@
         description: <span class="string">&quot;received interaction type but command contained no \
                 matching action or interaction contained no matching context menu object&quot;</span>,
     };
-    <span class="kw">let </span>action_result = <span class="kw">match </span>ctx.interaction.data().kind {
+    <span class="kw">let </span>action_result = <span class="kw">match </span>ctx.interaction.data.kind {
         serenity::CommandType::ChatInput =&gt; {
             <span class="kw">let </span>action = ctx
                 .command
@@ -411,24 +421,24 @@
         serenity::CommandType::User =&gt; {
             <span class="kw">match </span>(
                 ctx.command.context_menu_action,
-                <span class="kw-2">&amp;</span>ctx.interaction.data().target(),
+                <span class="kw-2">&amp;</span>ctx.interaction.data.target(),
             ) {
                 (
                     <span class="prelude-val">Some</span>(<span class="kw">crate</span>::ContextMenuCommandAction::User(action)),
                     <span class="prelude-val">Some</span>(serenity::ResolvedTarget::User(user, <span class="kw">_</span>)),
-                ) =&gt; action(ctx, user.clone()).<span class="kw">await</span>,
+                ) =&gt; action(ctx, (<span class="kw-2">*</span>user).clone()).<span class="kw">await</span>,
                 <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(command_structure_mismatch_error),
             }
         }
         serenity::CommandType::Message =&gt; {
             <span class="kw">match </span>(
                 ctx.command.context_menu_action,
-                <span class="kw-2">&amp;</span>ctx.interaction.data().target(),
+                <span class="kw-2">&amp;</span>ctx.interaction.data.target(),
             ) {
                 (
                     <span class="prelude-val">Some</span>(<span class="kw">crate</span>::ContextMenuCommandAction::Message(action)),
                     <span class="prelude-val">Some</span>(serenity::ResolvedTarget::Message(message)),
-                ) =&gt; action(ctx, <span class="kw-2">*</span>message.clone()).<span class="kw">await</span>,
+                ) =&gt; action(ctx, (<span class="kw-2">*</span>message).clone()).<span class="kw">await</span>,
                 <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(command_structure_mismatch_error),
             }
         }
@@ -448,20 +458,23 @@
 </span><span class="kw">pub async fn </span>dispatch_interaction&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
     framework: <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     ctx: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
-    interaction: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::ApplicationCommandInteraction,
+    interaction: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::CommandInteraction,
     <span class="comment">// Need to pass this in from outside because of lifetime issues
     </span>has_sent_initial_response: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>std::sync::atomic::AtomicBool,
     <span class="comment">// Need to pass this in from outside because of lifetime issues
     </span>invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
     <span class="comment">// Need to pass this in from outside because of lifetime issues
-    </span>parent_commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
+    </span>options: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[serenity::ResolvedOption&lt;<span class="lifetime">&#39;a</span>&gt;],
+    parent_commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
     <span class="kw">let </span>ctx = extract_command(
         framework,
         ctx,
-        <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction::ApplicationCommand(interaction),
+        interaction,
+        <span class="kw">crate</span>::CommandInteractionType::Command,
         has_sent_initial_response,
         invocation_data,
+        options,
         parent_commands,
     )<span class="question-mark">?</span>;
 
@@ -483,7 +496,10 @@
     <span class="kw">super</span>::common::check_permissions_and_cooldown(ctx.into()).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="comment">// Find which parameter is focused by the user
-    </span><span class="kw">let </span>focused_option = <span class="kw">match </span>ctx.args.iter().find(|o| o.focused) {
+    </span><span class="kw">let </span>(focused_option_name, partial_input) = <span class="kw">match </span>ctx.args.iter().find_map(|o| <span class="kw">match </span><span class="kw-2">&amp;</span>o.value {
+        serenity::ResolvedValue::Autocomplete { value, .. } =&gt; <span class="prelude-val">Some</span>((<span class="kw-2">&amp;</span>o.name, value)),
+        <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
+    }) {
         <span class="prelude-val">Some</span>(x) =&gt; x,
         <span class="prelude-val">None </span>=&gt; {
             <span class="macro">tracing::warn!</span>(<span class="string">&quot;no option is focused in autocomplete interaction&quot;</span>);
@@ -495,57 +511,40 @@
     </span><span class="kw">let </span>parameters = <span class="kw-2">&amp;</span>ctx.command.parameters;
     <span class="kw">let </span>focused_parameter = parameters
         .iter()
-        .find(|p| p.name == focused_option.name)
+        .find(|p| <span class="kw-2">&amp;</span>p.name == focused_option_name)
         .ok_or(<span class="kw">crate</span>::FrameworkError::CommandStructureMismatch {
             ctx,
             description: <span class="string">&quot;focused autocomplete parameter name not recognized&quot;</span>,
         })<span class="question-mark">?</span>;
 
     <span class="comment">// Only continue if this parameter supports autocomplete and Discord has given us a partial value
-    </span><span class="kw">let </span>(autocomplete_callback, partial_input) = <span class="kw">match </span>(
-        focused_parameter.autocomplete_callback,
-        <span class="kw-2">&amp;</span>focused_option.value,
-    ) {
-        (<span class="prelude-val">Some</span>(a), <span class="prelude-val">Some</span>(b)) =&gt; (a, b),
+    </span><span class="kw">let </span>autocomplete_callback = <span class="kw">match </span>focused_parameter.autocomplete_callback {
+        <span class="prelude-val">Some</span>(a) =&gt; a,
         <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(()),
     };
 
     <span class="attr">#[allow(unused_imports)]
-    </span><span class="kw">use </span>::serenity::json::prelude::<span class="kw-2">*</span>; <span class="comment">// as_str() access via trait for simd-json
+    </span><span class="kw">use </span>::serenity::json::<span class="kw-2">*</span>; <span class="comment">// as_str() access via trait for simd-json
 
     // Generate an autocomplete response
-    </span><span class="kw">let </span>partial_input =
-        partial_input
-            .as_str()
-            .ok_or(<span class="kw">crate</span>::FrameworkError::CommandStructureMismatch {
-                ctx,
-                description: <span class="string">&quot;unexpected non-string autocomplete input&quot;</span>,
-            })<span class="question-mark">?</span>;
-    <span class="kw">let </span>autocomplete_response = <span class="kw">match </span>autocomplete_callback(ctx, partial_input).<span class="kw">await </span>{
+    </span><span class="kw">let </span>autocomplete_response = <span class="kw">match </span>autocomplete_callback(ctx, partial_input).<span class="kw">await </span>{
         <span class="prelude-val">Ok</span>(x) =&gt; x,
         <span class="prelude-val">Err</span>(e) =&gt; {
-            <span class="macro">tracing::warn!</span>(<span class="string">&quot;couldn&#39;t generate autocomplete response: {}&quot;</span>, e);
-            <span class="kw">return </span><span class="prelude-val">Ok</span>(());
-        }
-    };
-
-    <span class="kw">let </span>interaction = <span class="kw">match </span>ctx.interaction {
-        <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction::Autocomplete(x) =&gt; x,
-        <span class="kw">_ </span>=&gt; {
-            <span class="macro">tracing::warn!</span>(<span class="string">&quot;a non-autocomplete interaction was given to run_autocomplete()&quot;</span>);
+            <span class="macro">tracing::warn!</span>(<span class="string">&quot;couldn&#39;t generate autocomplete response: {e}&quot;</span>);
             <span class="kw">return </span><span class="prelude-val">Ok</span>(());
         }
     };
 
     <span class="comment">// Send the generates autocomplete response
-    </span><span class="kw">if let </span><span class="prelude-val">Err</span>(e) = interaction
-        .create_autocomplete_response(<span class="kw-2">&amp;</span>ctx.serenity_context.http, |b| {
-            <span class="kw-2">*</span>b = autocomplete_response;
-            b
-        })
+    </span><span class="kw">if let </span><span class="prelude-val">Err</span>(e) = ctx
+        .interaction
+        .create_response(
+            <span class="kw-2">&amp;</span>ctx.serenity_context,
+            serenity::CreateInteractionResponse::Autocomplete(autocomplete_response),
+        )
         .<span class="kw">await
     </span>{
-        <span class="macro">tracing::warn!</span>(<span class="string">&quot;couldn&#39;t send autocomplete response: {}&quot;</span>, e);
+        <span class="macro">tracing::warn!</span>(<span class="string">&quot;couldn&#39;t send autocomplete response: {e}&quot;</span>);
     }
 
     <span class="prelude-val">Ok</span>(())
@@ -556,20 +555,21 @@
 </span><span class="kw">pub async fn </span>dispatch_autocomplete&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
     framework: <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     ctx: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
-    interaction: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::AutocompleteInteraction,
-    <span class="comment">// Need to pass this in from outside because of lifetime issues
+    interaction: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::CommandInteraction,
+    <span class="comment">// Need to pass the following in from outside because of lifetime issues
     </span>has_sent_initial_response: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>std::sync::atomic::AtomicBool,
-    <span class="comment">// Need to pass this in from outside because of lifetime issues
-    </span>invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
-    <span class="comment">// Need to pass this in from outside because of lifetime issues
-    </span>parent_commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
+    invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
+    options: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[serenity::ResolvedOption&lt;<span class="lifetime">&#39;a</span>&gt;],
+    parent_commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
     <span class="kw">let </span>ctx = extract_command(
         framework,
         ctx,
-        <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction::Autocomplete(interaction),
+        interaction,
+        <span class="kw">crate</span>::CommandInteractionType::Autocomplete,
         has_sent_initial_response,
         invocation_data,
+        options,
         parent_commands,
     )<span class="question-mark">?</span>;
 

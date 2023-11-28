@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/slash_argument/slash_macro.rs`."><title>slash_macro.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (f5dc2653f 2023-11-25)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f06f02fd918e3bb3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/slash_argument/slash_macro.rs`."><title>slash_macro.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -124,10 +124,23 @@
 <a href="#124" id="124">124</a>
 <a href="#125" id="125">125</a>
 <a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Infrastructure to parse received slash command arguments into Rust types.
 
 </span><span class="attr">#[allow(unused_imports)] </span><span class="comment">// import is required if serenity simdjson feature is enabled
-</span><span class="kw">use </span><span class="kw">crate</span>::serenity::json::prelude::<span class="kw-2">*</span>;
+</span><span class="kw">use </span><span class="kw">crate</span>::serenity::json::<span class="kw-2">*</span>;
 <span class="attr">#[allow(unused_imports)] </span><span class="comment">// required for introdoc-links in doc comments
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
 
@@ -139,28 +152,43 @@
     ///
     /// Most often the result of the bot not having registered the command in Discord, so Discord
     /// stores an outdated version of the command and its parameters.
-    </span>CommandStructureMismatch(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str),
+    </span><span class="attr">#[non_exhaustive]
+    </span>CommandStructureMismatch {
+        <span class="doccomment">/// A short string describing what specifically is wrong/unexpected
+        </span>description: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str,
+    },
     <span class="doccomment">/// A string parameter was found, but it could not be parsed into the target type.
+    </span><span class="attr">#[non_exhaustive]
     </span>Parse {
         <span class="doccomment">/// Error that occured while parsing the string into the target type
         </span>error: Box&lt;<span class="kw">dyn </span>std::error::Error + Send + Sync&gt;,
         <span class="doccomment">/// Original input string
         </span>input: String,
     },
+    <span class="attr">#[doc(hidden)]
+    </span>__NonExhaustive,
+}
+<span class="doccomment">/// Support functions for macro which can&#39;t create #[non_exhaustive] enum variants
+</span><span class="attr">#[doc(hidden)]
+</span><span class="kw">impl </span>SlashArgError {
+    <span class="kw">pub fn </span>new_command_structure_mismatch(description: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>::CommandStructureMismatch { description }
+    }
 }
 <span class="kw">impl </span>std::fmt::Display <span class="kw">for </span>SlashArgError {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; std::fmt::Result {
         <span class="kw">match </span><span class="self">self </span>{
-            <span class="self">Self</span>::CommandStructureMismatch(detail) =&gt; {
+            <span class="self">Self</span>::CommandStructureMismatch { description } =&gt; {
                 <span class="macro">write!</span>(
                     f,
                     <span class="string">&quot;Bot author did not register their commands correctly ({})&quot;</span>,
-                    detail
+                    description
                 )
             }
             <span class="self">Self</span>::Parse { error, input } =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">&quot;Failed to parse `{}` as argument: {}&quot;</span>, input, error)
             }
+            <span class="self">Self</span>::__NonExhaustive =&gt; <span class="macro">unreachable!</span>(),
         }
     }
 }
@@ -168,7 +196,8 @@
     <span class="kw">fn </span>cause(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">dyn </span>std::error::Error&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::Parse { error, input: <span class="kw">_ </span>} =&gt; <span class="prelude-val">Some</span>(<span class="kw-2">&amp;**</span>error),
-            <span class="self">Self</span>::CommandStructureMismatch(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
+            <span class="self">Self</span>::CommandStructureMismatch { description: <span class="kw">_ </span>} =&gt; <span class="prelude-val">None</span>,
+            <span class="self">Self</span>::__NonExhaustive =&gt; <span class="macro">unreachable!</span>(),
         }
     }
 }
@@ -179,10 +208,7 @@
     <span class="comment">// Extract Option&lt;T&gt;
     </span>(<span class="macro-nonterminal">$ctx</span>:ident, <span class="macro-nonterminal">$interaction</span>:ident, <span class="macro-nonterminal">$args</span>:ident =&gt; <span class="macro-nonterminal">$name</span>:literal: <span class="prelude-ty">Option</span>&lt;<span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty </span>$(,)<span class="kw-2">*</span>&gt;) =&gt; {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(arg) = <span class="macro-nonterminal">$args</span>.iter().find(|arg| arg.name == <span class="macro-nonterminal">$name</span>) {
-            <span class="kw">let </span>arg = arg.value
-            .as_ref()
-            .ok_or(<span class="macro-nonterminal">$crate::SlashArgError::CommandStructureMismatch</span>(<span class="string">&quot;expected argument value&quot;</span>))<span class="question-mark">?</span>;
-            <span class="prelude-val">Some</span>(<span class="macro-nonterminal">$</span><span class="macro">crate::extract_slash_argument!</span>(<span class="macro-nonterminal">$</span><span class="kw">type</span>, <span class="macro-nonterminal">$ctx</span>, <span class="macro-nonterminal">$interaction</span>, arg)
+            <span class="prelude-val">Some</span>(<span class="macro-nonterminal">$</span><span class="macro">crate::extract_slash_argument!</span>(<span class="macro-nonterminal">$</span><span class="kw">type</span>, <span class="macro-nonterminal">$ctx</span>, <span class="macro-nonterminal">$interaction</span>, <span class="kw-2">&amp;</span>arg.value)
                 .<span class="kw">await</span><span class="question-mark">?</span>)
         } <span class="kw">else </span>{
             <span class="prelude-val">None
@@ -207,7 +233,7 @@
     <span class="comment">// Extract T
     </span>(<span class="macro-nonterminal">$ctx</span>:ident, <span class="macro-nonterminal">$interaction</span>:ident, <span class="macro-nonterminal">$args</span>:ident =&gt; <span class="macro-nonterminal">$name</span>:literal: $(<span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">tt</span>)<span class="kw-2">*</span>) =&gt; {
         <span class="macro-nonterminal">$</span><span class="macro">crate::_parse_slash!</span>(<span class="macro-nonterminal">$ctx</span>, <span class="macro-nonterminal">$interaction</span>, <span class="macro-nonterminal">$args </span>=&gt; <span class="macro-nonterminal">$name</span>: <span class="prelude-ty">Option</span>&lt;$(<span class="macro-nonterminal">$</span><span class="kw">type</span>)<span class="kw-2">*</span>&gt;)
-            .<span class="macro-nonterminal">ok_or</span>(<span class="macro-nonterminal">$crate::SlashArgError::CommandStructureMismatch</span>(<span class="string">&quot;a required argument is missing&quot;</span>))<span class="question-mark">?
+            .<span class="macro-nonterminal">ok_or</span>(<span class="macro-nonterminal">$crate::SlashArgError::new_command_structure_mismatch</span>(<span class="string">&quot;a required argument is missing&quot;</span>))<span class="question-mark">?
     </span>};
 }
 
@@ -222,11 +248,11 @@ directly.
 # #[tokio::main] async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 # use poise::serenity_prelude as serenity;
 let ctx: serenity::Context = todo!();
-let interaction: poise::ApplicationCommandOrAutocompleteInteraction = todo!();
-let args: &amp;[serenity::CommandDataOption] = todo!();
+let interaction: serenity::CommandInteraction = todo!();
+let args: &amp;[serenity::ResolvedOption] = todo!();
 
 let (arg1, arg2) = poise::parse_slash_args!(
-    &amp;ctx, interaction,
+    &amp;ctx, &amp;interaction,
     args =&gt; (&quot;arg1&quot;: String), (&quot;arg2&quot;: Option&lt;u32&gt;)
 ).await?;
 
