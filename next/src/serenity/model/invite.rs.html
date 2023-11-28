@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/model/invite.rs`."><title>invite.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ae1b282cda4c21ec.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (8142a319e 2023-09-13)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-cabe4b1bd7b9da95.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../serenity/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.12.0/src/model/invite.rs`."><title>invite.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -415,42 +415,9 @@
 <a href="#415" id="415">415</a>
 <a href="#416" id="416">416</a>
 <a href="#417" id="417">417</a>
-<a href="#418" id="418">418</a>
-<a href="#419" id="419">419</a>
-<a href="#420" id="420">420</a>
-<a href="#421" id="421">421</a>
-<a href="#422" id="422">422</a>
-<a href="#423" id="423">423</a>
-<a href="#424" id="424">424</a>
-<a href="#425" id="425">425</a>
-<a href="#426" id="426">426</a>
-<a href="#427" id="427">427</a>
-<a href="#428" id="428">428</a>
-<a href="#429" id="429">429</a>
-<a href="#430" id="430">430</a>
-<a href="#431" id="431">431</a>
-<a href="#432" id="432">432</a>
-<a href="#433" id="433">433</a>
-<a href="#434" id="434">434</a>
-<a href="#435" id="435">435</a>
-<a href="#436" id="436">436</a>
-<a href="#437" id="437">437</a>
-<a href="#438" id="438">438</a>
-<a href="#439" id="439">439</a>
-<a href="#440" id="440">440</a>
-<a href="#441" id="441">441</a>
-<a href="#442" id="442">442</a>
-<a href="#443" id="443">443</a>
-<a href="#444" id="444">444</a>
-<a href="#445" id="445">445</a>
-<a href="#446" id="446">446</a>
-<a href="#447" id="447">447</a>
-<a href="#448" id="448">448</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Models for server and channel invites.
 
 </span><span class="kw">use </span><span class="kw">super</span>::prelude::<span class="kw-2">*</span>;
-<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
-</span><span class="kw">use super</span>::{utils <span class="kw">as </span>model_utils, Permissions};
 <span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::builder::CreateInvite;
 <span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
@@ -459,9 +426,6 @@
 </span><span class="kw">use </span><span class="kw">crate</span>::http::{CacheHttp, Http};
 <span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
-<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
-</span><span class="kw">use </span><span class="kw">crate</span>::json;
-<span class="kw">use </span><span class="kw">crate</span>::model::Timestamp;
 
 <span class="doccomment">/// Information about an invite code.
 ///
@@ -473,25 +437,24 @@
 </span><span class="kw">pub struct </span>Invite {
     <span class="doccomment">/// The approximate number of [`Member`]s in the related [`Guild`].
     </span><span class="kw">pub </span>approximate_member_count: <span class="prelude-ty">Option</span>&lt;u64&gt;,
-    <span class="doccomment">/// The approximate number of [`Member`]s with an active session in the
-    /// related [`Guild`].
+    <span class="doccomment">/// The approximate number of [`Member`]s with an active session in the related [`Guild`].
     ///
     /// An active session is defined as an open, heartbeating WebSocket connection.
     /// These include [invisible][`OnlineStatus::Invisible`] members.
     </span><span class="kw">pub </span>approximate_presence_count: <span class="prelude-ty">Option</span>&lt;u64&gt;,
     <span class="doccomment">/// The unique code for the invite.
     </span><span class="kw">pub </span>code: String,
-    <span class="doccomment">/// A representation of the minimal amount of information needed about the
-    /// [`GuildChannel`] being invited to.
+    <span class="doccomment">/// A representation of the minimal amount of information needed about the [`GuildChannel`]
+    /// being invited to.
     </span><span class="kw">pub </span>channel: InviteChannel,
-    <span class="doccomment">/// A representation of the minimal amount of information needed about the
-    /// [`Guild`] being invited to.
+    <span class="doccomment">/// A representation of the minimal amount of information needed about the [`Guild`] being
+    /// invited to.
     </span><span class="kw">pub </span>guild: <span class="prelude-ty">Option</span>&lt;InviteGuild&gt;,
-    <span class="doccomment">/// A representation of the minimal amount of information needed about the
-    /// [`User`] that created the invite.
+    <span class="doccomment">/// A representation of the minimal amount of information needed about the [`User`] that
+    /// created the invite.
     ///
-    /// This can be [`None`] for invites created by Discord such as invite-widgets
-    /// or vanity invite links.
+    /// This can be [`None`] for invites created by Discord such as invite-widgets or vanity invite
+    /// links.
     </span><span class="kw">pub </span>inviter: <span class="prelude-ty">Option</span>&lt;User&gt;,
     <span class="doccomment">/// The type of target for this voice channel invite.
     </span><span class="kw">pub </span>target_type: <span class="prelude-ty">Option</span>&lt;InviteTargetType&gt;,
@@ -503,58 +466,37 @@
     ///
     /// Only shows up if `target_type` is `EmmbeddedApplication`.
     </span><span class="kw">pub </span>target_application: <span class="prelude-ty">Option</span>&lt;ApplicationId&gt;,
-
-    <span class="doccomment">/// The expiration date of this invite, returned from `Http::get_invite` when
-    /// `with_expiration` is true.
+    <span class="doccomment">/// The expiration date of this invite, returned from `Http::get_invite` when `with_expiration`
+    /// is true.
     </span><span class="kw">pub </span>expires_at: <span class="prelude-ty">Option</span>&lt;Timestamp&gt;,
-    <span class="doccomment">/// The Stage instance data if there is a public Stage instance in the Stage
-    /// channel this invite is for.
+    <span class="doccomment">/// The Stage instance data if there is a public Stage instance in the Stage channel this
+    /// invite is for.
     </span><span class="kw">pub </span>stage_instance: <span class="prelude-ty">Option</span>&lt;InviteStageInstance&gt;,
+    <span class="doccomment">/// Guild scheduled event data, only included if guild_scheduled_event_id contains a valid
+    /// guild scheduled event id (according to Discord docs, whatever that means).
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;guild_scheduled_event&quot;</span>)]
+    </span><span class="kw">pub </span>scheduled_event: <span class="prelude-ty">Option</span>&lt;ScheduledEvent&gt;,
 }
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">impl </span>Invite {
-    <span class="doccomment">/// Creates an invite for a [`GuildChannel`], providing a builder so that
-    /// fields may optionally be set.
+    <span class="doccomment">/// Creates an invite for the given channel.
     ///
-    /// See the documentation for the [`CreateInvite`] builder for information
-    /// on how to use this and the default values that it provides.
-    ///
-    /// Requires the [Create Instant Invite] permission.
+    /// **Note**: Requires the [Create Instant Invite] permission.
     ///
     /// # Errors
     ///
-    /// If the `cache` is enabled, returns a [`ModelError::InvalidPermissions`]
-    /// if the current user does not have the required [permission].
+    /// If the `cache` is enabled, returns [`ModelError::InvalidPermissions`] if the current user
+    /// lacks permission. Otherwise returns [`Error::Http`], as well as if invalid data is given.
     ///
     /// [Create Instant Invite]: Permissions::CREATE_INSTANT_INVITE
-    /// [permission]: super::permissions
     </span><span class="attr">#[inline]
-    </span><span class="kw">pub async fn </span>create&lt;F&gt;(
+    </span><span class="kw">pub async fn </span>create(
         cache_http: <span class="kw">impl </span>CacheHttp,
         channel_id: <span class="kw">impl </span>Into&lt;ChannelId&gt;,
-        f: F,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;RichInvite&gt;
-    <span class="kw">where
-        </span>F: FnOnce(CreateInvite) -&gt; CreateInvite,
-    {
-        <span class="kw">let </span>channel_id = channel_id.into();
-
-        <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
-        </span>{
-            <span class="kw">if let </span><span class="prelude-val">Some</span>(cache) = cache_http.cache() {
-                model_utils::user_has_perms_cache(
-                    cache,
-                    channel_id,
-                    <span class="prelude-val">None</span>,
-                    Permissions::CREATE_INSTANT_INVITE,
-                )<span class="question-mark">?</span>;
-            }
-        }
-
-        <span class="kw">let </span>map = json::hashmap_to_json_map(f(CreateInvite::default()).<span class="number">0</span>);
-
-        cache_http.http().create_invite(channel_id.<span class="number">0</span>, <span class="kw-2">&amp;</span>map, <span class="prelude-val">None</span>).<span class="kw">await
+        builder: CreateInvite&lt;<span class="lifetime">&#39;_</span>&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;RichInvite&gt; {
+        channel_id.into().create_invite(cache_http, builder).<span class="kw">await
     </span>}
 
     <span class="doccomment">/// Deletes the invite.
@@ -563,11 +505,11 @@
     ///
     /// # Errors
     ///
-    /// If the `cache` is enabled, returns a [`ModelError::InvalidPermissions`]
-    /// if the current user does not have the required [permission].
+    /// If the `cache` is enabled, returns a [`ModelError::InvalidPermissions`] if the current user
+    /// does not have the required [permission].
     ///
-    /// Otherwise may return [`Error::Http`] if permissions are lacking,
-    /// or if the invite is invalid.
+    /// Otherwise may return [`Error::Http`] if permissions are lacking, or if the invite is
+    /// invalid.
     ///
     /// [Manage Guild]: Permissions::MANAGE_GUILD
     /// [permission]: super::permissions
@@ -575,26 +517,23 @@
         <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
         </span>{
             <span class="kw">if let </span><span class="prelude-val">Some</span>(cache) = cache_http.cache() {
-                <span class="kw">let </span>guild_id = <span class="self">self</span>.guild.as_ref().map(|g| g.id);
-                model_utils::user_has_perms_cache(
+                <span class="kw">crate</span>::utils::user_has_perms_cache(
                     cache,
                     <span class="self">self</span>.channel.id,
-                    guild_id,
                     Permissions::MANAGE_GUILD,
                 )<span class="question-mark">?</span>;
             }
         }
 
-        cache_http.http().as_ref().delete_invite(<span class="kw-2">&amp;</span><span class="self">self</span>.code).<span class="kw">await
+        cache_http.http().as_ref().delete_invite(<span class="kw-2">&amp;</span><span class="self">self</span>.code, <span class="prelude-val">None</span>).<span class="kw">await
     </span>}
 
     <span class="doccomment">/// Gets information about an invite.
     ///
     /// # Arguments
-    ///
     /// * `code` - The invite code.
-    /// * `member_counts` - Whether to include information about the current number
-    /// of members in the server that the invite belongs to.
+    /// * `member_counts` - Whether to include information about the current number of members in
+    /// the server that the invite belongs to.
     /// * `expiration` - Whether to include information about when the invite expires.
     /// * `event_id` - An optional server event ID to include with the invite.
     ///
@@ -603,15 +542,14 @@
     ///
     /// # Errors
     ///
-    /// May return an [`Error::Http`] if the invite is invalid.
-    /// Can also return an [`Error::Json`] if there is an error
-    /// deserializing the API response.
+    /// May return an [`Error::Http`] if the invite is invalid. Can also return an [`Error::Json`]
+    /// if there is an error deserializing the API response.
     </span><span class="kw">pub async fn </span>get(
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
         code: <span class="kw-2">&amp;</span>str,
         member_counts: bool,
         expiration: bool,
-        event_id: <span class="prelude-ty">Option</span>&lt;u64&gt;,
+        event_id: <span class="prelude-ty">Option</span>&lt;ScheduledEventId&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;Invite&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>invite = code;
 
@@ -630,7 +568,7 @@
     /// Retrieve the URL for an invite with the code `WxZumR`:
     ///
     /// ```rust
-    /// # use serde_json::{json, from_value};
+    /// # use serenity::json::{json, from_value};
     /// # use serenity::model::prelude::*;
     /// #
     /// # fn main() {
@@ -639,23 +577,26 @@
     /// #     &quot;approximate_presence_count&quot;: Some(717),
     /// #     &quot;code&quot;: &quot;WxZumR&quot;,
     /// #     &quot;channel&quot;: {
-    /// #         &quot;id&quot;: ChannelId(1),
+    /// #         &quot;id&quot;: ChannelId::new(1),
     /// #         &quot;name&quot;: &quot;foo&quot;,
     /// #         &quot;type&quot;: ChannelType::Text,
     /// #     },
     /// #     &quot;guild&quot;: {
-    /// #         &quot;id&quot;: GuildId(2),
+    /// #         &quot;id&quot;: GuildId::new(2),
     /// #         &quot;icon&quot;: None::&lt;String&gt;,
     /// #         &quot;name&quot;: &quot;bar&quot;,
     /// #         &quot;splash_hash&quot;: None::&lt;String&gt;,
     /// #         &quot;text_channel_count&quot;: 7,
     /// #         &quot;voice_channel_count&quot;: 3,
+    /// #         &quot;features&quot;: [&quot;NEWS&quot;, &quot;DISCOVERABLE&quot;],
+    /// #         &quot;verification_level&quot;: 2,
+    /// #         &quot;nsfw_level&quot;: 0,
     /// #     },
     /// #     &quot;inviter&quot;: {
-    /// #         &quot;id&quot;: UserId(3),
+    /// #         &quot;id&quot;: UserId::new(3),
     /// #         &quot;username&quot;: &quot;foo&quot;,
     /// #         &quot;discriminator&quot;: &quot;1234&quot;,
-    /// #         &quot;avatar&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;
+    /// #         &quot;avatar&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;
     /// #     },
     /// # })).unwrap();
     /// #
@@ -680,51 +621,52 @@
     </span><span class="kw">pub </span>kind: ChannelType,
 }
 
-<span class="doccomment">/// A minimal amount of information about the guild an invite points to.
+<span class="doccomment">/// Subset of [`Guild`] used in [`Invite`].
 ///
 /// [Discord docs](https://discord.com/developers/docs/resources/invite#invite-object-example-invite-object).
 </span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>InviteGuild {
     <span class="kw">pub </span>id: GuildId,
-    <span class="kw">pub </span>icon: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="kw">pub </span>name: String,
-    <span class="kw">pub </span>splash: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="kw">pub </span>text_channel_count: <span class="prelude-ty">Option</span>&lt;u64&gt;,
-    <span class="kw">pub </span>voice_channel_count: <span class="prelude-ty">Option</span>&lt;u64&gt;,
+    <span class="kw">pub </span>splash: <span class="prelude-ty">Option</span>&lt;ImageHash&gt;,
+    <span class="kw">pub </span>banner: <span class="prelude-ty">Option</span>&lt;ImageHash&gt;,
+    <span class="kw">pub </span>description: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="kw">pub </span>icon: <span class="prelude-ty">Option</span>&lt;ImageHash&gt;,
+    <span class="kw">pub </span>features: Vec&lt;String&gt;,
+    <span class="kw">pub </span>verification_level: VerificationLevel,
+    <span class="kw">pub </span>vanity_url_code: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="kw">pub </span>nsfw_level: NsfwLevel,
+    <span class="kw">pub </span>premium_subscription_count: <span class="prelude-ty">Option</span>&lt;u64&gt;,
 }
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">impl </span>InviteGuild {
     <span class="doccomment">/// Returns the Id of the shard associated with the guild.
     ///
-    /// When the cache is enabled this will automatically retrieve the total
-    /// number of shards.
+    /// When the cache is enabled this will automatically retrieve the total number of shards.
     ///
-    /// **Note**: When the cache is enabled, this function unlocks the cache to
-    /// retrieve the total number of shards in use. If you already have the
-    /// total, consider using [`utils::shard_id`].
+    /// **Note**: When the cache is enabled, this function unlocks the cache to retrieve the total
+    /// number of shards in use. If you already have the total, consider using [`utils::shard_id`].
     ///
     /// [`utils::shard_id`]: crate::utils::shard_id
     </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
     #[inline]
     #[must_use]
-    </span><span class="kw">pub fn </span>shard_id(<span class="kw-2">&amp;</span><span class="self">self</span>, cache: <span class="kw">impl </span>AsRef&lt;Cache&gt;) -&gt; u64 {
+    </span><span class="kw">pub fn </span>shard_id(<span class="kw-2">&amp;</span><span class="self">self</span>, cache: <span class="kw">impl </span>AsRef&lt;Cache&gt;) -&gt; u32 {
         <span class="self">self</span>.id.shard_id(<span class="kw-2">&amp;</span>cache)
     }
 
     <span class="doccomment">/// Returns the Id of the shard associated with the guild.
     ///
-    /// When the cache is enabled this will automatically retrieve the total
-    /// number of shards.
+    /// When the cache is enabled this will automatically retrieve the total number of shards.
     ///
-    /// When the cache is not enabled, the total number of shards being used
-    /// will need to be passed.
+    /// When the cache is not enabled, the total number of shards being used will need to be
+    /// passed.
     ///
     /// # Examples
     ///
-    /// Retrieve the Id of the shard for a guild with Id `81384788765712384`,
-    /// using 17 shards:
+    /// Retrieve the Id of the shard for a guild with Id `81384788765712384`, using 17 shards:
     ///
     /// ```rust,ignore
     /// use serenity::utils;
@@ -736,15 +678,14 @@
     </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;utils&quot;</span>, not(feature = <span class="string">&quot;cache&quot;</span>)))]
     #[inline]
     #[must_use]
-    </span><span class="kw">pub fn </span>shard_id(<span class="kw-2">&amp;</span><span class="self">self</span>, shard_count: u64) -&gt; u64 {
+    </span><span class="kw">pub fn </span>shard_id(<span class="kw-2">&amp;</span><span class="self">self</span>, shard_count: u32) -&gt; u32 {
         <span class="self">self</span>.id.shard_id(shard_count)
     }
 }
 
-<span class="doccomment">/// Detailed information about an invite.
-/// This information can only be retrieved by anyone with the [Manage Guild]
-/// permission. Otherwise, a minimal amount of information can be retrieved via
-/// the [`Invite`] struct.
+<span class="doccomment">/// Detailed information about an invite. This information can only be retrieved by anyone with the
+/// [Manage Guild] permission. Otherwise, a minimal amount of information can be retrieved via the
+/// [`Invite`] struct.
 ///
 /// [Manage Guild]: Permissions::MANAGE_GUILD
 ///
@@ -752,30 +693,29 @@
 </span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>RichInvite {
-    <span class="doccomment">/// A representation of the minimal amount of information needed about the
-    /// channel being invited to.
+    <span class="doccomment">/// A representation of the minimal amount of information needed about the channel being
+    /// invited to.
     </span><span class="kw">pub </span>channel: InviteChannel,
     <span class="doccomment">/// The unique code for the invite.
     </span><span class="kw">pub </span>code: String,
     <span class="doccomment">/// When the invite was created.
     </span><span class="kw">pub </span>created_at: Timestamp,
-    <span class="doccomment">/// A representation of the minimal amount of information needed about the
-    /// [`Guild`] being invited to.
+    <span class="doccomment">/// A representation of the minimal amount of information needed about the [`Guild`] being
+    /// invited to.
     </span><span class="kw">pub </span>guild: <span class="prelude-ty">Option</span>&lt;InviteGuild&gt;,
     <span class="doccomment">/// The user that created the invite.
     </span><span class="kw">pub </span>inviter: <span class="prelude-ty">Option</span>&lt;User&gt;,
     <span class="doccomment">/// The maximum age of the invite in seconds, from when it was created.
-    </span><span class="kw">pub </span>max_age: u64,
+    </span><span class="kw">pub </span>max_age: u32,
     <span class="doccomment">/// The maximum number of times that an invite may be used before it expires.
-
+    ///
     /// Note that this does not supersede the [`Self::max_age`] value, if the value of
-    /// [`Self::temporary`] is `true`. If the value of `temporary` is `false`, then the
-    /// invite _will_ self-expire after the given number of max uses.
-
+    /// [`Self::temporary`] is `true`. If the value of `temporary` is `false`, then the invite
+    /// _will_ self-expire after the given number of max uses.
+    ///
     /// If the value is `0`, then the invite is permanent.
-    </span><span class="kw">pub </span>max_uses: u64,
-    <span class="doccomment">/// Indicator of whether the invite self-expires after a certain amount of
-    /// time or uses.
+    </span><span class="kw">pub </span>max_uses: u8,
+    <span class="doccomment">/// Indicator of whether the invite self-expires after a certain amount of time or uses.
     </span><span class="kw">pub </span>temporary: bool,
     <span class="doccomment">/// The amount of times that an invite has been used.
     </span><span class="kw">pub </span>uses: u64,
@@ -791,9 +731,8 @@
     ///
     /// # Errors
     ///
-    /// If the `cache` feature is enabled, then this returns a
-    /// [`ModelError::InvalidPermissions`] if the current user does not have
-    /// the required [permission].
+    /// If the `cache` feature is enabled, then this returns a [`ModelError::InvalidPermissions`]
+    /// if the current user does not have the required [permission].
     ///
     /// [Manage Guild]: Permissions::MANAGE_GUILD
     /// [permission]: super::permissions
@@ -801,18 +740,15 @@
         <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
         </span>{
             <span class="kw">if let </span><span class="prelude-val">Some</span>(cache) = cache_http.cache() {
-                <span class="kw">let </span>guild_id = <span class="self">self</span>.guild.as_ref().map(|g| g.id);
-
-                model_utils::user_has_perms_cache(
+                <span class="kw">crate</span>::utils::user_has_perms_cache(
                     cache,
                     <span class="self">self</span>.channel.id,
-                    guild_id,
                     Permissions::MANAGE_GUILD,
                 )<span class="question-mark">?</span>;
             }
         }
 
-        cache_http.http().as_ref().delete_invite(<span class="kw-2">&amp;</span><span class="self">self</span>.code).<span class="kw">await
+        cache_http.http().as_ref().delete_invite(<span class="kw-2">&amp;</span><span class="self">self</span>.code, <span class="prelude-val">None</span>).<span class="kw">await
     </span>}
 
     <span class="doccomment">/// Returns a URL to use for the invite.
@@ -822,31 +758,34 @@
     /// Retrieve the URL for an invite with the code `WxZumR`:
     ///
     /// ```rust
-    /// # use serde_json::{json, from_value};
+    /// # use serenity::json::{json, from_value};
     /// # use serenity::model::prelude::*;
     /// #
     /// # fn main() {
     /// # let invite = from_value::&lt;RichInvite&gt;(json!({
     /// #     &quot;code&quot;: &quot;WxZumR&quot;,
     /// #     &quot;channel&quot;: {
-    /// #         &quot;id&quot;: ChannelId(1),
+    /// #         &quot;id&quot;: ChannelId::new(1),
     /// #         &quot;name&quot;: &quot;foo&quot;,
     /// #         &quot;type&quot;: ChannelType::Text,
     /// #     },
     /// #     &quot;created_at&quot;: &quot;2017-01-29T15:35:17.136000+00:00&quot;,
     /// #     &quot;guild&quot;: {
-    /// #         &quot;id&quot;: GuildId(2),
+    /// #         &quot;id&quot;: GuildId::new(2),
     /// #         &quot;icon&quot;: None::&lt;String&gt;,
     /// #         &quot;name&quot;: &quot;baz&quot;,
     /// #         &quot;splash_hash&quot;: None::&lt;String&gt;,
     /// #         &quot;text_channel_count&quot;: None::&lt;u64&gt;,
     /// #         &quot;voice_channel_count&quot;: None::&lt;u64&gt;,
+    /// #         &quot;features&quot;: [&quot;NEWS&quot;, &quot;DISCOVERABLE&quot;],
+    /// #         &quot;verification_level&quot;: 2,
+    /// #         &quot;nsfw_level&quot;: 0,
     /// #     },
     /// #     &quot;inviter&quot;: {
     /// #         &quot;avatar&quot;: None::&lt;String&gt;,
     /// #         &quot;bot&quot;: false,
-    /// #         &quot;discriminator&quot;: 3,
-    /// #         &quot;id&quot;: UserId(4),
+    /// #         &quot;discriminator&quot;: &quot;1234&quot;,
+    /// #         &quot;id&quot;: UserId::new(4),
     /// #         &quot;username&quot;: &quot;qux&quot;,
     /// #         &quot;public_flags&quot;: None::&lt;UserPublicFlags&gt;,
     /// #     },
@@ -870,28 +809,27 @@
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>InviteStageInstance {
     <span class="doccomment">/// The members speaking in the Stage
-    </span>members: Vec&lt;PartialMember&gt;,
+    </span><span class="kw">pub </span>members: Vec&lt;PartialMember&gt;,
     <span class="doccomment">/// The number of users in the Stage
-    </span>participant_count: u64,
+    </span><span class="kw">pub </span>participant_count: u64,
     <span class="doccomment">/// The number of users speaking in the Stage
-    </span>speaker_count: u64,
+    </span><span class="kw">pub </span>speaker_count: u64,
     <span class="doccomment">/// The topic of the Stage instance (1-120 characters)
-    </span>topic: String,
+    </span><span class="kw">pub </span>topic: String,
 }
 
-<span class="doccomment">/// [Discord docs](https://discord.com/developers/docs/resources/invite#invite-object-invite-target-types).
-</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
-#[non_exhaustive]
-</span><span class="kw">pub enum </span>InviteTargetType {
-    Normal = <span class="number">0</span>,
-    Stream = <span class="number">1</span>,
-    EmmbeddedApplication = <span class="number">2</span>,
-    Unknown = !<span class="number">0</span>,
+<span class="macro">enum_number! </span>{
+    <span class="doccomment">/// Type of target for a voice channel invite.
+    ///
+    /// [Discord docs](https://discord.com/developers/docs/resources/invite#invite-object-invite-target-types).
+    </span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Deserialize, Serialize)]
+    #[cfg_attr(feature = <span class="string">&quot;typesize&quot;</span>, derive(typesize::derive::TypeSize))]
+    #[serde(from = <span class="string">&quot;u8&quot;</span>, into = <span class="string">&quot;u8&quot;</span>)]
+    #[non_exhaustive]
+    </span><span class="kw">pub enum </span>InviteTargetType {
+        Stream = <span class="number">1</span>,
+        EmbeddedApplication = <span class="number">2</span>,
+        <span class="kw">_ </span>=&gt; Unknown(u8),
+    }
 }
-
-<span class="macro">enum_number!</span>(InviteTargetType {
-    Normal,
-    Stream,
-    EmmbeddedApplication
-});
 </code></pre></div></section></main></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ae1b282cda4c21ec.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (8142a319e 2023-09-13)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-cabe4b1bd7b9da95.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../poise/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -467,46 +467,6 @@
 <a href="#467" id="467">467</a>
 <a href="#468" id="468">468</a>
 <a href="#469" id="469">469</a>
-<a href="#470" id="470">470</a>
-<a href="#471" id="471">471</a>
-<a href="#472" id="472">472</a>
-<a href="#473" id="473">473</a>
-<a href="#474" id="474">474</a>
-<a href="#475" id="475">475</a>
-<a href="#476" id="476">476</a>
-<a href="#477" id="477">477</a>
-<a href="#478" id="478">478</a>
-<a href="#479" id="479">479</a>
-<a href="#480" id="480">480</a>
-<a href="#481" id="481">481</a>
-<a href="#482" id="482">482</a>
-<a href="#483" id="483">483</a>
-<a href="#484" id="484">484</a>
-<a href="#485" id="485">485</a>
-<a href="#486" id="486">486</a>
-<a href="#487" id="487">487</a>
-<a href="#488" id="488">488</a>
-<a href="#489" id="489">489</a>
-<a href="#490" id="490">490</a>
-<a href="#491" id="491">491</a>
-<a href="#492" id="492">492</a>
-<a href="#493" id="493">493</a>
-<a href="#494" id="494">494</a>
-<a href="#495" id="495">495</a>
-<a href="#496" id="496">496</a>
-<a href="#497" id="497">497</a>
-<a href="#498" id="498">498</a>
-<a href="#499" id="499">499</a>
-<a href="#500" id="500">500</a>
-<a href="#501" id="501">501</a>
-<a href="#502" id="502">502</a>
-<a href="#503" id="503">503</a>
-<a href="#504" id="504">504</a>
-<a href="#505" id="505">505</a>
-<a href="#506" id="506">506</a>
-<a href="#507" id="507">507</a>
-<a href="#508" id="508">508</a>
-<a href="#509" id="509">509</a>
 </pre></div><pre class="rust"><code><span class="attr">#![cfg_attr(doc_nightly, feature(doc_cfg, doc_auto_cfg))]
 #![doc(test(attr(deny(deprecated))))]
 </span><span class="comment">// native #[non_exhaustive] is awful because you can&#39;t do struct update syntax with it (??)
@@ -536,8 +496,8 @@ Poise is an opinionated Discord bot framework with a few distinctive features:
 To run commands, ping your bot and write the command name and arguments after. Run the register
 command to register slash commands, after which you can use those, too.
 
-See examples/framework_usage/ in the git repository for a full-featured example bot, showcasing most
-features of poise: `cargo run --example=framework_usage`
+See examples/feature_showcase/ in the git repository for a full-featured example bot, showcasing most
+features of poise: `cargo run --example=feature_showcase`
 
 # Introduction to serenity
 
@@ -564,14 +524,14 @@ To set multiple gateway events, use the OR operator:
 
 ## Discord actions outside a command
 
-You can run Discord actions outside of commands by cloning and storing [`serenity::CacheAndHttp`]/
+You can run Discord actions outside of commands by cloning and storing [`serenity::CacheHttp`]/
 [`Arc&lt;serenity::Http&gt;`](serenity::Http)/[`Arc&lt;serenity::Cache&gt;`](serenity::Cache). You can get
 those either from [`serenity::Context`] (passed to
 [`setup`](crate::FrameworkBuilder::setup) and all commands via
-[`ctx.serenity_framework()`](crate::Context::discord)) or before starting the framework via
-[`framework.client()`](crate::Framework::client)[`.cache_and_http`](serenity::Client::cache_and_http).
+[`ctx.serenity_framework()`](crate::Context::discord)) or before starting the client via
+[`http`](serenity::Client::http) and [`cache`](serenity::Client::cache).
 
-Pass your `CacheAndHttp` or `Arc&lt;Http&gt;` to serenity functions in place of the usual
+Pass your `CacheHttp` or `Arc&lt;Http&gt;` to serenity functions in place of the usual
 `serenity::Context`
 
 ## Useful serenity methods
@@ -675,7 +635,7 @@ Subcommands are stored in [`Command::subcommands`]. As with all [`Command`] fiel
 programmatically modify those any way you&#39;d like. The [`command`] macro is just a convenience thing
 to set the fields for you.
 
-For another example of subcommands, see `examples/framework_usage/commands/subcommands.rs`.
+For another example of subcommands, see `examples/feature_showcase/subcommands.rs`.
 
 ### Big example to showcase many command features
 
@@ -729,17 +689,19 @@ async fn error_handler(error: poise::FrameworkError&lt;&#39;_, Data, Error&gt;) 
 ## Create and configure framework
 
 ```rust
+# use std::sync::Arc;
 # type Error = Box&lt;dyn std::error::Error + Send + Sync&gt;;
 # type Context&lt;&#39;a&gt; = poise::Context&lt;&#39;a, (), Error&gt;;
 # async fn my_error_function(_: poise::FrameworkError&lt;&#39;_, (), Error&gt;) {}
 # #[poise::command(prefix_command)] async fn command1(ctx: Context&lt;&#39;_&gt;) -&gt; Result&lt;(), Error&gt; { Ok(()) }
 # #[poise::command(prefix_command)] async fn command2(ctx: Context&lt;&#39;_&gt;) -&gt; Result&lt;(), Error&gt; { Ok(()) }
 # #[poise::command(prefix_command)] async fn command3(ctx: Context&lt;&#39;_&gt;) -&gt; Result&lt;(), Error&gt; { Ok(()) }
+use poise::serenity_prelude as serenity;
 
 # async {
 // Use `Framework::builder()` to create a framework builder and supply basic data to the framework:
-poise::Framework::builder()
-    .token(&quot;...&quot;)
+
+let framework = poise::Framework::builder()
     .setup(|_, _, _| Box::pin(async move {
         // construct user data here (invoked when bot connects to Discord)
         Ok(())
@@ -752,7 +714,7 @@ poise::Framework::builder()
         on_error: |err| Box::pin(my_error_function(err)),
         prefix_options: poise::PrefixFrameworkOptions {
             prefix: Some(&quot;~&quot;.into()),
-            edit_tracker: Some(poise::EditTracker::for_timespan(std::time::Duration::from_secs(3600))),
+            edit_tracker: Some(Arc::new(poise::EditTracker::for_timespan(std::time::Duration::from_secs(3600)))),
             case_insensitive_commands: true,
             ..Default::default()
         },
@@ -767,9 +729,12 @@ poise::Framework::builder()
             }
         ],
         ..Default::default()
-    })
+    }).build();
 
-    .run().await?;
+let client = serenity::ClientBuilder::new(&quot;...&quot;, serenity::GatewayIntents::non_privileged())
+    .framework(framework).await;
+
+client.unwrap().start().await.unwrap();
 # Ok::&lt;(), Error&gt;(()) };
 ```
 
@@ -784,11 +749,11 @@ The easiest way is with [`builtins::register_application_commands_buttons`].
 It spawns a message with buttons to register and unregister all commands, globally or in the current
 guild (see its docs).
 
-A more flexible approach is to serialize the commands to a [`serenity::CreateApplicationCommands`]
+A more flexible approach is to serialize the commands to a [`Vec&lt;serenity::CreateCommand&gt;`]
 using [`builtins::create_application_commands`]. That way, you can call serenity&#39;s registration
 functions manually:
-- [`serenity::Command::set_global_application_commands`]
-- [`serenity::GuildId::set_application_commands`]
+- [`serenity::Command::set_global_commands`]
+- [`serenity::GuildId::set_commands`]
 
 For example, you could call this function in [`FrameworkBuilder::setup`] to automatically
 register commands on startup. Also see the docs of [`builtins::create_application_commands`].
@@ -896,7 +861,6 @@ Also, poise is a stat in Dark Souls
 <span class="kw">pub mod </span>choice_parameter;
 <span class="kw">pub mod </span>cooldown;
 <span class="kw">pub mod </span>dispatch;
-<span class="kw">pub mod </span>event;
 <span class="kw">pub mod </span>framework;
 <span class="kw">pub mod </span>modal;
 <span class="kw">pub mod </span>prefix_argument;
@@ -913,7 +877,7 @@ Also, poise is a stat in Dark Souls
 
 <span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>{
-    choice_parameter::<span class="kw-2">*</span>, cooldown::<span class="kw-2">*</span>, dispatch::<span class="kw-2">*</span>, event::<span class="kw-2">*</span>, framework::<span class="kw-2">*</span>, macros::<span class="kw-2">*</span>, modal::<span class="kw-2">*</span>,
+    choice_parameter::<span class="kw-2">*</span>, cooldown::<span class="kw-2">*</span>, dispatch::<span class="kw-2">*</span>, framework::<span class="kw-2">*</span>, macros::<span class="kw-2">*</span>, modal::<span class="kw-2">*</span>,
     prefix_argument::<span class="kw-2">*</span>, reply::<span class="kw-2">*</span>, slash_argument::<span class="kw-2">*</span>, structs::<span class="kw-2">*</span>, track_edits::<span class="kw-2">*</span>,
 };
 
@@ -934,51 +898,7 @@ Also, poise is a stat in Dark Souls
 /// use poise::serenity_prelude as serenity;
 /// ```
 </span><span class="kw">pub mod </span>serenity_prelude {
-    <span class="attr">#[doc(no_inline)]
-    </span><span class="kw">pub use </span>serenity::{
-        async_trait,
-        builder::<span class="kw-2">*</span>,
-        client::{
-            <span class="self">self</span>, <span class="comment">// Resolve ambiguous re-export
-            </span>bridge::gateway::{event::<span class="kw-2">*</span>, <span class="kw-2">*</span>},
-            <span class="kw-2">*</span>,
-        },
-        collector::<span class="kw-2">*</span>,
-        http::<span class="kw-2">*</span>,
-        <span class="comment">// Explicit imports to resolve ambiguity between model::prelude::* and
-        // model::application::interaction::* due to deprecated same-named type aliases
-        </span>model::{
-            application::interaction::{
-                Interaction, InteractionResponseType, InteractionType,
-                MessageFlags <span class="kw">as </span>InteractionResponseFlags, MessageInteraction,
-            },
-            <span class="comment">// There&#39;s two MessageFlags in serenity. The interaction response specific one was
-            // renamed to InteractionResponseFlags above so we can keep this one&#39;s name the same
-            </span>channel::MessageFlags,
-            <span class="comment">// Disambiguate several types/modules where names are re-used within serenity
-            // In general, we prefer the model types as they are more relevant when using poise
-            </span>error,
-            event::{<span class="self">self</span>, EventType},
-            gateway,
-            guild::automod::Action,
-            prelude,
-        },
-        model::{
-            application::{
-                command::<span class="kw-2">*</span>,
-                component::<span class="kw-2">*</span>,
-                interaction::{
-                    application_command::<span class="kw-2">*</span>, autocomplete::<span class="kw-2">*</span>, message_component::<span class="kw-2">*</span>, modal::<span class="kw-2">*</span>, <span class="kw-2">*</span>,
-                },
-            },
-            event::<span class="kw-2">*</span>,
-            guild::automod::<span class="kw-2">*</span>,
-            prelude::<span class="kw-2">*</span>,
-        },
-        prelude::<span class="kw-2">*</span>,
-        utils::<span class="kw-2">*</span>,
-        <span class="kw-2">*</span>,
-    };
+    <span class="kw">pub use </span>serenity::all::<span class="kw-2">*</span>;
 }
 <span class="kw">use </span>serenity_prelude <span class="kw">as </span>serenity; <span class="comment">// private alias for crate root docs intradoc-links
 
@@ -1012,8 +932,8 @@ Also, poise is a stat in Dark Souls
 </span><span class="kw">mod </span>tests {
     <span class="kw">fn </span>_assert_send_sync&lt;T: Send + Sync&gt;() {}
 
-    <span class="kw">fn </span>_test_framework_error_send_sync&lt;<span class="lifetime">&#39;a</span>, U: Send + Sync + <span class="lifetime">&#39;static</span>, E: Send + Sync + <span class="lifetime">&#39;static</span>&gt;() {
-        _assert_send_sync::&lt;<span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt;();
+    <span class="kw">fn </span>_test_framework_error_send_sync&lt;U: Send + Sync + <span class="lifetime">&#39;static</span>, E: Send + Sync + <span class="lifetime">&#39;static</span>&gt;() {
+        _assert_send_sync::&lt;<span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;_</span>, U, E&gt;&gt;();
     }
 }
 </code></pre></div></section></main></body></html>

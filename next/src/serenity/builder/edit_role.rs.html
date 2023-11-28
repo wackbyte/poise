@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/builder/edit_role.rs`."><title>edit_role.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ae1b282cda4c21ec.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (8142a319e 2023-09-13)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-cabe4b1bd7b9da95.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../serenity/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.12.0/src/builder/edit_role.rs`."><title>edit_role.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -148,24 +148,63 @@
 <a href="#148" id="148">148</a>
 <a href="#149" id="149">149</a>
 <a href="#150" id="150">150</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
-
-<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
-</span><span class="kw">use </span><span class="kw">crate</span>::http::Http;
-<span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
-<span class="kw">use </span><span class="kw">crate</span>::json::from_number;
-<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
-</span><span class="kw">use </span><span class="kw">crate</span>::model::channel::AttachmentType;
-<span class="kw">use </span><span class="kw">crate</span>::model::guild::Role;
-<span class="kw">use </span><span class="kw">crate</span>::model::Permissions;
-<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
-</span><span class="kw">use </span><span class="kw">crate</span>::utils::encode_image;
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+<a href="#161" id="161">161</a>
+<a href="#162" id="162">162</a>
+<a href="#163" id="163">163</a>
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a>
+<a href="#178" id="178">178</a>
+<a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+</pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">super</span>::Builder;
+<span class="kw">use </span><span class="kw">super</span>::CreateAttachment;
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">crate</span>::http::CacheHttp;
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
+<span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// A builder to create or edit a [`Role`] for use via a number of model methods.
 ///
 /// These are:
 ///
 /// - [`PartialGuild::create_role`]
+/// - [`PartialGuild::edit_role`]
 /// - [`Guild::create_role`]
 /// - [`Guild::edit_role`]
 /// - [`GuildId::create_role`]
@@ -179,123 +218,168 @@
 /// Create a hoisted, mentionable role named `&quot;a test role&quot;`:
 ///
 /// ```rust,no_run
-/// # use serenity::{model::id::{ChannelId, GuildId}, http::Http};
+/// # use serenity::builder::EditRole;
+/// # use serenity::http::Http;
+/// # use serenity::model::id::GuildId;
 /// # use std::sync::Arc;
 /// #
-/// # let http = Arc::new(Http::new(&quot;token&quot;));
-/// # let (channel_id, guild_id) = (ChannelId(1), GuildId(2));
+/// # async fn run() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+/// # let http: Arc&lt;Http&gt; = unimplemented!();
+/// # let guild_id: GuildId = unimplemented!();
 /// #
-/// // assuming a `channel_id` and `guild_id` has been bound
-///
-/// let role = guild_id.create_role(&amp;http, |r| r.hoist(true).mentionable(true).name(&quot;a test role&quot;));
+/// // assuming a `guild_id` has been bound
+/// let builder = EditRole::new().name(&quot;a test role&quot;).hoist(true).mentionable(true);
+/// let role = guild_id.create_role(&amp;http, builder).await?;
+/// # Ok(())
+/// # }
 /// ```
 ///
-/// [`PartialGuild::create_role`]: crate::model::guild::PartialGuild::create_role
-/// [`Guild::create_role`]: crate::model::guild::Guild::create_role
-/// [`Guild::edit_role`]: crate::model::guild::Guild::edit_role
-/// [`GuildId::create_role`]: crate::model::id::GuildId::create_role
-/// [`GuildId::edit_role`]: crate::model::id::GuildId::edit_role
-</span><span class="attr">#[derive(Clone, Debug, Default)]
-</span><span class="kw">pub struct </span>EditRole(<span class="kw">pub </span>HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, Value&gt;);
+/// [Discord docs](https://discord.com/developers/docs/resources/guild#modify-guild-role)
+</span><span class="attr">#[derive(Clone, Debug, Default, Serialize)]
+#[must_use]
+</span><span class="kw">pub struct </span>EditRole&lt;<span class="lifetime">&#39;a</span>&gt; {
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>name: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>permissions: <span class="prelude-ty">Option</span>&lt;u64&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    #[serde(rename = <span class="string">&quot;color&quot;</span>)]
+    </span>colour: <span class="prelude-ty">Option</span>&lt;Colour&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>hoist: <span class="prelude-ty">Option</span>&lt;bool&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>icon: <span class="prelude-ty">Option</span>&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>unicode_emoji: <span class="prelude-ty">Option</span>&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt;,
 
-<span class="kw">impl </span>EditRole {
-    <span class="doccomment">/// Creates a new builder with the values of the given [`Role`].
-    </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>new(role: <span class="kw-2">&amp;</span>Role) -&gt; <span class="self">Self </span>{
-        <span class="kw">let </span><span class="kw-2">mut </span>map = HashMap::with_capacity(<span class="number">9</span>);
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>mentionable: <span class="prelude-ty">Option</span>&lt;bool&gt;,
 
-        <span class="attr">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
-        </span>{
-            map.insert(<span class="string">&quot;color&quot;</span>, from_number(role.colour.<span class="number">0</span>));
-        }
+    <span class="attr">#[serde(skip)]
+    </span>position: <span class="prelude-ty">Option</span>&lt;u16&gt;,
+    <span class="attr">#[serde(skip)]
+    </span>audit_log_reason: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt;,
+}
 
-        <span class="attr">#[cfg(not(feature = <span class="string">&quot;utils&quot;</span>))]
-        </span>{
-            map.insert(<span class="string">&quot;color&quot;</span>, from_number(role.colour));
-        }
-
-        map.insert(<span class="string">&quot;hoist&quot;</span>, Value::from(role.hoist));
-        map.insert(<span class="string">&quot;managed&quot;</span>, Value::from(role.managed));
-        map.insert(<span class="string">&quot;mentionable&quot;</span>, Value::from(role.mentionable));
-        map.insert(<span class="string">&quot;name&quot;</span>, Value::from(role.name.clone()));
-        map.insert(<span class="string">&quot;permissions&quot;</span>, from_number(role.permissions.bits()));
-        map.insert(<span class="string">&quot;position&quot;</span>, from_number(role.position));
-
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(unicode_emoji) = <span class="kw-2">&amp;</span>role.unicode_emoji {
-            map.insert(<span class="string">&quot;unicode_emoji&quot;</span>, Value::String(unicode_emoji.clone()));
-        }
-
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(icon) = <span class="kw-2">&amp;</span>role.icon {
-            map.insert(<span class="string">&quot;icon&quot;</span>, Value::String(icon.clone()));
-        }
-
-        EditRole(map)
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; EditRole&lt;<span class="lifetime">&#39;a</span>&gt; {
+    <span class="doccomment">/// Equivalent to [`Self::default`].
+    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>::default()
     }
 
-    <span class="doccomment">/// Sets the colour of the role.
-    </span><span class="kw">pub fn </span>colour(<span class="kw-2">&amp;mut </span><span class="self">self</span>, colour: u64) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;color&quot;</span>, from_number(colour));
+    <span class="doccomment">/// Creates a new builder with the values of the given [`Role`].
+    </span><span class="kw">pub fn </span>from_role(role: <span class="kw-2">&amp;</span>Role) -&gt; <span class="self">Self </span>{
+        EditRole {
+            hoist: <span class="prelude-val">Some</span>(role.hoist),
+            mentionable: <span class="prelude-val">Some</span>(role.mentionable),
+            name: <span class="prelude-val">Some</span>(role.name.clone()),
+            permissions: <span class="prelude-val">Some</span>(role.permissions.bits()),
+            position: <span class="prelude-val">Some</span>(role.position),
+            colour: <span class="prelude-val">Some</span>(role.colour),
+            unicode_emoji: role.unicode_emoji.as_ref().map(|v| <span class="prelude-val">Some</span>(v.clone())),
+            audit_log_reason: <span class="prelude-val">None</span>,
+            <span class="comment">// TODO: Do we want to download role.icon?
+            </span>icon: <span class="prelude-val">None</span>,
+        }
+    }
+
+    <span class="doccomment">/// Set the colour of the role.
+    </span><span class="kw">pub fn </span>colour(<span class="kw-2">mut </span><span class="self">self</span>, colour: <span class="kw">impl </span>Into&lt;Colour&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.colour = <span class="prelude-val">Some</span>(colour.into());
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// Whether or not to hoist the role above lower-positioned role in the user
-    /// list.
-    </span><span class="kw">pub fn </span>hoist(<span class="kw-2">&amp;mut </span><span class="self">self</span>, hoist: bool) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;hoist&quot;</span>, Value::from(hoist));
+    <span class="doccomment">/// Whether or not to hoist the role above lower-positioned roles in the user list.
+    </span><span class="kw">pub fn </span>hoist(<span class="kw-2">mut </span><span class="self">self</span>, hoist: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.hoist = <span class="prelude-val">Some</span>(hoist);
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// Whether or not to make the role mentionable, notifying its users.
-    </span><span class="kw">pub fn </span>mentionable(<span class="kw-2">&amp;mut </span><span class="self">self</span>, mentionable: bool) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;mentionable&quot;</span>, Value::from(mentionable));
+    <span class="doccomment">/// Whether or not to make the role mentionable, upon which users with that role will be
+    /// notified.
+    </span><span class="kw">pub fn </span>mentionable(<span class="kw-2">mut </span><span class="self">self</span>, mentionable: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.mentionable = <span class="prelude-val">Some</span>(mentionable);
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// The name of the role to set.
-    </span><span class="kw">pub fn </span>name&lt;S: ToString&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, name: S) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;name&quot;</span>, Value::from(name.to_string()));
+    <span class="doccomment">/// Set the role&#39;s name.
+    </span><span class="kw">pub fn </span>name(<span class="kw-2">mut </span><span class="self">self</span>, name: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.name = <span class="prelude-val">Some</span>(name.into());
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// The set of permissions to assign the role.
-    </span><span class="kw">pub fn </span>permissions(<span class="kw-2">&amp;mut </span><span class="self">self</span>, permissions: Permissions) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;permissions&quot;</span>, from_number(permissions.bits()));
+    <span class="doccomment">/// Set the role&#39;s permissions.
+    </span><span class="kw">pub fn </span>permissions(<span class="kw-2">mut </span><span class="self">self</span>, permissions: Permissions) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.permissions = <span class="prelude-val">Some</span>(permissions.bits());
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// The position to assign the role in the role list. This correlates to the
-    /// role&#39;s position in the user list.
-    </span><span class="kw">pub fn </span>position(<span class="kw-2">&amp;mut </span><span class="self">self</span>, position: u8) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;position&quot;</span>, from_number(position));
+    <span class="doccomment">/// Set the role&#39;s position in the role list. This correlates to the role&#39;s position in the
+    /// user list.
+    </span><span class="kw">pub fn </span>position(<span class="kw-2">mut </span><span class="self">self</span>, position: u16) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.position = <span class="prelude-val">Some</span>(position);
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// The unicode emoji to set as the role image.
-    </span><span class="kw">pub fn </span>unicode_emoji&lt;S: ToString&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, unicode_emoji: S) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.remove(<span class="string">&quot;icon&quot;</span>);
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;unicode_emoji&quot;</span>, Value::String(unicode_emoji.to_string()));
-
+    <span class="doccomment">/// Set the role icon to a unicode emoji.
+    </span><span class="kw">pub fn </span>unicode_emoji(<span class="kw-2">mut </span><span class="self">self</span>, unicode_emoji: <span class="prelude-ty">Option</span>&lt;String&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.unicode_emoji = <span class="prelude-val">Some</span>(unicode_emoji);
+        <span class="self">self</span>.icon = <span class="prelude-val">Some</span>(<span class="prelude-val">None</span>);
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// The image to set as the role icon.
+    <span class="doccomment">/// Set the role icon to a custom image.
+    </span><span class="kw">pub fn </span>icon(<span class="kw-2">mut </span><span class="self">self</span>, icon: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>CreateAttachment&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.icon = <span class="prelude-val">Some</span>(icon.map(CreateAttachment::to_base64));
+        <span class="self">self</span>.unicode_emoji = <span class="prelude-val">Some</span>(<span class="prelude-val">None</span>);
+        <span class="self">self
+    </span>}
+
+    <span class="doccomment">/// Sets the request&#39;s audit log reason.
+    </span><span class="kw">pub fn </span>audit_log_reason(<span class="kw-2">mut </span><span class="self">self</span>, reason: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.audit_log_reason = <span class="prelude-val">Some</span>(reason);
+        <span class="self">self
+    </span>}
+}
+
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+#[async_trait::async_trait]
+</span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Builder <span class="kw">for </span>EditRole&lt;<span class="lifetime">&#39;a</span>&gt; {
+    <span class="kw">type </span>Context&lt;<span class="lifetime">&#39;ctx</span>&gt; = (GuildId, <span class="prelude-ty">Option</span>&lt;RoleId&gt;);
+    <span class="kw">type </span>Built = Role;
+
+    <span class="doccomment">/// Edits the role.
+    ///
+    /// **Note**: Requires the [Manage Roles] permission.
     ///
     /// # Errors
     ///
-    /// May error if the icon is a URL and the HTTP request fails, or if the icon is a file
-    /// on a path that doesn&#39;t exist.
-    </span><span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
-    </span><span class="kw">pub async fn </span>icon&lt;<span class="lifetime">&#39;a</span>&gt;(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
-        icon: <span class="kw">impl </span>Into&lt;AttachmentType&lt;<span class="lifetime">&#39;a</span>&gt;&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt; {
-        <span class="kw">let </span>icon_data = icon.into().data(<span class="kw-2">&amp;</span>http.as_ref().client).<span class="kw">await</span><span class="question-mark">?</span>;
+    /// If the `cache` is enabled, returns a [`ModelError::InvalidPermissions`] if the current user
+    /// lacks permission. Otherwise returns [`Error::Http`], as well as if invalid data is given.
+    ///
+    /// [Manage Roles]: Permissions::MANAGE_ROLES
+    </span><span class="kw">async fn </span>execute(
+        <span class="self">self</span>,
+        cache_http: <span class="kw">impl </span>CacheHttp,
+        ctx: <span class="self">Self</span>::Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>::Built&gt; {
+        <span class="kw">let </span>(guild_id, role_id) = ctx;
 
-        <span class="self">self</span>.<span class="number">0</span>.remove(<span class="string">&quot;unicode_emoji&quot;</span>);
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;icon&quot;</span>, Value::from(encode_image(<span class="kw-2">&amp;</span>icon_data)));
+        <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+        </span><span class="kw">crate</span>::utils::user_has_guild_perms(<span class="kw-2">&amp;</span>cache_http, guild_id, Permissions::MANAGE_ROLES)<span class="question-mark">?</span>;
 
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>)
+        <span class="kw">let </span>http = cache_http.http();
+        <span class="kw">let </span>role = <span class="kw">match </span>role_id {
+            <span class="prelude-val">Some</span>(role_id) =&gt; {
+                http.edit_role(guild_id, role_id, <span class="kw-2">&amp;</span><span class="self">self</span>, <span class="self">self</span>.audit_log_reason).<span class="kw">await</span><span class="question-mark">?
+            </span>},
+            <span class="prelude-val">None </span>=&gt; http.create_role(guild_id, <span class="kw-2">&amp;</span><span class="self">self</span>, <span class="self">self</span>.audit_log_reason).<span class="kw">await</span><span class="question-mark">?</span>,
+        };
+
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(position) = <span class="self">self</span>.position {
+            http.edit_role_position(guild_id, role.id, position, <span class="self">self</span>.audit_log_reason).<span class="kw">await</span><span class="question-mark">?</span>;
+        }
+        <span class="prelude-val">Ok</span>(role)
     }
 }
 </code></pre></div></section></main></body></html>

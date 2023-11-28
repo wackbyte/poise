@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/structs/slash.rs`."><title>slash.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ae1b282cda4c21ec.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (8142a319e 2023-09-13)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-cabe4b1bd7b9da95.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../poise/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/structs/slash.rs`."><title>slash.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -209,166 +209,17 @@
 <a href="#209" id="209">209</a>
 <a href="#210" id="210">210</a>
 <a href="#211" id="211">211</a>
-<a href="#212" id="212">212</a>
-<a href="#213" id="213">213</a>
-<a href="#214" id="214">214</a>
-<a href="#215" id="215">215</a>
-<a href="#216" id="216">216</a>
-<a href="#217" id="217">217</a>
-<a href="#218" id="218">218</a>
-<a href="#219" id="219">219</a>
-<a href="#220" id="220">220</a>
-<a href="#221" id="221">221</a>
-<a href="#222" id="222">222</a>
-<a href="#223" id="223">223</a>
-<a href="#224" id="224">224</a>
-<a href="#225" id="225">225</a>
-<a href="#226" id="226">226</a>
-<a href="#227" id="227">227</a>
-<a href="#228" id="228">228</a>
-<a href="#229" id="229">229</a>
-<a href="#230" id="230">230</a>
-<a href="#231" id="231">231</a>
-<a href="#232" id="232">232</a>
-<a href="#233" id="233">233</a>
-<a href="#234" id="234">234</a>
-<a href="#235" id="235">235</a>
-<a href="#236" id="236">236</a>
-<a href="#237" id="237">237</a>
-<a href="#238" id="238">238</a>
-<a href="#239" id="239">239</a>
-<a href="#240" id="240">240</a>
-<a href="#241" id="241">241</a>
-<a href="#242" id="242">242</a>
-<a href="#243" id="243">243</a>
-<a href="#244" id="244">244</a>
-<a href="#245" id="245">245</a>
-<a href="#246" id="246">246</a>
-<a href="#247" id="247">247</a>
-<a href="#248" id="248">248</a>
-<a href="#249" id="249">249</a>
-<a href="#250" id="250">250</a>
-<a href="#251" id="251">251</a>
-<a href="#252" id="252">252</a>
-<a href="#253" id="253">253</a>
-<a href="#254" id="254">254</a>
-<a href="#255" id="255">255</a>
-<a href="#256" id="256">256</a>
-<a href="#257" id="257">257</a>
-<a href="#258" id="258">258</a>
-<a href="#259" id="259">259</a>
-<a href="#260" id="260">260</a>
-<a href="#261" id="261">261</a>
-<a href="#262" id="262">262</a>
-<a href="#263" id="263">263</a>
-<a href="#264" id="264">264</a>
-<a href="#265" id="265">265</a>
-<a href="#266" id="266">266</a>
-<a href="#267" id="267">267</a>
-<a href="#268" id="268">268</a>
-<a href="#269" id="269">269</a>
-<a href="#270" id="270">270</a>
-<a href="#271" id="271">271</a>
-<a href="#272" id="272">272</a>
-<a href="#273" id="273">273</a>
-<a href="#274" id="274">274</a>
-<a href="#275" id="275">275</a>
-<a href="#276" id="276">276</a>
-<a href="#277" id="277">277</a>
-<a href="#278" id="278">278</a>
-<a href="#279" id="279">279</a>
-<a href="#280" id="280">280</a>
-<a href="#281" id="281">281</a>
-<a href="#282" id="282">282</a>
-<a href="#283" id="283">283</a>
-<a href="#284" id="284">284</a>
-<a href="#285" id="285">285</a>
-<a href="#286" id="286">286</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Holds application command definition structs.
 
 </span><span class="kw">use crate</span>::{serenity_prelude <span class="kw">as </span>serenity, BoxFuture};
 
-<span class="doccomment">/// Abstracts over a refernce to an application command interaction or autocomplete interaction
-///
-/// Used in [`crate::ApplicationContext`]. We need to support autocomplete interactions in
-/// [`crate::ApplicationContext`] because command checks are invoked for autocomplete interactions
-/// too: we don&#39;t want poise accidentally leaking sensitive information through autocomplete
-/// suggestions
-</span><span class="attr">#[derive(Copy, Clone, Debug)]
-</span><span class="kw">pub enum </span>ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="doccomment">/// An application command interaction
-    </span>ApplicationCommand(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::ApplicationCommandInteraction),
-    <span class="doccomment">/// An autocomplete interaction
-    </span>Autocomplete(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::AutocompleteInteraction),
-    <span class="comment">// Not non_exhaustive, this type is deliberately just two possible variants
-</span>}
-
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="doccomment">/// Returns the data field of the underlying interaction
-    </span><span class="kw">pub fn </span>data(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::CommandData {
-        <span class="kw">match </span><span class="self">self </span>{
-            <span class="self">Self</span>::ApplicationCommand(x) =&gt; <span class="kw-2">&amp;</span>x.data,
-            <span class="self">Self</span>::Autocomplete(x) =&gt; <span class="kw-2">&amp;</span>x.data,
-        }
-    }
-
-    <span class="doccomment">/// Returns the ID of the underlying interaction
-    </span><span class="kw">pub fn </span>id(<span class="self">self</span>) -&gt; serenity::InteractionId {
-        <span class="kw">match </span><span class="self">self </span>{
-            <span class="self">Self</span>::ApplicationCommand(x) =&gt; x.id,
-            <span class="self">Self</span>::Autocomplete(x) =&gt; x.id,
-        }
-    }
-
-    <span class="doccomment">/// Returns the guild ID of the underlying interaction
-    </span><span class="kw">pub fn </span>guild_id(<span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;serenity::GuildId&gt; {
-        <span class="kw">match </span><span class="self">self </span>{
-            <span class="self">Self</span>::ApplicationCommand(x) =&gt; x.guild_id,
-            <span class="self">Self</span>::Autocomplete(x) =&gt; x.guild_id,
-        }
-    }
-
-    <span class="doccomment">/// Returns the channel ID of the underlying interaction
-    </span><span class="kw">pub fn </span>channel_id(<span class="self">self</span>) -&gt; serenity::ChannelId {
-        <span class="kw">match </span><span class="self">self </span>{
-            <span class="self">Self</span>::ApplicationCommand(x) =&gt; x.channel_id,
-            <span class="self">Self</span>::Autocomplete(x) =&gt; x.channel_id,
-        }
-    }
-
-    <span class="doccomment">/// Returns the member field of the underlying interaction
-    </span><span class="kw">pub fn </span>member(<span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Member&gt; {
-        <span class="kw">match </span><span class="self">self </span>{
-            <span class="self">Self</span>::ApplicationCommand(x) =&gt; x.member.as_ref(),
-            <span class="self">Self</span>::Autocomplete(x) =&gt; x.member.as_ref(),
-        }
-    }
-
-    <span class="doccomment">/// Returns the user field of the underlying interaction
-    </span><span class="kw">pub fn </span>user(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::User {
-        <span class="kw">match </span><span class="self">self </span>{
-            <span class="self">Self</span>::ApplicationCommand(x) =&gt; <span class="kw-2">&amp;</span>x.user,
-            <span class="self">Self</span>::Autocomplete(x) =&gt; <span class="kw-2">&amp;</span>x.user,
-        }
-    }
-
-    <span class="doccomment">/// Returns the inner [`serenity::ApplicationCommandInteraction`] and panics otherwise
-    </span><span class="kw">pub fn </span>unwrap(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::ApplicationCommandInteraction {
-        <span class="kw">match </span><span class="self">self </span>{
-            ApplicationCommandOrAutocompleteInteraction::ApplicationCommand(x) =&gt; x,
-            ApplicationCommandOrAutocompleteInteraction::Autocomplete(<span class="kw">_</span>) =&gt; {
-                <span class="macro">panic!</span>(<span class="string">&quot;expected application command interaction, got autocomplete interaction&quot;</span>)
-            }
-        }
-    }
-
-    <span class="doccomment">/// Returns the locale field of the underlying interaction
-    </span><span class="kw">pub fn </span>locale(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str {
-        <span class="kw">match </span><span class="self">self </span>{
-            ApplicationCommandOrAutocompleteInteraction::ApplicationCommand(x) =&gt; <span class="kw-2">&amp;</span>x.locale,
-            ApplicationCommandOrAutocompleteInteraction::Autocomplete(x) =&gt; <span class="kw-2">&amp;</span>x.locale,
-        }
-    }
+<span class="doccomment">/// Specifies if the current invokation is from a Command or Autocomplete.
+</span><span class="attr">#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+</span><span class="kw">pub enum </span>CommandInteractionType {
+    <span class="doccomment">/// Invoked from an application command
+    </span>Command,
+    <span class="doccomment">/// Invoked from an autocomplete interaction
+    </span>Autocomplete,
 }
 
 <span class="doccomment">/// Application command specific context passed to command invocations.
@@ -379,13 +230,15 @@
     </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>serenity_context: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
     <span class="doccomment">/// The interaction which triggered this command execution.
-    </span><span class="kw">pub </span>interaction: ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;a</span>&gt;,
+    </span><span class="kw">pub </span>interaction: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::CommandInteraction,
+    <span class="doccomment">/// The type of the interaction which triggered this command execution.
+    </span><span class="kw">pub </span>interaction_type: CommandInteractionType,
     <span class="doccomment">/// Slash command arguments
     ///
     /// **Not** equivalent to `self.interaction.data().options`. That one refers to just the
     /// top-level command arguments, whereas [`Self::args`] is the options of the actual
     /// subcommand, if any.
-    </span><span class="kw">pub </span>args: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[serenity::CommandDataOption],
+    </span><span class="kw">pub </span>args: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[serenity::ResolvedOption&lt;<span class="lifetime">&#39;a</span>&gt;],
     <span class="doccomment">/// Keeps track of whether an initial response has been sent.
     ///
     /// Discord requires different HTTP endpoints for initial and additional responses.
@@ -423,21 +276,18 @@
 <span class="kw">impl</span>&lt;U, E&gt; ApplicationContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt; {
     <span class="doccomment">/// See [`crate::Context::defer()`]
     </span><span class="kw">pub async fn </span>defer_response(<span class="kw-2">&amp;</span><span class="self">self</span>, ephemeral: bool) -&gt; <span class="prelude-ty">Result</span>&lt;(), serenity::Error&gt; {
-        <span class="kw">let </span>interaction = <span class="kw">match </span><span class="self">self</span>.interaction {
-            ApplicationCommandOrAutocompleteInteraction::ApplicationCommand(x) =&gt; x,
-            ApplicationCommandOrAutocompleteInteraction::Autocomplete(<span class="kw">_</span>) =&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(()),
-        };
-
         <span class="kw">if </span>!<span class="self">self
             </span>.has_sent_initial_response
             .load(std::sync::atomic::Ordering::SeqCst)
         {
-            interaction
-                .create_interaction_response(<span class="self">self</span>.serenity_context, |f| {
-                    f.kind(serenity::InteractionResponseType::DeferredChannelMessageWithSource)
-                        .interaction_response_data(|b| b.ephemeral(ephemeral))
-                })
+            <span class="kw">let </span>response = serenity::CreateInteractionResponse::Defer(
+                serenity::CreateInteractionResponseMessage::new().ephemeral(ephemeral),
+            );
+
+            <span class="self">self</span>.interaction
+                .create_response(<span class="self">self</span>.serenity_context, response)
                 .<span class="kw">await</span><span class="question-mark">?</span>;
+
             <span class="self">self</span>.has_sent_initial_response
                 .store(<span class="bool-val">true</span>, std::sync::atomic::Ordering::SeqCst);
         }
@@ -491,11 +341,7 @@
 #[derivative(Debug(bound = <span class="string">&quot;&quot;</span>))]
 </span><span class="kw">pub struct </span>CommandParameter&lt;U, E&gt; {
     <span class="doccomment">/// Name of this command parameter
-    ///
-    /// This field is optional because text commands (prefix commands) don&#39;t need parameter names.
-    /// This field is None when a pattern like `_` or `CodeBlock { code, lang, .. }` is used in
-    /// place of a name in the function parameter.
-    </span><span class="kw">pub </span>name: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    </span><span class="kw">pub </span>name: String,
     <span class="doccomment">/// Localized names with locale string as the key (slash-only)
     </span><span class="kw">pub </span>name_localizations: std::collections::HashMap&lt;String, String&gt;,
     <span class="doccomment">/// Description of the command. Required for slash commands
@@ -515,12 +361,12 @@
     /// For example a u32 [`CommandParameter`] would store this as the [`Self::type_setter`]:
     /// ```rust
     /// # use poise::serenity_prelude as serenity;
-    /// # let _: fn(&amp;mut serenity::CreateApplicationCommandOption) -&gt; &amp;mut serenity::CreateApplicationCommandOption =
-    /// |b| b.kind(serenity::CommandOptionType::Integer).min_int_value(0).max_int_value(u32::MAX)
+    /// # let _: fn(serenity::CreateCommandOption) -&gt; serenity::CreateCommandOption =
+    /// |b| b.kind(serenity::CommandOptionType::Integer).min_int_value(0).max_int_value(u64::MAX)
     /// # ;
     /// ```
     </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
-    </span><span class="kw">pub </span>type_setter: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>(<span class="kw-2">&amp;mut </span>serenity::CreateApplicationCommandOption)&gt;,
+    </span><span class="kw">pub </span>type_setter: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>(serenity::CreateCommandOption) -&gt; serenity::CreateCommandOption&gt;,
     <span class="doccomment">/// Optionally, a callback that is invoked on autocomplete interactions. This closure should
     /// extract the partial argument from the given JSON value and generate the autocomplete
     /// response which contains the list of autocomplete suggestions.
@@ -541,33 +387,37 @@
 <span class="kw">impl</span>&lt;U, E&gt; CommandParameter&lt;U, E&gt; {
     <span class="doccomment">/// Generates a slash command parameter builder from this [`CommandParameter`] instance. This
     /// can be used to register the command on Discord&#39;s servers
-    </span><span class="kw">pub fn </span>create_as_slash_command_option(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;serenity::CreateApplicationCommandOption&gt; {
-        <span class="kw">let </span><span class="kw-2">mut </span>builder = serenity::CreateApplicationCommandOption::default();
-        builder
+    </span><span class="kw">pub fn </span>create_as_slash_command_option(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;serenity::CreateCommandOption&gt; {
+        <span class="kw">let </span>description = <span class="self">self
+            </span>.description
+            .as_deref()
+            .unwrap_or(<span class="string">&quot;A slash command parameter&quot;</span>);
+
+        <span class="kw">let </span><span class="kw-2">mut </span>builder = serenity::CreateCommandOption::new(
+            serenity::CommandOptionType::String,
+            <span class="self">self</span>.name.clone(),
+            description,
+        );
+
+        builder = builder
             .required(<span class="self">self</span>.required)
-            .name(<span class="self">self</span>.name.as_ref()<span class="question-mark">?</span>)
-            .description(
-                <span class="self">self</span>.description
-                    .as_deref()
-                    .unwrap_or(<span class="string">&quot;A slash command parameter&quot;</span>),
-            )
             .set_autocomplete(<span class="self">self</span>.autocomplete_callback.is_some());
+
         <span class="kw">for </span>(locale, name) <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.name_localizations {
-            builder.name_localized(locale, name);
+            builder = builder.name_localized(locale, name);
         }
         <span class="kw">for </span>(locale, description) <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.description_localizations {
-            builder.description_localized(locale, description);
+            builder = builder.description_localized(locale, description);
         }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(channel_types) = <span class="kw-2">&amp;</span><span class="self">self</span>.channel_types {
-            builder.channel_types(channel_types);
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(channel_types) = <span class="self">self</span>.channel_types.clone() {
+            builder = builder.channel_types(channel_types);
         }
         <span class="kw">for </span>(i, choice) <span class="kw">in </span><span class="self">self</span>.choices.iter().enumerate() {
-            builder.add_int_choice_localized(<span class="kw-2">&amp;</span>choice.name, i <span class="kw">as _</span>, choice.localizations.iter());
+            builder =
+                builder.add_int_choice_localized(<span class="kw-2">&amp;</span>choice.name, i <span class="kw">as _</span>, choice.localizations.iter());
         }
-        (<span class="self">self</span>.type_setter<span class="question-mark">?</span>)(<span class="kw-2">&amp;mut </span>builder);
-        <span class="prelude-val">Some</span>(builder)
+
+        <span class="prelude-val">Some</span>((<span class="self">self</span>.type_setter<span class="question-mark">?</span>)(builder))
     }
 }
 </code></pre></div></section></main></body></html>

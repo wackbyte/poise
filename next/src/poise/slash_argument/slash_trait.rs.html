@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/slash_argument/slash_trait.rs`."><title>slash_trait.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ae1b282cda4c21ec.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (8142a319e 2023-09-13)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-cabe4b1bd7b9da95.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../poise/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/slash_argument/slash_trait.rs`."><title>slash_trait.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -278,6 +278,17 @@
 <a href="#278" id="278">278</a>
 <a href="#279" id="279">279</a>
 <a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Traits for slash command parameters and a macro to wrap the auto-deref specialization hack
 
 </span><span class="kw">use </span><span class="kw">super</span>::SlashArgError;
@@ -285,7 +296,7 @@
 <span class="kw">use </span>std::marker::PhantomData;
 
 <span class="attr">#[allow(unused_imports)] </span><span class="comment">// import is required if serenity simdjson feature is enabled
-</span><span class="kw">use </span><span class="kw">crate</span>::serenity::json::prelude::<span class="kw-2">*</span>;
+</span><span class="kw">use </span><span class="kw">crate</span>::serenity::json::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
 
 <span class="doccomment">/// Implement this trait on types that you want to use as a slash command parameter.
@@ -297,8 +308,8 @@
     /// Don&#39;t call this method directly! Use [`crate::extract_slash_argument!`]
     </span><span class="kw">async fn </span>extract(
         ctx: <span class="kw-2">&amp;</span>serenity::Context,
-        interaction: <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;_</span>&gt;,
-        value: <span class="kw-2">&amp;</span>serenity::json::Value,
+        interaction: <span class="kw-2">&amp;</span>serenity::CommandInteraction,
+        value: <span class="kw-2">&amp;</span>serenity::ResolvedValue&lt;<span class="lifetime">&#39;_</span>&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, SlashArgError&gt;;
 
     <span class="doccomment">/// Create a slash command parameter equivalent to type T.
@@ -307,7 +318,7 @@
     /// filling in `name()`, `description()`, and possibly `required()` or other fields.
     ///
     /// Don&#39;t call this method directly! Use [`crate::create_slash_argument!`]
-    </span><span class="kw">fn </span>create(builder: <span class="kw-2">&amp;mut </span>serenity::CreateApplicationCommandOption);
+    </span><span class="kw">fn </span>create(builder: serenity::CreateCommandOption) -&gt; serenity::CreateCommandOption;
 
     <span class="doccomment">/// If this is a choice parameter, returns the choices
     ///
@@ -327,11 +338,11 @@
     <span class="kw">async fn </span>extract(
         <span class="self">self</span>,
         ctx: <span class="kw-2">&amp;</span>serenity::Context,
-        interaction: <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;_</span>&gt;,
-        value: <span class="kw-2">&amp;</span>serenity::json::Value,
+        interaction: <span class="kw-2">&amp;</span>serenity::CommandInteraction,
+        value: <span class="kw-2">&amp;</span>serenity::ResolvedValue&lt;<span class="lifetime">&#39;_</span>&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;T, SlashArgError&gt;;
 
-    <span class="kw">fn </span>create(<span class="self">self</span>, builder: <span class="kw-2">&amp;mut </span>serenity::CreateApplicationCommandOption);
+    <span class="kw">fn </span>create(<span class="self">self</span>, builder: serenity::CreateCommandOption) -&gt; serenity::CreateCommandOption;
 
     <span class="kw">fn </span>choices(<span class="self">self</span>) -&gt; Vec&lt;<span class="kw">crate</span>::CommandParameterChoice&gt; {
         Vec::new()
@@ -379,18 +390,22 @@
     <span class="kw">async fn </span>extract(
         <span class="self">self</span>,
         ctx: <span class="kw-2">&amp;</span>serenity::Context,
-        interaction: <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;_</span>&gt;,
-        value: <span class="kw-2">&amp;</span>serenity::json::Value,
+        interaction: <span class="kw-2">&amp;</span>serenity::CommandInteraction,
+        value: <span class="kw-2">&amp;</span>serenity::ResolvedValue&lt;<span class="lifetime">&#39;_</span>&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;T, SlashArgError&gt; {
-        <span class="kw">let </span>string = value
-            .as_str()
-            .ok_or(SlashArgError::CommandStructureMismatch {
-                description: <span class="string">&quot;expected string&quot;</span>,
-            })<span class="question-mark">?</span>;
+        <span class="kw">let </span>string = <span class="kw">match </span>value {
+            serenity::ResolvedValue::String(str) =&gt; <span class="kw-2">*</span>str,
+            <span class="kw">_ </span>=&gt; {
+                <span class="kw">return </span><span class="prelude-val">Err</span>(SlashArgError::CommandStructureMismatch {
+                    description: <span class="string">&quot;expected string&quot;</span>,
+                })
+            }
+        };
+
         T::convert(
             ctx,
-            interaction.guild_id(),
-            <span class="prelude-val">Some</span>(interaction.channel_id()),
+            interaction.guild_id,
+            <span class="prelude-val">Some</span>(interaction.channel_id),
             string,
         )
         .<span class="kw">await
@@ -400,8 +415,8 @@
         })
     }
 
-    <span class="kw">fn </span>create(<span class="self">self</span>, builder: <span class="kw-2">&amp;mut </span>serenity::CreateApplicationCommandOption) {
-        builder.kind(serenity::CommandOptionType::String);
+    <span class="kw">fn </span>create(<span class="self">self</span>, builder: serenity::CreateCommandOption) -&gt; serenity::CreateCommandOption {
+        builder.kind(serenity::CommandOptionType::String)
     }
 }
 
@@ -412,21 +427,24 @@
         </span><span class="kw">impl </span>SlashArgument <span class="kw">for </span><span class="macro-nonterminal">$t </span>{
             <span class="kw">async fn </span>extract(
                 <span class="kw">_</span>: <span class="kw-2">&amp;</span>serenity::Context,
-                <span class="kw">_</span>: <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;_</span>&gt;,
-                value: <span class="kw-2">&amp;</span>serenity::json::Value,
+                <span class="kw">_</span>: <span class="kw-2">&amp;</span>serenity::CommandInteraction,
+                value: <span class="kw-2">&amp;</span>serenity::ResolvedValue&lt;<span class="lifetime">&#39;_</span>&gt;,
             ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="macro-nonterminal">$t</span>, SlashArgError&gt; {
+                <span class="kw">let </span>value = <span class="kw">match </span>value {
+                    serenity::ResolvedValue::Integer(int) =&gt; <span class="kw-2">*</span>int,
+                    <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(SlashArgError::CommandStructureMismatch { description: <span class="string">&quot;expected integer&quot; </span>})
+                };
+
                 value
-                    .as_i64()
-                    .ok_or(SlashArgError::CommandStructureMismatch { description: <span class="string">&quot;expected integer&quot; </span>})<span class="question-mark">?
-                    </span>.try_into()
+                    .try_into()
                     .map_err(|<span class="kw">_</span>| SlashArgError::CommandStructureMismatch { description: <span class="string">&quot;received out of bounds integer&quot; </span>})
             }
 
-            <span class="kw">fn </span>create(builder: <span class="kw-2">&amp;mut </span>serenity::CreateApplicationCommandOption) {
+            <span class="kw">fn </span>create(builder: serenity::CreateCommandOption) -&gt; serenity::CreateCommandOption {
                 builder
                     .min_number_value(f64::max(&lt;<span class="macro-nonterminal">$t</span>&gt;::MIN <span class="kw">as </span>f64, -<span class="number">9007199254740991.</span>))
                     .max_number_value(f64::min(&lt;<span class="macro-nonterminal">$t</span>&gt;::MAX <span class="kw">as </span>f64, <span class="number">9007199254740991.</span>))
-                    .kind(serenity::CommandOptionType::Integer);
+                    .kind(serenity::CommandOptionType::Integer)
             }
         }
     )* };
@@ -441,16 +459,17 @@
             <span class="kw">async fn </span>extract(
                 <span class="self">self</span>,
                 <span class="kw">_</span>: <span class="kw-2">&amp;</span>serenity::Context,
-                <span class="kw">_</span>: <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;_</span>&gt;,
-                value: <span class="kw-2">&amp;</span>serenity::json::Value,
+                <span class="kw">_</span>: <span class="kw-2">&amp;</span>serenity::CommandInteraction,
+                value: <span class="kw-2">&amp;</span>serenity::ResolvedValue&lt;<span class="lifetime">&#39;_</span>&gt;,
             ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="macro-nonterminal">$t</span>, SlashArgError&gt; {
-                <span class="prelude-val">Ok</span>(value
-                    .as_f64()
-                    .ok_or(SlashArgError::CommandStructureMismatch { description: <span class="string">&quot;expected float&quot; </span>})<span class="question-mark">? </span><span class="kw">as </span><span class="macro-nonterminal">$t</span>)
+                <span class="kw">match </span>value {
+                    serenity::ResolvedValue::Number(float) =&gt; <span class="prelude-val">Ok</span>(<span class="kw-2">*</span>float <span class="kw">as </span><span class="macro-nonterminal">$t</span>),
+                    <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(SlashArgError::CommandStructureMismatch { description: <span class="string">&quot;expected float&quot; </span>})
+                }
             }
 
-            <span class="kw">fn </span>create(<span class="self">self</span>, builder: <span class="kw-2">&amp;mut </span>serenity::CreateApplicationCommandOption) {
-                builder.kind(serenity::CommandOptionType::Number);
+            <span class="kw">fn </span>create(<span class="self">self</span>, builder: serenity::CreateCommandOption) -&gt; serenity::CreateCommandOption {
+                builder.kind(serenity::CommandOptionType::Number)
             }
         }
     )* };
@@ -462,18 +481,19 @@
     <span class="kw">async fn </span>extract(
         <span class="self">self</span>,
         <span class="kw">_</span>: <span class="kw-2">&amp;</span>serenity::Context,
-        <span class="kw">_</span>: <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;_</span>&gt;,
-        value: <span class="kw-2">&amp;</span>serenity::json::Value,
+        <span class="kw">_</span>: <span class="kw-2">&amp;</span>serenity::CommandInteraction,
+        value: <span class="kw-2">&amp;</span>serenity::ResolvedValue&lt;<span class="lifetime">&#39;_</span>&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;bool, SlashArgError&gt; {
-        <span class="prelude-val">Ok</span>(value
-            .as_bool()
-            .ok_or(SlashArgError::CommandStructureMismatch {
+        <span class="kw">match </span>value {
+            serenity::ResolvedValue::Boolean(val) =&gt; <span class="prelude-val">Ok</span>(<span class="kw-2">*</span>val),
+            <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(SlashArgError::CommandStructureMismatch {
                 description: <span class="string">&quot;expected bool&quot;</span>,
-            })<span class="question-mark">?</span>)
+            }),
+        }
     }
 
-    <span class="kw">fn </span>create(<span class="self">self</span>, builder: <span class="kw-2">&amp;mut </span>serenity::CreateApplicationCommandOption) {
-        builder.kind(serenity::CommandOptionType::Boolean);
+    <span class="kw">fn </span>create(<span class="self">self</span>, builder: serenity::CreateCommandOption) -&gt; serenity::CreateCommandOption {
+        builder.kind(serenity::CommandOptionType::Boolean)
     }
 }
 
@@ -482,23 +502,25 @@
     <span class="kw">async fn </span>extract(
         <span class="self">self</span>,
         <span class="kw">_</span>: <span class="kw-2">&amp;</span>serenity::Context,
-        interaction: <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;_</span>&gt;,
-        value: <span class="kw-2">&amp;</span>Value,
+        interaction: <span class="kw-2">&amp;</span>serenity::CommandInteraction,
+        value: <span class="kw-2">&amp;</span>serenity::ResolvedValue&lt;<span class="lifetime">&#39;_</span>&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;serenity::Attachment, SlashArgError&gt; {
-        <span class="kw">let </span>attachment_id = serenity::AttachmentId(
-            value
-                .as_str()
-                .ok_or(SlashArgError::CommandStructureMismatch {
+        <span class="kw">let </span>attachment_id = <span class="kw">match </span>value {
+            serenity::ResolvedValue::String(val) =&gt; {
+                val.parse()
+                    .map_err(|<span class="kw">_</span>| SlashArgError::CommandStructureMismatch {
+                        description: <span class="string">&quot;improper attachment id passed&quot;</span>,
+                    })<span class="question-mark">?
+            </span>}
+            <span class="kw">_ </span>=&gt; {
+                <span class="kw">return </span><span class="prelude-val">Err</span>(SlashArgError::CommandStructureMismatch {
                     description: <span class="string">&quot;expected attachment id&quot;</span>,
-                })<span class="question-mark">?
-                </span>.parse()
-                .map_err(|<span class="kw">_</span>| SlashArgError::CommandStructureMismatch {
-                    description: <span class="string">&quot;improper attachment id passed&quot;</span>,
-                })<span class="question-mark">?</span>,
-        );
+                })
+            }
+        };
 
         interaction
-            .data()
+            .data
             .resolved
             .attachments
             .get(<span class="kw-2">&amp;</span>attachment_id)
@@ -508,8 +530,8 @@
             })
     }
 
-    <span class="kw">fn </span>create(<span class="self">self</span>, builder: <span class="kw-2">&amp;mut </span>serenity::CreateApplicationCommandOption) {
-        builder.kind(serenity::CommandOptionType::Attachment);
+    <span class="kw">fn </span>create(<span class="self">self</span>, builder: serenity::CreateCommandOption) -&gt; serenity::CreateCommandOption {
+        builder.kind(serenity::CommandOptionType::Attachment)
     }
 }
 
@@ -518,14 +540,14 @@
     <span class="kw">async fn </span>extract(
         <span class="self">self</span>,
         ctx: <span class="kw-2">&amp;</span>serenity::Context,
-        interaction: <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;_</span>&gt;,
-        value: <span class="kw-2">&amp;</span>serenity::json::Value,
+        interaction: <span class="kw-2">&amp;</span>serenity::CommandInteraction,
+        value: <span class="kw-2">&amp;</span>serenity::ResolvedValue&lt;<span class="lifetime">&#39;_</span>&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;T, SlashArgError&gt; {
         &lt;T <span class="kw">as </span>SlashArgument&gt;::extract(ctx, interaction, value).<span class="kw">await
     </span>}
 
-    <span class="kw">fn </span>create(<span class="self">self</span>, builder: <span class="kw-2">&amp;mut </span>serenity::CreateApplicationCommandOption) {
-        &lt;T <span class="kw">as </span>SlashArgument&gt;::create(builder);
+    <span class="kw">fn </span>create(<span class="self">self</span>, builder: serenity::CreateCommandOption) -&gt; serenity::CreateCommandOption {
+        &lt;T <span class="kw">as </span>SlashArgument&gt;::create(builder)
     }
 
     <span class="kw">fn </span>choices(<span class="self">self</span>) -&gt; Vec&lt;<span class="kw">crate</span>::CommandParameterChoice&gt; {
@@ -540,15 +562,15 @@
         </span><span class="kw">impl </span>SlashArgument <span class="kw">for </span><span class="macro-nonterminal">$</span><span class="kw">type </span>{
             <span class="kw">async fn </span><span class="macro-nonterminal">extract</span>(
                 ctx: <span class="kw-2">&amp;</span>serenity::Context,
-                interaction: <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;_</span>&gt;,
-                value: <span class="kw-2">&amp;</span>serenity::json::Value,
+                interaction: <span class="kw-2">&amp;</span>serenity::CommandInteraction,
+                value: <span class="kw-2">&amp;</span>serenity::ResolvedValue&lt;<span class="lifetime">&#39;_</span>&gt;,
             ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="macro-nonterminal">$</span><span class="kw">type</span>, <span class="macro-nonterminal">SlashArgError</span>&gt; {
                 <span class="comment">// We can parse IDs by falling back to the generic serenity::ArgumentConvert impl
                 </span>PhantomData::&lt;<span class="macro-nonterminal">$</span><span class="kw">type</span>&gt;.<span class="macro-nonterminal">extract</span>(ctx, interaction, value).<span class="kw">await
             </span>}
 
-            <span class="kw">fn </span>create(builder: <span class="kw-2">&amp;mut </span>serenity::CreateApplicationCommandOption) {
-                builder.kind(serenity::CommandOptionType::<span class="macro-nonterminal">$slash_param_type</span>);
+            <span class="kw">fn </span>create(builder: serenity::CreateCommandOption) -&gt; serenity::CreateCommandOption {
+                builder.kind(serenity::CommandOptionType::<span class="macro-nonterminal">$slash_param_type</span>)
             }
         }
     };

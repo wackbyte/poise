@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/gateway/shard.rs`."><title>shard.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ae1b282cda4c21ec.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (8142a319e 2023-09-13)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-cabe4b1bd7b9da95.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../serenity/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.12.0/src/gateway/shard.rs`."><title>shard.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -761,111 +761,52 @@
 <a href="#761" id="761">761</a>
 <a href="#762" id="762">762</a>
 <a href="#763" id="763">763</a>
-<a href="#764" id="764">764</a>
-<a href="#765" id="765">765</a>
-<a href="#766" id="766">766</a>
-<a href="#767" id="767">767</a>
-<a href="#768" id="768">768</a>
-<a href="#769" id="769">769</a>
-<a href="#770" id="770">770</a>
-<a href="#771" id="771">771</a>
-<a href="#772" id="772">772</a>
-<a href="#773" id="773">773</a>
-<a href="#774" id="774">774</a>
-<a href="#775" id="775">775</a>
-<a href="#776" id="776">776</a>
-<a href="#777" id="777">777</a>
-<a href="#778" id="778">778</a>
-<a href="#779" id="779">779</a>
-<a href="#780" id="780">780</a>
-<a href="#781" id="781">781</a>
-<a href="#782" id="782">782</a>
-<a href="#783" id="783">783</a>
-<a href="#784" id="784">784</a>
-<a href="#785" id="785">785</a>
-<a href="#786" id="786">786</a>
-<a href="#787" id="787">787</a>
-<a href="#788" id="788">788</a>
-<a href="#789" id="789">789</a>
-<a href="#790" id="790">790</a>
-<a href="#791" id="791">791</a>
-<a href="#792" id="792">792</a>
-<a href="#793" id="793">793</a>
-<a href="#794" id="794">794</a>
-<a href="#795" id="795">795</a>
-<a href="#796" id="796">796</a>
-<a href="#797" id="797">797</a>
-<a href="#798" id="798">798</a>
-<a href="#799" id="799">799</a>
-<a href="#800" id="800">800</a>
-<a href="#801" id="801">801</a>
-<a href="#802" id="802">802</a>
-<a href="#803" id="803">803</a>
-<a href="#804" id="804">804</a>
-<a href="#805" id="805">805</a>
-<a href="#806" id="806">806</a>
-<a href="#807" id="807">807</a>
-<a href="#808" id="808">808</a>
-<a href="#809" id="809">809</a>
-<a href="#810" id="810">810</a>
-<a href="#811" id="811">811</a>
-<a href="#812" id="812">812</a>
-<a href="#813" id="813">813</a>
-<a href="#814" id="814">814</a>
-<a href="#815" id="815">815</a>
-<a href="#816" id="816">816</a>
-<a href="#817" id="817">817</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
 <span class="kw">use </span>std::time::{Duration <span class="kw">as </span>StdDuration, Instant};
 
-<span class="kw">use </span>async_tungstenite::tungstenite::error::Error <span class="kw">as </span>TungsteniteError;
-<span class="kw">use </span>async_tungstenite::tungstenite::protocol::frame::CloseFrame;
 <span class="kw">use </span>tokio::sync::Mutex;
+<span class="kw">use </span>tokio_tungstenite::tungstenite::error::Error <span class="kw">as </span>TungsteniteError;
+<span class="kw">use </span>tokio_tungstenite::tungstenite::protocol::frame::CloseFrame;
 <span class="kw">use </span>tracing::{debug, error, info, instrument, trace, warn};
 <span class="kw">use </span>url::Url;
 
 <span class="kw">use super</span>::{
+    ActivityData,
+    ChunkGuildFilter,
     ConnectionStage,
-    CurrentPresence,
     GatewayError,
+    PresenceData,
     ReconnectType,
     ShardAction,
-    WebSocketGatewayClientExt,
-    WsStream,
+    WsClient,
 };
-<span class="kw">use </span><span class="kw">crate</span>::client::bridge::gateway::ChunkGuildFilter;
 <span class="kw">use </span><span class="kw">crate</span>::constants::{<span class="self">self</span>, close_codes};
-<span class="kw">use </span><span class="kw">crate</span>::http::Http;
 <span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
-<span class="kw">use </span><span class="kw">crate</span>::internal::ws_impl::create_client;
 <span class="kw">use </span><span class="kw">crate</span>::model::event::{Event, GatewayEvent};
-<span class="kw">use </span><span class="kw">crate</span>::model::gateway::{Activity, GatewayIntents};
-<span class="kw">use </span><span class="kw">crate</span>::model::id::GuildId;
+<span class="kw">use </span><span class="kw">crate</span>::model::gateway::{GatewayIntents, ShardInfo};
+<span class="kw">use </span><span class="kw">crate</span>::model::id::{ApplicationId, GuildId};
 <span class="kw">use </span><span class="kw">crate</span>::model::user::OnlineStatus;
 
-<span class="doccomment">/// A Shard is a higher-level handler for a websocket connection to Discord&#39;s
-/// gateway. The shard allows for sending and receiving messages over the
-/// websocket, such as setting the active activity, reconnecting, syncing
-/// guilds, and more.
+<span class="doccomment">/// A Shard is a higher-level handler for a websocket connection to Discord&#39;s gateway. The shard
+/// allows for sending and receiving messages over the websocket, such as setting the active
+/// activity, reconnecting, syncing guilds, and more.
 ///
-/// Refer to the [module-level documentation][module docs] for information on
-/// effectively using multiple shards, if you need to.
+/// Refer to the [module-level documentation][module docs] for information on effectively using
+/// multiple shards, if you need to.
 ///
-/// Note that there are additional methods available if you are manually
-/// managing a shard yourself, although they are hidden from the documentation
-/// since there are few use cases for doing such.
+/// Note that there are additional methods available if you are manually managing a shard yourself,
+/// although they are hidden from the documentation since there are few use cases for doing such.
 ///
 /// # Stand-alone shards
 ///
-/// You may instantiate a shard yourself - decoupled from the [`Client`] - if
-/// you need to. For most use cases, you will not need to do this, and you can
-/// leave the client to do it.
+/// You may instantiate a shard yourself - decoupled from the [`Client`] - if you need to. For most
+/// use cases, you will not need to do this, and you can leave the client to do it.
 ///
-/// This can be done by passing in the required parameters to [`Self::new`]. You can
-/// then manually handle the shard yourself.
+/// This can be done by passing in the required parameters to [`Self::new`]. You can then manually
+/// handle the shard yourself.
 ///
-/// **Note**: You _really_ do not need to do this. Just call one of the
-/// appropriate methods on the [`Client`].
+/// **Note**: You _really_ do not need to do this. Just call one of the appropriate methods on the
+/// [`Client`].
 ///
 /// # Examples
 ///
@@ -876,31 +817,23 @@
 /// [docs]: https://discord.com/developers/docs/topics/gateway#sharding
 /// [module docs]: crate::gateway#sharding
 </span><span class="kw">pub struct </span>Shard {
-    <span class="kw">pub </span>client: WsStream,
-    current_presence: CurrentPresence,
-    <span class="doccomment">/// A tuple of:
-    ///
-    /// - the last instant that a heartbeat was sent
-    /// - the last instant that an acknowledgement was received
-    ///
-    /// This can be used to calculate [`latency`].
-    ///
-    /// [`latency`]: fn@Self::latency
-    </span>heartbeat_instants: (<span class="prelude-ty">Option</span>&lt;Instant&gt;, <span class="prelude-ty">Option</span>&lt;Instant&gt;),
-    heartbeat_interval: <span class="prelude-ty">Option</span>&lt;u64&gt;,
-    http: <span class="prelude-ty">Option</span>&lt;Arc&lt;Http&gt;&gt;,
-    <span class="doccomment">/// This is used by the heartbeater to determine whether the last
-    /// heartbeat was sent without an acknowledgement, and whether to reconnect.
-    </span><span class="comment">// This _must_ be set to `true` in `Shard::handle_event`&#39;s
-    // `Ok(GatewayEvent::HeartbeatAck)` arm.
+    <span class="kw">pub </span>client: WsClient,
+    presence: PresenceData,
+    last_heartbeat_sent: <span class="prelude-ty">Option</span>&lt;Instant&gt;,
+    last_heartbeat_ack: <span class="prelude-ty">Option</span>&lt;Instant&gt;,
+    heartbeat_interval: <span class="prelude-ty">Option</span>&lt;std::time::Duration&gt;,
+    application_id_callback: <span class="prelude-ty">Option</span>&lt;Box&lt;<span class="kw">dyn </span>FnOnce(ApplicationId) + Send + Sync&gt;&gt;,
+    <span class="doccomment">/// This is used by the heartbeater to determine whether the last heartbeat was sent without an
+    /// acknowledgement, and whether to reconnect.
+    </span><span class="comment">// This must be set to `true` in `Shard::handle_event`&#39;s `Ok(GatewayEvent::HeartbeatAck)` arm.
     </span>last_heartbeat_acknowledged: bool,
     seq: u64,
     session_id: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    shard_info: [u64; <span class="number">2</span>],
+    shard_info: ShardInfo,
     stage: ConnectionStage,
     <span class="doccomment">/// Instant of when the shard was started.
-    </span><span class="comment">// This acts as a timeout to determine if the shard has - for some reason -
-    // not started within a decent amount of time.
+    </span><span class="comment">// This acts as a timeout to determine if the shard has - for some reason - not started within
+    // a decent amount of time.
     </span><span class="kw">pub </span>started: Instant,
     <span class="kw">pub </span>token: String,
     ws_url: Arc&lt;Mutex&lt;String&gt;&gt;,
@@ -914,46 +847,53 @@
     ///
     /// # Examples
     ///
-    /// Instantiating a new Shard manually for a bot with no shards, and
-    /// then listening for events:
+    /// Instantiating a new Shard manually for a bot with no shards, and then listening for events:
     ///
     /// ```rust,no_run
     /// use std::sync::Arc;
     ///
     /// use serenity::gateway::Shard;
+    /// use serenity::model::gateway::{GatewayIntents, ShardInfo};
+    /// use serenity::model::id::ShardId;
     /// use tokio::sync::Mutex;
     /// #
     /// # use serenity::http::Http;
-    /// # use serenity::model::gateway::GatewayIntents;
     /// #
     /// # async fn run() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
-    /// #     let http = Arc::new(Http::new(&quot;token&quot;));
+    /// # let http: Arc&lt;Http&gt; = unimplemented!();
     /// let token = std::env::var(&quot;DISCORD_BOT_TOKEN&quot;)?;
+    /// let shard_info = ShardInfo {
+    ///     id: ShardId(0),
+    ///     total: 1,
+    /// };
+    ///
     /// // retrieve the gateway response, which contains the URL to connect to
     /// let gateway = Arc::new(Mutex::new(http.get_gateway().await?.url));
-    /// let shard = Shard::new(gateway, &amp;token, [0u64, 1u64], GatewayIntents::all()).await?;
+    /// let shard = Shard::new(gateway, &amp;token, shard_info, GatewayIntents::all(), None).await?;
     ///
     /// // at this point, you can create a `loop`, and receive events and match
     /// // their variants
-    /// #     Ok(())
+    /// # Ok(())
     /// # }
     /// ```
     ///
     /// # Errors
     ///
-    /// On Error, will return either [`Error::Gateway`], [`Error::Tungstenite`]
-    /// or a Rustls/native TLS error.
+    /// On Error, will return either [`Error::Gateway`], [`Error::Tungstenite`] or a Rustls/native
+    /// TLS error.
     </span><span class="kw">pub async fn </span>new(
         ws_url: Arc&lt;Mutex&lt;String&gt;&gt;,
         token: <span class="kw-2">&amp;</span>str,
-        shard_info: [u64; <span class="number">2</span>],
+        shard_info: ShardInfo,
         intents: GatewayIntents,
+        presence: <span class="prelude-ty">Option</span>&lt;PresenceData&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;Shard&gt; {
         <span class="kw">let </span>url = ws_url.lock().<span class="kw">await</span>.clone();
         <span class="kw">let </span>client = connect(<span class="kw-2">&amp;</span>url).<span class="kw">await</span><span class="question-mark">?</span>;
 
-        <span class="kw">let </span>current_presence = (<span class="prelude-val">None</span>, OnlineStatus::Online);
-        <span class="kw">let </span>heartbeat_instants = (<span class="prelude-val">None</span>, <span class="prelude-val">None</span>);
+        <span class="kw">let </span>presence = presence.unwrap_or_default();
+        <span class="kw">let </span>last_heartbeat_sent = <span class="prelude-val">None</span>;
+        <span class="kw">let </span>last_heartbeat_ack = <span class="prelude-val">None</span>;
         <span class="kw">let </span>heartbeat_interval = <span class="prelude-val">None</span>;
         <span class="kw">let </span>last_heartbeat_acknowledged = <span class="bool-val">true</span>;
         <span class="kw">let </span>seq = <span class="number">0</span>;
@@ -962,10 +902,11 @@
 
         <span class="prelude-val">Ok</span>(Shard {
             client,
-            current_presence,
-            heartbeat_instants,
+            presence,
+            last_heartbeat_sent,
+            last_heartbeat_ack,
             heartbeat_interval,
-            http: <span class="prelude-val">None</span>,
+            application_id_callback: <span class="prelude-val">None</span>,
             last_heartbeat_acknowledged,
             seq,
             stage,
@@ -978,54 +919,47 @@
         })
     }
 
-    <span class="doccomment">/// Sets the associated [`Http`] client.
+    <span class="doccomment">/// Sets a callback to be called when the gateway receives the application&#39;s ID from Discord.
     ///
-    /// This will update the client&#39;s application id after the shard receives a READY payload.
-    </span><span class="kw">pub fn </span>set_http(<span class="kw-2">&amp;mut </span><span class="self">self</span>, http: Arc&lt;Http&gt;) {
-        <span class="self">self</span>.http = <span class="prelude-val">Some</span>(http);
+    /// Used internally by serenity to set the Http&#39;s internal application ID automatically.
+    </span><span class="kw">pub fn </span>set_application_id_callback(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        callback: <span class="kw">impl </span>FnOnce(ApplicationId) + Send + Sync + <span class="lifetime">&#39;static</span>,
+    ) {
+        <span class="self">self</span>.application_id_callback = <span class="prelude-val">Some</span>(Box::new(callback));
     }
 
     <span class="doccomment">/// Retrieves the current presence of the shard.
     </span><span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>current_presence(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>CurrentPresence {
-        <span class="kw-2">&amp;</span><span class="self">self</span>.current_presence
-    }
-
-    <span class="doccomment">/// Retrieves the heartbeat instants of the shard.
-    ///
-    /// This is the time of when a heartbeat was sent and when an
-    /// acknowledgement was last received.
-    </span><span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>heartbeat_instants(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>(<span class="prelude-ty">Option</span>&lt;Instant&gt;, <span class="prelude-ty">Option</span>&lt;Instant&gt;) {
-        <span class="kw-2">&amp;</span><span class="self">self</span>.heartbeat_instants
+    </span><span class="kw">pub fn </span>presence(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>PresenceData {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.presence
     }
 
     <span class="doccomment">/// Retrieves the value of when the last heartbeat was sent.
     </span><span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>last_heartbeat_sent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Instant&gt; {
-        <span class="self">self</span>.heartbeat_instants.<span class="number">0</span>.as_ref()
+    </span><span class="kw">pub fn </span>last_heartbeat_sent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Instant&gt; {
+        <span class="self">self</span>.last_heartbeat_sent
     }
 
     <span class="doccomment">/// Retrieves the value of when the last heartbeat ack was received.
     </span><span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>last_heartbeat_ack(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Instant&gt; {
-        <span class="self">self</span>.heartbeat_instants.<span class="number">1</span>.as_ref()
+    </span><span class="kw">pub fn </span>last_heartbeat_ack(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Instant&gt; {
+        <span class="self">self</span>.last_heartbeat_ack
     }
 
     <span class="doccomment">/// Sends a heartbeat to the gateway with the current sequence.
     ///
-    /// This sets the last heartbeat time to now, and
-    /// [`Self::last_heartbeat_acknowledged`] to `false`.
+    /// This sets the last heartbeat time to now, and [`Self::last_heartbeat_acknowledged`] to
+    /// `false`.
     ///
     /// # Errors
     ///
-    /// Returns [`GatewayError::HeartbeatFailed`] if there was an error sending
-    /// a heartbeat.
+    /// Returns [`GatewayError::HeartbeatFailed`] if there was an error sending a heartbeat.
     </span><span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">pub async fn </span>heartbeat(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">match </span><span class="self">self</span>.client.send_heartbeat(<span class="kw-2">&amp;</span><span class="self">self</span>.shard_info, <span class="prelude-val">Some</span>(<span class="self">self</span>.seq)).<span class="kw">await </span>{
             <span class="prelude-val">Ok</span>(()) =&gt; {
-                <span class="self">self</span>.heartbeat_instants.<span class="number">0 </span>= <span class="prelude-val">Some</span>(Instant::now());
+                <span class="self">self</span>.last_heartbeat_sent = <span class="prelude-val">Some</span>(Instant::now());
                 <span class="self">self</span>.last_heartbeat_acknowledged = <span class="bool-val">false</span>;
 
                 <span class="prelude-val">Ok</span>(())
@@ -1034,11 +968,11 @@
                 <span class="kw">match </span>why {
                     Error::Tungstenite(TungsteniteError::Io(err)) =&gt; {
                         <span class="kw">if </span>err.raw_os_error() != <span class="prelude-val">Some</span>(<span class="number">32</span>) {
-                            <span class="macro">debug!</span>(<span class="string">&quot;[Shard {:?}] Err heartbeating: {:?}&quot;</span>, <span class="self">self</span>.shard_info, err);
+                            <span class="macro">debug!</span>(<span class="string">&quot;[{:?}] Err heartbeating: {:?}&quot;</span>, <span class="self">self</span>.shard_info, err);
                         }
                     },
                     other =&gt; {
-                        <span class="macro">warn!</span>(<span class="string">&quot;[Shard {:?}] Other err w/ keepalive: {:?}&quot;</span>, <span class="self">self</span>.shard_info, other);
+                        <span class="macro">warn!</span>(<span class="string">&quot;[{:?}] Other err w/ keepalive: {:?}&quot;</span>, <span class="self">self</span>.shard_info, other);
                     },
                 }
 
@@ -1047,9 +981,10 @@
         }
     }
 
-    <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>heartbeat_interval(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>u64&gt; {
-        <span class="self">self</span>.heartbeat_interval.as_ref()
+    <span class="doccomment">/// Returns the heartbeat interval dictated by Discord, if the Hello packet has been received.
+    </span><span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>heartbeat_interval(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;std::time::Duration&gt; {
+        <span class="self">self</span>.heartbeat_interval
     }
 
     <span class="attr">#[inline]
@@ -1069,13 +1004,13 @@
 
     <span class="attr">#[inline]
     #[instrument(skip(<span class="self">self</span>))]
-    </span><span class="kw">pub fn </span>set_activity(<span class="kw-2">&amp;mut </span><span class="self">self</span>, activity: <span class="prelude-ty">Option</span>&lt;Activity&gt;) {
-        <span class="self">self</span>.current_presence.<span class="number">0 </span>= activity;
+    </span><span class="kw">pub fn </span>set_activity(<span class="kw-2">&amp;mut </span><span class="self">self</span>, activity: <span class="prelude-ty">Option</span>&lt;ActivityData&gt;) {
+        <span class="self">self</span>.presence.activity = activity;
     }
 
     <span class="attr">#[inline]
     #[instrument(skip(<span class="self">self</span>))]
-    </span><span class="kw">pub fn </span>set_presence(<span class="kw-2">&amp;mut </span><span class="self">self</span>, status: OnlineStatus, activity: <span class="prelude-ty">Option</span>&lt;Activity&gt;) {
+    </span><span class="kw">pub fn </span>set_presence(<span class="kw-2">&amp;mut </span><span class="self">self</span>, activity: <span class="prelude-ty">Option</span>&lt;ActivityData&gt;, status: OnlineStatus) {
         <span class="self">self</span>.set_activity(activity);
         <span class="self">self</span>.set_status(status);
     }
@@ -1087,46 +1022,14 @@
             status = OnlineStatus::Invisible;
         }
 
-        <span class="self">self</span>.current_presence.<span class="number">1 </span>= status;
+        <span class="self">self</span>.presence.status = status;
     }
 
     <span class="doccomment">/// Retrieves a copy of the current shard information.
     ///
-    /// The first element is the _current_ shard - 0-indexed - while the second
-    /// element is the _total number_ of shards -- 1-indexed.
-    ///
-    /// For example, if using 3 shards in total, and if this is shard 1, then it
-    /// can be read as &quot;the second of three shards&quot;.
-    ///
-    /// # Examples
-    ///
-    /// Retrieving the shard info for the second shard, out of two shards total:
-    ///
-    /// For example, if using 3 shards in total, and if this is shard 1, then it
-    /// can be read as &quot;the second of three shards&quot;.
-    ///
-    /// # Examples
-    ///
-    /// Retrieving the shard info for the second shard, out of two shards total:
-    ///
-    /// ```rust,no_run
-    /// # use serenity::gateway::Shard;
-    /// # use serenity::prelude::Mutex;
-    /// # use serenity::model::gateway::GatewayIntents;
-    /// # use std::sync::Arc;
-    /// #
-    /// # #[cfg(feature = &quot;model&quot;)]
-    /// # async fn run() {
-    /// #
-    /// # let mutex = Arc::new(Mutex::new(&quot;&quot;.to_string()));
-    /// #
-    /// # let mut shard = Shard::new(mutex.clone(), &quot;&quot;, [0u64, 1u64],
-    /// #                            GatewayIntents::all()).await.unwrap();
-    /// #
-    /// assert_eq!(shard.shard_info(), [1, 2]);
-    /// # }
-    /// ```
-    </span><span class="kw">pub fn </span>shard_info(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; [u64; <span class="number">2</span>] {
+    /// For example, if using 3 shards in total, and if this is shard 1, then it can be read as
+    /// &quot;the second of three shards&quot;.
+    </span><span class="kw">pub fn </span>shard_info(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ShardInfo {
         <span class="self">self</span>.shard_info
     }
 
@@ -1138,26 +1041,27 @@
     <span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">fn </span>handle_gateway_dispatch(<span class="kw-2">&amp;mut </span><span class="self">self</span>, seq: u64, event: <span class="kw-2">&amp;</span>Event) -&gt; <span class="prelude-ty">Option</span>&lt;ShardAction&gt; {
         <span class="kw">if </span>seq &gt; <span class="self">self</span>.seq + <span class="number">1 </span>{
-            <span class="macro">warn!</span>(<span class="string">&quot;[Shard {:?}] Sequence off; them: {}, us: {}&quot;</span>, <span class="self">self</span>.shard_info, seq, <span class="self">self</span>.seq);
+            <span class="macro">warn!</span>(<span class="string">&quot;[{:?}] Sequence off; them: {}, us: {}&quot;</span>, <span class="self">self</span>.shard_info, seq, <span class="self">self</span>.seq);
         }
 
-        <span class="kw">match </span>event {
-            Event::Ready(<span class="kw-2">ref </span>ready) =&gt; {
-                <span class="macro">debug!</span>(<span class="string">&quot;[Shard {:?}] Received Ready&quot;</span>, <span class="self">self</span>.shard_info);
+        <span class="kw">match </span><span class="kw-2">&amp;</span>event {
+            Event::Ready(ready) =&gt; {
+                <span class="macro">debug!</span>(<span class="string">&quot;[{:?}] Received Ready&quot;</span>, <span class="self">self</span>.shard_info);
 
                 <span class="self">self</span>.session_id = <span class="prelude-val">Some</span>(ready.ready.session_id.clone());
                 <span class="self">self</span>.stage = ConnectionStage::Connected;
 
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>http) = <span class="self">self</span>.http {
-                    http.set_application_id(ready.ready.application.id.<span class="number">0</span>);
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(callback) = <span class="self">self</span>.application_id_callback.take() {
+                    callback(ready.ready.application.id);
                 }
             },
             Event::Resumed(<span class="kw">_</span>) =&gt; {
-                <span class="macro">info!</span>(<span class="string">&quot;[Shard {:?}] Resumed&quot;</span>, <span class="self">self</span>.shard_info);
+                <span class="macro">info!</span>(<span class="string">&quot;[{:?}] Resumed&quot;</span>, <span class="self">self</span>.shard_info);
 
                 <span class="self">self</span>.stage = ConnectionStage::Connected;
                 <span class="self">self</span>.last_heartbeat_acknowledged = <span class="bool-val">true</span>;
-                <span class="self">self</span>.heartbeat_instants = (<span class="prelude-val">Some</span>(Instant::now()), <span class="prelude-val">None</span>);
+                <span class="self">self</span>.last_heartbeat_sent = <span class="prelude-val">Some</span>(Instant::now());
+                <span class="self">self</span>.last_heartbeat_ack = <span class="prelude-val">None</span>;
             },
             <span class="kw">_ </span>=&gt; {},
         }
@@ -1169,12 +1073,12 @@
 
     <span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">fn </span>handle_heartbeat_event(<span class="kw-2">&amp;mut </span><span class="self">self</span>, s: u64) -&gt; ShardAction {
-        <span class="macro">info!</span>(<span class="string">&quot;[Shard {:?}] Received shard heartbeat&quot;</span>, <span class="self">self</span>.shard_info);
+        <span class="macro">info!</span>(<span class="string">&quot;[{:?}] Received shard heartbeat&quot;</span>, <span class="self">self</span>.shard_info);
 
         <span class="comment">// Received seq is off -- attempt to resume.
         </span><span class="kw">if </span>s &gt; <span class="self">self</span>.seq + <span class="number">1 </span>{
             <span class="macro">info!</span>(
-                <span class="string">&quot;[Shard {:?}] Received off sequence (them: {}; us: {}); resuming&quot;</span>,
+                <span class="string">&quot;[{:?}] Received off sequence (them: {}; us: {}); resuming&quot;</span>,
                 <span class="self">self</span>.shard_info, s, <span class="self">self</span>.seq
             );
 
@@ -1183,10 +1087,7 @@
 
                 <span class="kw">return </span>ShardAction::Identify;
             }
-            <span class="macro">warn!</span>(
-                <span class="string">&quot;[Shard {:?}] Heartbeat during non-Handshake; auto-reconnecting&quot;</span>,
-                <span class="self">self</span>.shard_info
-            );
+            <span class="macro">warn!</span>(<span class="string">&quot;[{:?}] Heartbeat during non-Handshake; auto-reconnecting&quot;</span>, <span class="self">self</span>.shard_info);
 
             <span class="kw">return </span>ShardAction::Reconnect(<span class="self">self</span>.reconnection_type());
         }
@@ -1197,76 +1098,73 @@
     <span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">fn </span>handle_gateway_closed(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        data: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;CloseFrame&lt;<span class="lifetime">&#39;static</span>&gt;&gt;,
+        data: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>CloseFrame&lt;<span class="lifetime">&#39;static</span>&gt;&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;ShardAction&gt;&gt; {
-        <span class="kw">let </span>num = data.as_ref().map(|d| d.code.into());
+        <span class="kw">let </span>num = data.map(|d| d.code.into());
         <span class="kw">let </span>clean = num == <span class="prelude-val">Some</span>(<span class="number">1000</span>);
 
         <span class="kw">match </span>num {
             <span class="prelude-val">Some</span>(close_codes::UNKNOWN_OPCODE) =&gt; {
-                <span class="macro">warn!</span>(<span class="string">&quot;[Shard {:?}] Sent invalid opcode.&quot;</span>, <span class="self">self</span>.shard_info);
+                <span class="macro">warn!</span>(<span class="string">&quot;[{:?}] Sent invalid opcode.&quot;</span>, <span class="self">self</span>.shard_info);
             },
             <span class="prelude-val">Some</span>(close_codes::DECODE_ERROR) =&gt; {
-                <span class="macro">warn!</span>(<span class="string">&quot;[Shard {:?}] Sent invalid message.&quot;</span>, <span class="self">self</span>.shard_info);
+                <span class="macro">warn!</span>(<span class="string">&quot;[{:?}] Sent invalid message.&quot;</span>, <span class="self">self</span>.shard_info);
             },
             <span class="prelude-val">Some</span>(close_codes::NOT_AUTHENTICATED) =&gt; {
-                <span class="macro">warn!</span>(<span class="string">&quot;[Shard {:?}] Sent no authentication.&quot;</span>, <span class="self">self</span>.shard_info);
+                <span class="macro">warn!</span>(<span class="string">&quot;[{:?}] Sent no authentication.&quot;</span>, <span class="self">self</span>.shard_info);
 
                 <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Gateway(GatewayError::NoAuthentication));
             },
             <span class="prelude-val">Some</span>(close_codes::AUTHENTICATION_FAILED) =&gt; {
                 <span class="macro">error!</span>(
-                    <span class="string">&quot;[Shard {:?}] Sent invalid authentication, please check the token.&quot;</span>,
+                    <span class="string">&quot;[{:?}] Sent invalid authentication, please check the token.&quot;</span>,
                     <span class="self">self</span>.shard_info
                 );
 
                 <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Gateway(GatewayError::InvalidAuthentication));
             },
             <span class="prelude-val">Some</span>(close_codes::ALREADY_AUTHENTICATED) =&gt; {
-                <span class="macro">warn!</span>(<span class="string">&quot;[Shard {:?}] Already authenticated.&quot;</span>, <span class="self">self</span>.shard_info);
+                <span class="macro">warn!</span>(<span class="string">&quot;[{:?}] Already authenticated.&quot;</span>, <span class="self">self</span>.shard_info);
             },
             <span class="prelude-val">Some</span>(close_codes::INVALID_SEQUENCE) =&gt; {
-                <span class="macro">warn!</span>(<span class="string">&quot;[Shard {:?}] Sent invalid seq: {}.&quot;</span>, <span class="self">self</span>.shard_info, <span class="self">self</span>.seq);
+                <span class="macro">warn!</span>(<span class="string">&quot;[{:?}] Sent invalid seq: {}.&quot;</span>, <span class="self">self</span>.shard_info, <span class="self">self</span>.seq);
 
                 <span class="self">self</span>.seq = <span class="number">0</span>;
             },
             <span class="prelude-val">Some</span>(close_codes::RATE_LIMITED) =&gt; {
-                <span class="macro">warn!</span>(<span class="string">&quot;[Shard {:?}] Gateway ratelimited.&quot;</span>, <span class="self">self</span>.shard_info);
+                <span class="macro">warn!</span>(<span class="string">&quot;[{:?}] Gateway ratelimited.&quot;</span>, <span class="self">self</span>.shard_info);
             },
             <span class="prelude-val">Some</span>(close_codes::INVALID_SHARD) =&gt; {
-                <span class="macro">warn!</span>(<span class="string">&quot;[Shard {:?}] Sent invalid shard data.&quot;</span>, <span class="self">self</span>.shard_info);
+                <span class="macro">warn!</span>(<span class="string">&quot;[{:?}] Sent invalid shard data.&quot;</span>, <span class="self">self</span>.shard_info);
 
                 <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Gateway(GatewayError::InvalidShardData));
             },
             <span class="prelude-val">Some</span>(close_codes::SHARDING_REQUIRED) =&gt; {
-                <span class="macro">error!</span>(<span class="string">&quot;[Shard {:?}] Shard has too many guilds.&quot;</span>, <span class="self">self</span>.shard_info);
+                <span class="macro">error!</span>(<span class="string">&quot;[{:?}] Shard has too many guilds.&quot;</span>, <span class="self">self</span>.shard_info);
 
                 <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Gateway(GatewayError::OverloadedShard));
             },
             <span class="prelude-val">Some</span>(<span class="number">4006 </span>| close_codes::SESSION_TIMEOUT) =&gt; {
-                <span class="macro">info!</span>(<span class="string">&quot;[Shard {:?}] Invalid session.&quot;</span>, <span class="self">self</span>.shard_info);
+                <span class="macro">info!</span>(<span class="string">&quot;[{:?}] Invalid session.&quot;</span>, <span class="self">self</span>.shard_info);
 
                 <span class="self">self</span>.session_id = <span class="prelude-val">None</span>;
             },
             <span class="prelude-val">Some</span>(close_codes::INVALID_GATEWAY_INTENTS) =&gt; {
-                <span class="macro">error!</span>(<span class="string">&quot;[Shard {:?}] Invalid gateway intents have been provided.&quot;</span>, <span class="self">self</span>.shard_info);
+                <span class="macro">error!</span>(<span class="string">&quot;[{:?}] Invalid gateway intents have been provided.&quot;</span>, <span class="self">self</span>.shard_info);
 
                 <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Gateway(GatewayError::InvalidGatewayIntents));
             },
             <span class="prelude-val">Some</span>(close_codes::DISALLOWED_GATEWAY_INTENTS) =&gt; {
-                <span class="macro">error!</span>(
-                    <span class="string">&quot;[Shard {:?}] Disallowed gateway intents have been provided.&quot;</span>,
-                    <span class="self">self</span>.shard_info
-                );
+                <span class="macro">error!</span>(<span class="string">&quot;[{:?}] Disallowed gateway intents have been provided.&quot;</span>, <span class="self">self</span>.shard_info);
 
                 <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Gateway(GatewayError::DisallowedGatewayIntents));
             },
             <span class="prelude-val">Some</span>(other) <span class="kw">if </span>!clean =&gt; {
                 <span class="macro">warn!</span>(
-                    <span class="string">&quot;[Shard {:?}] Unknown unclean close {}: {:?}&quot;</span>,
+                    <span class="string">&quot;[{:?}] Unknown unclean close {}: {:?}&quot;</span>,
                     <span class="self">self</span>.shard_info,
                     other,
-                    data.as_ref().map(|d| <span class="kw-2">&amp;</span>d.reason),
+                    data.map(|d| <span class="kw-2">&amp;</span>d.reason),
                 );
             },
             <span class="kw">_ </span>=&gt; {},
@@ -1282,66 +1180,58 @@
         }))
     }
 
-    <span class="doccomment">/// Handles an event from the gateway over the receiver, requiring the
-    /// receiver to be passed if a reconnect needs to occur.
+    <span class="doccomment">/// Handles an event from the gateway over the receiver, requiring the receiver to be passed if
+    /// a reconnect needs to occur.
     ///
     /// The best case scenario is that one of two values is returned:
-    ///
-    /// - `Ok(None)`: a heartbeat, late hello, or session invalidation was
-    ///   received;
-    /// - `Ok(Some((event, None)))`: an op0 dispatch was received, and the
-    ///   shard&#39;s voice state will be updated, _if_ the `voice` feature is
-    ///   enabled.
+    /// - `Ok(None)`: a heartbeat, late hello, or session invalidation was received;
+    /// - `Ok(Some((event, None)))`: an op0 dispatch was received, and the shard&#39;s voice state will
+    /// be updated, _if_ the `voice` feature is enabled.
     ///
     /// # Errors
     ///
-    /// Returns a [`GatewayError::InvalidAuthentication`] if invalid
-    /// authentication was sent in the IDENTIFY.
+    /// Returns a [`GatewayError::InvalidAuthentication`] if invalid authentication was sent in the
+    /// IDENTIFY.
     ///
-    /// Returns a [`GatewayError::InvalidShardData`] if invalid shard data was
-    /// sent in the IDENTIFY.
+    /// Returns a [`GatewayError::InvalidShardData`] if invalid shard data was sent in the
+    /// IDENTIFY.
     ///
-    /// Returns a [`GatewayError::NoAuthentication`] if no authentication was sent
-    /// in the IDENTIFY.
+    /// Returns a [`GatewayError::NoAuthentication`] if no authentication was sent in the IDENTIFY.
     ///
-    /// Returns a [`GatewayError::OverloadedShard`] if the shard would have too
-    /// many guilds assigned to it.
+    /// Returns a [`GatewayError::OverloadedShard`] if the shard would have too many guilds
+    /// assigned to it.
     </span><span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">pub fn </span>handle_event(<span class="kw-2">&amp;mut </span><span class="self">self</span>, event: <span class="kw-2">&amp;</span><span class="prelude-ty">Result</span>&lt;GatewayEvent&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;ShardAction&gt;&gt; {
-        <span class="kw">match </span><span class="kw-2">*</span>event {
-            <span class="prelude-val">Ok</span>(GatewayEvent::Dispatch(seq, <span class="kw-2">ref </span>event)) =&gt; {
-                <span class="prelude-val">Ok</span>(<span class="self">self</span>.handle_gateway_dispatch(seq, event))
-            },
-            <span class="prelude-val">Ok</span>(GatewayEvent::Heartbeat(s)) =&gt; <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="self">self</span>.handle_heartbeat_event(s))),
+        <span class="kw">match </span>event {
+            <span class="prelude-val">Ok</span>(GatewayEvent::Dispatch(seq, event)) =&gt; <span class="prelude-val">Ok</span>(<span class="self">self</span>.handle_gateway_dispatch(<span class="kw-2">*</span>seq, event)),
+            <span class="prelude-val">Ok</span>(GatewayEvent::Heartbeat(s)) =&gt; <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="self">self</span>.handle_heartbeat_event(<span class="kw-2">*</span>s))),
             <span class="prelude-val">Ok</span>(GatewayEvent::HeartbeatAck) =&gt; {
-                <span class="self">self</span>.heartbeat_instants.<span class="number">1 </span>= <span class="prelude-val">Some</span>(Instant::now());
+                <span class="self">self</span>.last_heartbeat_ack = <span class="prelude-val">Some</span>(Instant::now());
                 <span class="self">self</span>.last_heartbeat_acknowledged = <span class="bool-val">true</span>;
 
-                <span class="macro">trace!</span>(<span class="string">&quot;[Shard {:?}] Received heartbeat ack&quot;</span>, <span class="self">self</span>.shard_info);
+                <span class="macro">trace!</span>(<span class="string">&quot;[{:?}] Received heartbeat ack&quot;</span>, <span class="self">self</span>.shard_info);
 
                 <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
             },
-            <span class="prelude-val">Ok</span>(GatewayEvent::Hello(interval)) =&gt; {
-                <span class="macro">debug!</span>(<span class="string">&quot;[Shard {:?}] Received a Hello; interval: {}&quot;</span>, <span class="self">self</span>.shard_info, interval);
+            <span class="kw-2">&amp;</span><span class="prelude-val">Ok</span>(GatewayEvent::Hello(interval)) =&gt; {
+                <span class="macro">debug!</span>(<span class="string">&quot;[{:?}] Received a Hello; interval: {}&quot;</span>, <span class="self">self</span>.shard_info, interval);
 
                 <span class="kw">if </span><span class="self">self</span>.stage == ConnectionStage::Resuming {
                     <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>);
                 }
 
-                <span class="kw">if </span>interval &gt; <span class="number">0 </span>{
-                    <span class="self">self</span>.heartbeat_interval = <span class="prelude-val">Some</span>(interval);
-                }
+                <span class="self">self</span>.heartbeat_interval = <span class="prelude-val">Some</span>(std::time::Duration::from_millis(interval));
 
                 <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="kw">if </span><span class="self">self</span>.stage == ConnectionStage::Handshake {
                     ShardAction::Identify
                 } <span class="kw">else </span>{
-                    <span class="macro">debug!</span>(<span class="string">&quot;[Shard {:?}] Received late Hello; autoreconnecting&quot;</span>, <span class="self">self</span>.shard_info);
+                    <span class="macro">debug!</span>(<span class="string">&quot;[{:?}] Received late Hello; autoreconnecting&quot;</span>, <span class="self">self</span>.shard_info);
 
                     ShardAction::Reconnect(<span class="self">self</span>.reconnection_type())
                 }))
             },
-            <span class="prelude-val">Ok</span>(GatewayEvent::InvalidateSession(resumable)) =&gt; {
-                <span class="macro">info!</span>(<span class="string">&quot;[Shard {:?}] Received session invalidation&quot;</span>, <span class="self">self</span>.shard_info,);
+            <span class="kw-2">&amp;</span><span class="prelude-val">Ok</span>(GatewayEvent::InvalidateSession(resumable)) =&gt; {
+                <span class="macro">info!</span>(<span class="string">&quot;[{:?}] Received session invalidation&quot;</span>, <span class="self">self</span>.shard_info);
 
                 <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="kw">if </span>resumable {
                     ShardAction::Reconnect(ReconnectType::Resume)
@@ -1350,70 +1240,63 @@
                 }))
             },
             <span class="prelude-val">Ok</span>(GatewayEvent::Reconnect) =&gt; <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(ShardAction::Reconnect(ReconnectType::Resume))),
-            <span class="prelude-val">Err</span>(Error::Gateway(GatewayError::Closed(<span class="kw-2">ref </span>data))) =&gt; <span class="self">self</span>.handle_gateway_closed(data),
-            <span class="prelude-val">Err</span>(Error::Tungstenite(<span class="kw-2">ref </span>why)) =&gt; {
-                <span class="macro">warn!</span>(<span class="string">&quot;[Shard {:?}] Websocket error: {:?}&quot;</span>, <span class="self">self</span>.shard_info, why);
-                <span class="macro">info!</span>(<span class="string">&quot;[Shard {:?}] Will attempt to auto-reconnect&quot;</span>, <span class="self">self</span>.shard_info);
+            <span class="prelude-val">Err</span>(Error::Gateway(GatewayError::Closed(data))) =&gt; {
+                <span class="self">self</span>.handle_gateway_closed(data.as_ref())
+            },
+            <span class="prelude-val">Err</span>(Error::Tungstenite(why)) =&gt; {
+                <span class="macro">warn!</span>(<span class="string">&quot;[{:?}] Websocket error: {:?}&quot;</span>, <span class="self">self</span>.shard_info, why);
+                <span class="macro">info!</span>(<span class="string">&quot;[{:?}] Will attempt to auto-reconnect&quot;</span>, <span class="self">self</span>.shard_info);
 
                 <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(ShardAction::Reconnect(<span class="self">self</span>.reconnection_type())))
             },
-            <span class="prelude-val">Err</span>(<span class="kw-2">ref </span>why) =&gt; {
-                <span class="macro">warn!</span>(<span class="string">&quot;[Shard {:?}] Unhandled error: {:?}&quot;</span>, <span class="self">self</span>.shard_info, why);
+            <span class="prelude-val">Err</span>(why) =&gt; {
+                <span class="macro">warn!</span>(<span class="string">&quot;[{:?}] Unhandled error: {:?}&quot;</span>, <span class="self">self</span>.shard_info, why);
 
                 <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
             },
         }
     }
 
-    <span class="doccomment">/// Checks whether a heartbeat needs to be sent, as well as whether a
-    /// heartbeat acknowledgement was received.
+    <span class="doccomment">/// Does a heartbeat if needed. Returns false if something went wrong and the shard should be
+    /// restarted.
     ///
     /// `true` is returned under one of the following conditions:
-    ///
     /// - the heartbeat interval has not elapsed
     /// - a heartbeat was successfully sent
     /// - there is no known heartbeat interval yet
     ///
     /// `false` is returned under one of the following conditions:
-    ///
     /// - a heartbeat acknowledgement was not received in time
     /// - an error occurred while heartbeating
     </span><span class="attr">#[instrument(skip(<span class="self">self</span>))]
-    </span><span class="kw">pub async fn </span>check_heartbeat(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">let </span>wait = {
-            <span class="kw">let </span>heartbeat_interval = <span class="kw">match </span><span class="self">self</span>.heartbeat_interval {
-                <span class="prelude-val">Some</span>(heartbeat_interval) =&gt; heartbeat_interval,
-                <span class="prelude-val">None </span>=&gt; {
-                    <span class="kw">return </span><span class="self">self</span>.started.elapsed() &lt; StdDuration::from_secs(<span class="number">15</span>);
-                },
-            };
-
-            StdDuration::from_secs(heartbeat_interval / <span class="number">1000</span>)
+    </span><span class="kw">pub async fn </span>do_heartbeat(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">let </span><span class="prelude-val">Some</span>(heartbeat_interval) = <span class="self">self</span>.heartbeat_interval <span class="kw">else </span>{
+            <span class="comment">// No Hello received yet
+            </span><span class="kw">return </span><span class="self">self</span>.started.elapsed() &lt; StdDuration::from_secs(<span class="number">15</span>);
         };
 
-        <span class="comment">// If a duration of time less than the heartbeat_interval has passed,
-        // then don&#39;t perform a keepalive or attempt to reconnect.
-        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(last_sent) = <span class="self">self</span>.heartbeat_instants.<span class="number">0 </span>{
-            <span class="kw">if </span>last_sent.elapsed() &lt;= wait {
+        <span class="comment">// If a duration of time less than the heartbeat_interval has passed, then don&#39;t perform a
+        // keepalive or attempt to reconnect.
+        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(last_sent) = <span class="self">self</span>.last_heartbeat_sent {
+            <span class="kw">if </span>last_sent.elapsed() &lt;= heartbeat_interval {
                 <span class="kw">return </span><span class="bool-val">true</span>;
             }
         }
 
-        <span class="comment">// If the last heartbeat didn&#39;t receive an acknowledgement, then
-        // auto-reconnect.
+        <span class="comment">// If the last heartbeat didn&#39;t receive an acknowledgement, then auto-reconnect.
         </span><span class="kw">if </span>!<span class="self">self</span>.last_heartbeat_acknowledged {
-            <span class="macro">debug!</span>(<span class="string">&quot;[Shard {:?}] Last heartbeat not acknowledged&quot;</span>, <span class="self">self</span>.shard_info,);
+            <span class="macro">debug!</span>(<span class="string">&quot;[{:?}] Last heartbeat not acknowledged&quot;</span>, <span class="self">self</span>.shard_info,);
 
             <span class="kw">return </span><span class="bool-val">false</span>;
         }
 
         <span class="comment">// Otherwise, we&#39;re good to heartbeat.
         </span><span class="kw">if let </span><span class="prelude-val">Err</span>(why) = <span class="self">self</span>.heartbeat().<span class="kw">await </span>{
-            <span class="macro">warn!</span>(<span class="string">&quot;[Shard {:?}] Err heartbeating: {:?}&quot;</span>, <span class="self">self</span>.shard_info, why);
+            <span class="macro">warn!</span>(<span class="string">&quot;[{:?}] Err heartbeating: {:?}&quot;</span>, <span class="self">self</span>.shard_info, why);
 
             <span class="bool-val">false
         </span>} <span class="kw">else </span>{
-            <span class="macro">trace!</span>(<span class="string">&quot;[Shard {:?}] Heartbeat&quot;</span>, <span class="self">self</span>.shard_info);
+            <span class="macro">trace!</span>(<span class="string">&quot;[{:?}] Heartbeat&quot;</span>, <span class="self">self</span>.shard_info);
 
             <span class="bool-val">true
         </span>}
@@ -1424,7 +1307,7 @@
     // &lt;https://github.com/abalabahaha/eris/commit/0ce296ae9a542bcec0edf1c999ee2d9986bed5a6&gt;
     </span><span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">pub fn </span>latency(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;StdDuration&gt; {
-        <span class="kw">if let </span>(<span class="prelude-val">Some</span>(sent), <span class="prelude-val">Some</span>(received)) = <span class="self">self</span>.heartbeat_instants {
+        <span class="kw">if let </span>(<span class="prelude-val">Some</span>(sent), <span class="prelude-val">Some</span>(received)) = (<span class="self">self</span>.last_heartbeat_sent, <span class="self">self</span>.last_heartbeat_ack) {
             <span class="kw">if </span>received &gt; sent {
                 <span class="kw">return </span><span class="prelude-val">Some</span>(received - sent);
             }
@@ -1437,11 +1320,10 @@
     ///
     /// The type of reconnect is deterministic on whether a [`Self::session_id`].
     ///
-    /// If the `session_id` still exists, then a RESUME is sent. If not, then
-    /// an IDENTIFY is sent.
+    /// If the `session_id` still exists, then a RESUME is sent. If not, then an IDENTIFY is sent.
     ///
-    /// Note that, if the shard is already in a stage of
-    /// [`ConnectionStage::Connecting`], then no action will be performed.
+    /// Note that, if the shard is already in a stage of [`ConnectionStage::Connecting`], then no
+    /// action will be performed.
     </span><span class="kw">pub fn </span>should_reconnect(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;ReconnectType&gt; {
         <span class="kw">if </span><span class="self">self</span>.stage == ConnectionStage::Connecting {
             <span class="kw">return </span><span class="prelude-val">None</span>;
@@ -1460,16 +1342,15 @@
 
     <span class="doccomment">/// Requests that one or multiple [`Guild`]s be chunked.
     ///
-    /// This will ask the gateway to start sending member chunks for large
-    /// guilds (250 members+). If a guild is over 250 members, then a full
-    /// member list will not be downloaded, and must instead be requested to be
-    /// sent in &quot;chunks&quot; containing members.
+    /// This will ask the gateway to start sending member chunks for large guilds (250 members+).
+    /// If a guild is over 250 members, then a full member list will not be downloaded, and must
+    /// instead be requested to be sent in &quot;chunks&quot; containing members.
     ///
-    /// Member chunks are sent as the [`Event::GuildMembersChunk`] event. Each
-    /// chunk only contains a partial amount of the total members.
+    /// Member chunks are sent as the [`Event::GuildMembersChunk`] event. Each chunk only contains
+    /// a partial amount of the total members.
     ///
-    /// If the `cache` feature is enabled, the cache will automatically be
-    /// updated with member chunks.
+    /// If the `cache` feature is enabled, the cache will automatically be updated with member
+    /// chunks.
     ///
     /// # Examples
     ///
@@ -1478,51 +1359,59 @@
     ///
     /// ```rust,no_run
     /// # use tokio::sync::Mutex;
-    /// # use serenity::model::gateway::GatewayIntents;
-    /// # use serenity::client::bridge::gateway::ChunkGuildFilter;
-    /// # use serenity::gateway::Shard;
+    /// # use serenity::gateway::{ChunkGuildFilter, Shard};
+    /// # use serenity::model::gateway::{GatewayIntents, ShardInfo};
+    /// # use serenity::model::id::ShardId;
     /// # use std::sync::Arc;
     /// #
     /// # async fn run() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     /// #     let mutex = Arc::new(Mutex::new(&quot;&quot;.to_string()));
+    /// #     let shard_info = ShardInfo {
+    /// #          id: ShardId(0),
+    /// #          total: 1,
+    /// #     };
     /// #
-    /// #     let mut shard = Shard::new(mutex.clone(), &quot;&quot;, [0u64, 1u64], GatewayIntents::all()).await?;
+    /// #     let mut shard = Shard::new(mutex.clone(), &quot;&quot;, shard_info, GatewayIntents::all(), None).await?;
     /// #
     /// use serenity::model::id::GuildId;
     ///
-    /// shard.chunk_guild(GuildId(81384788765712384), Some(2000), ChunkGuildFilter::None, None).await?;
-    /// #     Ok(())
+    /// shard.chunk_guild(GuildId::new(81384788765712384), Some(2000), false, ChunkGuildFilter::None, None).await?;
+    /// # Ok(())
     /// # }
     /// ```
     ///
-    /// Chunk a single guild by Id, limiting to 20 members, and specifying a
-    /// query parameter of `&quot;do&quot;` and a nonce of `&quot;request&quot;`:
+    /// Chunk a single guild by Id, limiting to 20 members, and specifying a query parameter of
+    /// `&quot;do&quot;` and a nonce of `&quot;request&quot;`:
     ///
     /// ```rust,no_run
     /// # use tokio::sync::Mutex;
-    /// # use serenity::gateway::Shard;
-    /// # use serenity::model::gateway::GatewayIntents;
-    /// # use serenity::client::bridge::gateway::ChunkGuildFilter;
+    /// # use serenity::model::gateway::{GatewayIntents, ShardInfo};
+    /// # use serenity::gateway::{ChunkGuildFilter, Shard};
+    /// # use serenity::model::id::ShardId;
     /// # use std::error::Error;
     /// # use std::sync::Arc;
     /// #
     /// # async fn run() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     /// #     let mutex = Arc::new(Mutex::new(&quot;&quot;.to_string()));
     /// #
-    /// #     let mut shard = Shard::new(mutex.clone(), &quot;&quot;, [0u64, 1u64],
-    /// #                                GatewayIntents::all()).await?;
+    /// #     let shard_info = ShardInfo {
+    /// #          id: ShardId(0),
+    /// #          total: 1,
+    /// #     };
+    /// #     let mut shard = Shard::new(mutex.clone(), &quot;&quot;, shard_info, GatewayIntents::all(), None).await?;
     /// #
     /// use serenity::model::id::GuildId;
     ///
     /// shard
     ///     .chunk_guild(
-    ///         GuildId(81384788765712384),
+    ///         GuildId::new(81384788765712384),
     ///         Some(20),
+    ///         false,
     ///         ChunkGuildFilter::Query(&quot;do&quot;.to_owned()),
     ///         Some(&quot;request&quot;),
     ///     )
     ///     .await?;
-    /// #     Ok(())
+    /// # Ok(())
     /// # }
     /// ```
     ///
@@ -1534,23 +1423,27 @@
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         guild_id: GuildId,
         limit: <span class="prelude-ty">Option</span>&lt;u16&gt;,
+        presences: bool,
         filter: ChunkGuildFilter,
         nonce: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="macro">debug!</span>(<span class="string">&quot;[Shard {:?}] Requesting member chunks&quot;</span>, <span class="self">self</span>.shard_info);
+        <span class="macro">debug!</span>(<span class="string">&quot;[{:?}] Requesting member chunks&quot;</span>, <span class="self">self</span>.shard_info);
 
-        <span class="self">self</span>.client.send_chunk_guild(guild_id, <span class="kw-2">&amp;</span><span class="self">self</span>.shard_info, limit, filter, nonce).<span class="kw">await
+        <span class="self">self</span>.client
+            .send_chunk_guild(guild_id, <span class="kw-2">&amp;</span><span class="self">self</span>.shard_info, limit, presences, filter, nonce)
+            .<span class="kw">await
     </span>}
 
     <span class="doccomment">/// Sets the shard as going into identifying stage, which sets:
-    ///
     /// - the time that the last heartbeat sent as being now
     /// - the `stage` to [`ConnectionStage::Identifying`]
     </span><span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">pub async fn </span>identify(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="self">self</span>.client.send_identify(<span class="kw-2">&amp;</span><span class="self">self</span>.shard_info, <span class="kw-2">&amp;</span><span class="self">self</span>.token, <span class="self">self</span>.intents).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="self">self</span>.client
+            .send_identify(<span class="kw-2">&amp;</span><span class="self">self</span>.shard_info, <span class="kw-2">&amp;</span><span class="self">self</span>.token, <span class="self">self</span>.intents, <span class="kw-2">&amp;</span><span class="self">self</span>.presence)
+            .<span class="kw">await</span><span class="question-mark">?</span>;
 
-        <span class="self">self</span>.heartbeat_instants.<span class="number">0 </span>= <span class="prelude-val">Some</span>(Instant::now());
+        <span class="self">self</span>.last_heartbeat_sent = <span class="prelude-val">Some</span>(Instant::now());
         <span class="self">self</span>.stage = ConnectionStage::Identifying;
 
         <span class="prelude-val">Ok</span>(())
@@ -1558,20 +1451,18 @@
 
     <span class="doccomment">/// Initializes a new WebSocket client.
     ///
-    /// This will set the stage of the shard before and after instantiation of
-    /// the client.
+    /// This will set the stage of the shard before and after instantiation of the client.
     </span><span class="attr">#[instrument(skip(<span class="self">self</span>))]
-    </span><span class="kw">pub async fn </span>initialize(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;WsStream&gt; {
-        <span class="macro">debug!</span>(<span class="string">&quot;[Shard {:?}] Initializing.&quot;</span>, <span class="self">self</span>.shard_info);
+    </span><span class="kw">pub async fn </span>initialize(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;WsClient&gt; {
+        <span class="macro">debug!</span>(<span class="string">&quot;[{:?}] Initializing.&quot;</span>, <span class="self">self</span>.shard_info);
 
         <span class="comment">// We need to do two, sort of three things here:
-        //
         // - set the stage of the shard as opening the websocket connection
         // - open the websocket connection
         // - if successful, set the current stage as Handshaking
         //
-        // This is used to accurately assess whether the state of the shard is
-        // accurate when a Hello is received.
+        // This is used to accurately assess whether the state of the shard is accurate when a
+        // Hello is received.
         </span><span class="self">self</span>.stage = ConnectionStage::Connecting;
         <span class="self">self</span>.started = Instant::now();
         <span class="kw">let </span>url = <span class="kw-2">&amp;</span><span class="self">self</span>.ws_url.lock().<span class="kw">await</span>.clone();
@@ -1583,7 +1474,8 @@
 
     <span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">pub async fn </span>reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="self">self</span>.heartbeat_instants = (<span class="prelude-val">Some</span>(Instant::now()), <span class="prelude-val">None</span>);
+        <span class="self">self</span>.last_heartbeat_sent = <span class="prelude-val">Some</span>(Instant::now());
+        <span class="self">self</span>.last_heartbeat_ack = <span class="prelude-val">None</span>;
         <span class="self">self</span>.heartbeat_interval = <span class="prelude-val">None</span>;
         <span class="self">self</span>.last_heartbeat_acknowledged = <span class="bool-val">true</span>;
         <span class="self">self</span>.session_id = <span class="prelude-val">None</span>;
@@ -1593,12 +1485,12 @@
 
     <span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">pub async fn </span>resume(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="macro">debug!</span>(<span class="string">&quot;[Shard {:?}] Attempting to resume&quot;</span>, <span class="self">self</span>.shard_info);
+        <span class="macro">debug!</span>(<span class="string">&quot;[{:?}] Attempting to resume&quot;</span>, <span class="self">self</span>.shard_info);
 
         <span class="self">self</span>.client = <span class="self">self</span>.initialize().<span class="kw">await</span><span class="question-mark">?</span>;
         <span class="self">self</span>.stage = ConnectionStage::Resuming;
 
-        <span class="kw">match </span><span class="self">self</span>.session_id.as_ref() {
+        <span class="kw">match </span><span class="kw-2">&amp;</span><span class="self">self</span>.session_id {
             <span class="prelude-val">Some</span>(session_id) =&gt; {
                 <span class="self">self</span>.client.send_resume(<span class="kw-2">&amp;</span><span class="self">self</span>.shard_info, session_id, <span class="self">self</span>.seq, <span class="kw-2">&amp;</span><span class="self">self</span>.token).<span class="kw">await
             </span>},
@@ -1608,7 +1500,7 @@
 
     <span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">pub async fn </span>reconnect(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="macro">info!</span>(<span class="string">&quot;[Shard {:?}] Attempting to reconnect&quot;</span>, <span class="self">self</span>.shard_info());
+        <span class="macro">info!</span>(<span class="string">&quot;[{:?}] Attempting to reconnect&quot;</span>, <span class="self">self</span>.shard_info());
 
         <span class="self">self</span>.reset().<span class="kw">await</span>;
         <span class="self">self</span>.client = <span class="self">self</span>.initialize().<span class="kw">await</span><span class="question-mark">?</span>;
@@ -1618,18 +1510,18 @@
 
     <span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">pub async fn </span>update_presence(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="self">self</span>.client.send_presence_update(<span class="kw-2">&amp;</span><span class="self">self</span>.shard_info, <span class="kw-2">&amp;</span><span class="self">self</span>.current_presence).<span class="kw">await
+        <span class="self">self</span>.client.send_presence_update(<span class="kw-2">&amp;</span><span class="self">self</span>.shard_info, <span class="kw-2">&amp;</span><span class="self">self</span>.presence).<span class="kw">await
     </span>}
 }
 
-<span class="kw">async fn </span>connect(base_url: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;WsStream&gt; {
+<span class="kw">async fn </span>connect(base_url: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;WsClient&gt; {
     <span class="kw">let </span>url =
-        Url::parse(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;{}?v={}&quot;</span>, base_url, constants::GATEWAY_VERSION)).map_err(|why| {
+        Url::parse(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;{base_url}?v={}&quot;</span>, constants::GATEWAY_VERSION)).map_err(|why| {
             <span class="macro">warn!</span>(<span class="string">&quot;Error building gateway URL with base `{}`: {:?}&quot;</span>, base_url, why);
 
             Error::Gateway(GatewayError::BuildingUrl)
         })<span class="question-mark">?</span>;
 
-    create_client(url).<span class="kw">await
+    WsClient::connect(url).<span class="kw">await
 </span>}
 </code></pre></div></section></main></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/builder/edit_profile.rs`."><title>edit_profile.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ae1b282cda4c21ec.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (8142a319e 2023-09-13)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-cabe4b1bd7b9da95.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../serenity/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.12.0/src/builder/edit_profile.rs`."><title>edit_profile.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -86,120 +86,92 @@
 <a href="#86" id="86">86</a>
 <a href="#87" id="87">87</a>
 <a href="#88" id="88">88</a>
-<a href="#89" id="89">89</a>
-<a href="#90" id="90">90</a>
-<a href="#91" id="91">91</a>
-<a href="#92" id="92">92</a>
-<a href="#93" id="93">93</a>
-<a href="#94" id="94">94</a>
-<a href="#95" id="95">95</a>
-<a href="#96" id="96">96</a>
-<a href="#97" id="97">97</a>
-<a href="#98" id="98">98</a>
-<a href="#99" id="99">99</a>
-<a href="#100" id="100">100</a>
-<a href="#101" id="101">101</a>
-<a href="#102" id="102">102</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
+</pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">super</span>::Builder;
+<span class="kw">use </span><span class="kw">super</span>::CreateAttachment;
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">crate</span>::http::CacheHttp;
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">crate</span>::model::user::CurrentUser;
 
-<span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
-<span class="kw">use </span><span class="kw">crate</span>::json::NULL;
-
-<span class="doccomment">/// A builder to edit the current user&#39;s settings, to be used in conjunction
-/// with [`CurrentUser::edit`].
+<span class="doccomment">/// A builder to edit the current user&#39;s settings, to be used in conjunction with
+/// [`CurrentUser::edit`].
 ///
-/// [`CurrentUser::edit`]: crate::model::user::CurrentUser::edit
-</span><span class="attr">#[derive(Clone, Debug, Default)]
-</span><span class="kw">pub struct </span>EditProfile(<span class="kw">pub </span>HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, Value&gt;);
+/// [Discord docs](https://discord.com/developers/docs/resources/user#modify-current-user)
+</span><span class="attr">#[derive(Clone, Debug, Default, Serialize)]
+#[must_use]
+</span><span class="kw">pub struct </span>EditProfile {
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>username: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>avatar: <span class="prelude-ty">Option</span>&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt;,
+}
 
 <span class="kw">impl </span>EditProfile {
-    <span class="doccomment">/// Sets the avatar of the current user. [`None`] can be passed to remove an
-    /// avatar.
-    ///
-    /// A base64-encoded string is accepted as the avatar content.
+    <span class="doccomment">/// Equivalent to [`Self::default`].
+    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>::default()
+    }
+
+    <span class="doccomment">/// Set the avatar of the current user.
     ///
     /// # Examples
     ///
-    /// A utility method - [`utils::read_image`] - is provided to read an
-    /// image from a file and return its contents in base64-encoded form:
-    ///
     /// ```rust,no_run
-    /// # #[cfg(all(feature = &quot;client&quot;, feature = &quot;cache&quot;, feature = &quot;gateway&quot;))]
-    /// # {
+    /// # use serenity::builder::{EditProfile, CreateAttachment};
     /// # use serenity::prelude::*;
     /// # use serenity::model::prelude::*;
+    /// # use serenity::http::Http;
     /// #
-    /// # struct Handler;
-    /// #
-    /// # #[serenity::async_trait]
-    /// # impl EventHandler for Handler {
-    /// #     async fn message(&amp;self, context: Context, _: Message) {
-    /// use serenity::utils;
-    ///
-    /// // assuming a `context` has been bound
-    ///
-    /// let base64 = utils::read_image(&quot;./my_image.jpg&quot;).expect(&quot;Failed to read image&quot;);
-    ///
-    /// let mut user = context.cache.current_user();
-    /// let _ = user.edit(&amp;context, |p| p.avatar(Some(&amp;base64))).await;
-    /// #     }
-    /// # }
+    /// # #[cfg(feature = &quot;http&quot;)]
+    /// # async fn _foo(http: &amp;Http, current_user: &amp;mut CurrentUser) -&gt; Result&lt;(), SerenityError&gt; {
+    /// let avatar = CreateAttachment::path(&quot;./my_image.jpg&quot;).await.expect(&quot;Failed to read image.&quot;);
+    /// current_user.edit(http, EditProfile::new().avatar(&amp;avatar)).await?;
+    /// # Ok(())
     /// # }
     /// ```
-    ///
-    /// [`utils::read_image`]: crate::utils::read_image
-    </span><span class="kw">pub fn </span>avatar(<span class="kw-2">&amp;mut </span><span class="self">self</span>, avatar: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="kw">let </span>avatar = avatar.map_or(NULL, |x| Value::from(x.to_string()));
-
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;avatar&quot;</span>, avatar);
+    </span><span class="kw">pub fn </span>avatar(<span class="kw-2">mut </span><span class="self">self</span>, avatar: <span class="kw-2">&amp;</span>CreateAttachment) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.avatar = <span class="prelude-val">Some</span>(<span class="prelude-val">Some</span>(avatar.to_base64()));
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// Modifies the current user&#39;s email address.
-    ///
-    /// Note that when modifying the email address, the current password must
-    /// also be [provided].
-    ///
-    /// No validation is performed on this by the library.
-    ///
-    /// **Note**: This can only be used by user accounts.
-    ///
-    /// [provided]: Self::password
-    </span><span class="kw">pub fn </span>email(<span class="kw-2">&amp;mut </span><span class="self">self</span>, email: <span class="kw-2">&amp;</span>str) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;email&quot;</span>, Value::from(email.to_string()));
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// Modifies the current user&#39;s password.
-    ///
-    /// Note that when modifying the password, the current password must also be
-    /// [provided].
-    ///
-    /// [provided]: Self::password
-    </span><span class="kw">pub fn </span>new_password(<span class="kw-2">&amp;mut </span><span class="self">self</span>, new_password: <span class="kw-2">&amp;</span>str) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;new_password&quot;</span>, Value::from(new_password.to_string()));
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// Used for providing the current password as verification when
-    /// [modifying the password] or [modifying the associated email address].
-    ///
-    /// [modifying the password]: Self::new_password
-    /// [modifying the associated email address]: Self::email
-    </span><span class="kw">pub fn </span>password(<span class="kw-2">&amp;mut </span><span class="self">self</span>, password: <span class="kw-2">&amp;</span>str) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;password&quot;</span>, Value::from(password.to_string()));
+    <span class="doccomment">/// Delete the current user&#39;s avatar, resetting it to the default logo.
+    </span><span class="kw">pub fn </span>delete_avatar(<span class="kw-2">mut </span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.avatar = <span class="prelude-val">Some</span>(<span class="prelude-val">None</span>);
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Modifies the current user&#39;s username.
     ///
-    /// When modifying the username, if another user has the same _new_ username
-    /// and current discriminator, a new unique discriminator will be assigned.
-    /// If there are no available discriminators with the requested username,
-    /// an error will occur.
-    </span><span class="kw">pub fn </span>username&lt;S: ToString&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, username: S) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;username&quot;</span>, Value::from(username.to_string()));
+    /// When modifying the username, if another user has the same _new_ username and current
+    /// discriminator, a new unique discriminator will be assigned. If there are no available
+    /// discriminators with the requested username, an error will occur.
+    </span><span class="kw">pub fn </span>username(<span class="kw-2">mut </span><span class="self">self</span>, username: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.username = <span class="prelude-val">Some</span>(username.into());
         <span class="self">self
+    </span>}
+}
+
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+#[async_trait::async_trait]
+</span><span class="kw">impl </span>Builder <span class="kw">for </span>EditProfile {
+    <span class="kw">type </span>Context&lt;<span class="lifetime">&#39;ctx</span>&gt; = ();
+    <span class="kw">type </span>Built = CurrentUser;
+
+    <span class="doccomment">/// Edit the current user&#39;s profile with the fields set.
+    ///
+    /// # Errors
+    ///
+    /// Returns an [`Error::Http`] if an invalid value is set. May also return an [`Error::Json`]
+    /// if there is an error in deserializing the API response.
+    </span><span class="kw">async fn </span>execute(
+        <span class="self">self</span>,
+        cache_http: <span class="kw">impl </span>CacheHttp,
+        _ctx: <span class="self">Self</span>::Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>::Built&gt; {
+        cache_http.http().edit_profile(<span class="kw-2">&amp;</span><span class="self">self</span>).<span class="kw">await
     </span>}
 }
 </code></pre></div></section></main></body></html>

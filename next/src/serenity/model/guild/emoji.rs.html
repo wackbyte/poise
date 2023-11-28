@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/model/guild/emoji.rs`."><title>emoji.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-ae1b282cda4c21ec.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (8142a319e 2023-09-13)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-cabe4b1bd7b9da95.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../../serenity/index.html"><img class="rust-logo" src="../../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.12.0/src/model/guild/emoji.rs`."><title>emoji.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -213,30 +213,12 @@
 <a href="#213" id="213">213</a>
 <a href="#214" id="214">214</a>
 <a href="#215" id="215">215</a>
-<a href="#216" id="216">216</a>
-<a href="#217" id="217">217</a>
-<a href="#218" id="218">218</a>
-<a href="#219" id="219">219</a>
-<a href="#220" id="220">220</a>
-<a href="#221" id="221">221</a>
-<a href="#222" id="222">222</a>
-<a href="#223" id="223">223</a>
-<a href="#224" id="224">224</a>
-<a href="#225" id="225">225</a>
-<a href="#226" id="226">226</a>
-<a href="#227" id="227">227</a>
-<a href="#228" id="228">228</a>
-<a href="#229" id="229">229</a>
-<a href="#230" id="230">230</a>
-<a href="#231" id="231">231</a>
-<a href="#232" id="232">232</a>
-<a href="#233" id="233">233</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt;
 
 <span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::cache::Cache;
-<span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
-</span><span class="kw">use </span><span class="kw">crate</span>::http::Http;
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
+</span><span class="kw">use </span><span class="kw">crate</span>::http::CacheHttp;
 <span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
 <span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
@@ -249,37 +231,36 @@
 <span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::model::ModelError;
 
-<span class="doccomment">/// Represents a custom guild emoji, which can either be created using the API,
-/// or via an integration. Emojis created using the API only work within the
-/// guild it was created in.
+<span class="doccomment">/// Represents a custom guild emoji, which can either be created using the API, or via an
+/// integration. Emojis created using the API only work within the guild it was created in.
 ///
 /// [Discord docs](https://discord.com/developers/docs/resources/emoji#emoji-object).
-</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;typesize&quot;</span>, derive(typesize::derive::TypeSize))]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>Emoji {
     <span class="doccomment">/// Whether the emoji is animated.
     </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>animated: bool,
-    <span class="doccomment">/// Whether the emoji can be used. This may be false when the guild loses boosts,
-    /// reducing the emoji limit.
+    <span class="doccomment">/// Whether the emoji can be used. This may be false when the guild loses boosts, reducing the
+    /// emoji limit.
     </span><span class="attr">#[serde(default = <span class="string">&quot;default_true&quot;</span>)]
     </span><span class="kw">pub </span>available: bool,
     <span class="doccomment">/// The Id of the emoji.
     </span><span class="kw">pub </span>id: EmojiId,
-    <span class="doccomment">/// The name of the emoji. It must be at least 2 characters long and can
-    /// only contain alphanumeric characters and underscores.
+    <span class="doccomment">/// The name of the emoji. It must be at least 2 characters long and can only contain
+    /// alphanumeric characters and underscores.
     </span><span class="kw">pub </span>name: String,
     <span class="doccomment">/// Whether the emoji is managed via an [`Integration`] service.
     ///
     /// [`Integration`]: super::Integration
     </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>managed: bool,
-    <span class="doccomment">/// Whether the emoji name needs to be surrounded by colons in order to be
-    /// used by the client.
+    <span class="doccomment">/// Whether the emoji name needs to be surrounded by colons in order to be used by the client.
     </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>require_colons: bool,
-    <span class="doccomment">/// A list of [`Role`]s that are allowed to use the emoji. If there are no
-    /// roles specified, then usage is unrestricted.
+    <span class="doccomment">/// A list of [`Role`]s that are allowed to use the emoji. If there are no roles specified,
+    /// then usage is unrestricted.
     ///
     /// [`Role`]: super::Role
     </span><span class="attr">#[serde(default)]
@@ -290,89 +271,66 @@
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">impl </span>Emoji {
-    <span class="doccomment">/// Deletes the emoji.
-    /// This method requires the cache to fetch the guild ID.
+    <span class="doccomment">/// Deletes the emoji. This method requires the cache to fetch the guild ID.
     ///
-    /// **Note**: The [Manage Emojis and Stickers] permission is required.
-    ///
+    /// **Note**: If the emoji was created by the current user, requires either the [Create Guild
+    /// Expressions] or the [Manage Guild Expressions] permission. Otherwise, the [Manage Guild
+    /// Expressions] permission is required.
     ///
     /// # Examples
     ///
     /// Delete a given emoji:
     ///
     /// ```rust,no_run
-    /// # use serde_json::{json, from_value};
-    /// # use serenity::framework::standard::{CommandResult, macros::command};
     /// # use serenity::client::Context;
-    /// # use serenity::model::prelude::{EmojiId, Emoji};
+    /// # use serenity::model::prelude::Emoji;
     /// #
-    /// # #[command]
-    /// # async fn example(ctx: &amp;Context) -&gt; CommandResult {
-    /// #     let mut emoji = from_value::&lt;Emoji&gt;(json!({
-    /// #         &quot;id&quot;: EmojiId(7),
-    /// #         &quot;name&quot;: &quot;blobface&quot;,
-    /// #     }))?;
-    /// #
+    /// # async fn example(ctx: &amp;Context, emoji: Emoji) -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     /// // assuming emoji has been set already
     /// match emoji.delete(&amp;ctx).await {
     ///     Ok(()) =&gt; println!(&quot;Emoji deleted.&quot;),
     ///     Err(_) =&gt; println!(&quot;Could not delete emoji.&quot;),
     /// }
-    /// #    Ok(())
+    /// # Ok(())
     /// # }
     /// ```
     ///
     /// # Errors
     ///
-    /// Returns [`Error::Http`] if the current user lacks permission,
-    /// or may return [`ModelError::ItemMissing`] if the emoji is not
-    /// in the cache.
+    /// Returns [`Error::Http`] if the current user lacks permission, or may return
+    /// [`ModelError::ItemMissing`] if the emoji is not in the cache.
     ///
-    /// [Manage Emojis and Stickers]: crate::model::permissions::Permissions::MANAGE_EMOJIS_AND_STICKERS
+    /// [Create Guild Expressions]: crate::model::Permissions::CREATE_GUILD_EXPRESSIONS
+    /// [Manage Guild Expressions]: crate::model::Permissions::MANAGE_GUILD_EXPRESSIONS
     </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     #[inline]
-    #[allow(clippy::trait_duplication_in_bounds)] </span><span class="comment">// https://github.com/rust-lang/rust-clippy/issues/8757
-    </span><span class="kw">pub async fn </span>delete&lt;T: AsRef&lt;Cache&gt; + AsRef&lt;Http&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, cache_http: T) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="kw">match </span><span class="self">self</span>.find_guild_id(<span class="kw-2">&amp;</span>cache_http) {
-            <span class="prelude-val">Some</span>(guild_id) =&gt; {
-                AsRef::&lt;Http&gt;::as_ref(<span class="kw-2">&amp;</span>cache_http).delete_emoji(guild_id.<span class="number">0</span>, <span class="self">self</span>.id.<span class="number">0</span>).<span class="kw">await
-            </span>},
-            <span class="prelude-val">None </span>=&gt; <span class="prelude-val">Err</span>(Error::Model(ModelError::ItemMissing)),
-        }
-    }
+    </span><span class="kw">pub async fn </span>delete(<span class="kw-2">&amp;</span><span class="self">self</span>, cache_http: <span class="kw">impl </span>CacheHttp) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+        <span class="kw">let </span>guild_id = <span class="self">self</span>.try_find_guild_id(<span class="kw-2">&amp;</span>cache_http)<span class="question-mark">?</span>;
+        cache_http.http().delete_emoji(guild_id, <span class="self">self</span>.id, <span class="prelude-val">None</span>).<span class="kw">await
+    </span>}
 
-    <span class="doccomment">/// Edits the emoji by updating it with a new name.
-    /// This method requires the cache to fetch the guild ID.
+    <span class="doccomment">/// Edits the emoji by updating it with a new name. This method requires the cache to fetch the
+    /// guild ID.
     ///
-    /// **Note**: The [Manage Emojis and Stickers] permission is required.
+    /// **Note**: If the emoji was created by the current user, requires either the [Create Guild
+    /// Expressions] or the [Manage Guild Expressions] permission. Otherwise, the [Manage Guild
+    /// Expressions] permission is required.
     ///
     /// # Errors
     ///
-    /// Returns [`Error::Http`] if the current user lacks permission,
-    /// or if an invalid name is given.
+    /// Returns [`Error::Http`] if the current user lacks permission, or if an invalid name is
+    /// given.
     ///
-    /// [Manage Emojis and Stickers]: crate::model::permissions::Permissions::MANAGE_EMOJIS_AND_STICKERS
+    /// [Create Guild Expressions]: crate::model::Permissions::CREATE_GUILD_EXPRESSIONS
+    /// [Manage Guild Expressions]: crate::model::Permissions::MANAGE_GUILD_EXPRESSIONS
     </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
-    #[allow(clippy::trait_duplication_in_bounds)] </span><span class="comment">// https://github.com/rust-lang/rust-clippy/issues/8757
-    </span><span class="kw">pub async fn </span>edit&lt;T: AsRef&lt;Cache&gt; + AsRef&lt;Http&gt;&gt;(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        cache_http: T,
-        name: <span class="kw-2">&amp;</span>str,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="kw">match </span><span class="self">self</span>.find_guild_id(<span class="kw-2">&amp;</span>cache_http) {
-            <span class="prelude-val">Some</span>(guild_id) =&gt; {
-                <span class="kw">let </span>map = <span class="macro">json!</span>({
-                    <span class="string">&quot;name&quot;</span>: name,
-                });
+    </span><span class="kw">pub async fn </span>edit(<span class="kw-2">&amp;mut </span><span class="self">self</span>, cache_http: <span class="kw">impl </span>CacheHttp, name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+        <span class="kw">let </span>guild_id = <span class="self">self</span>.try_find_guild_id(<span class="kw-2">&amp;</span>cache_http)<span class="question-mark">?</span>;
+        <span class="kw">let </span>map = <span class="macro">json!</span>({ <span class="string">&quot;name&quot;</span>: name });
 
-                <span class="kw-2">*</span><span class="self">self </span>= AsRef::&lt;Http&gt;::as_ref(<span class="kw-2">&amp;</span>cache_http)
-                    .edit_emoji(guild_id.<span class="number">0</span>, <span class="self">self</span>.id.<span class="number">0</span>, <span class="kw-2">&amp;</span>map, <span class="prelude-val">None</span>)
-                    .<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="kw-2">*</span><span class="self">self </span>= cache_http.http().edit_emoji(guild_id, <span class="self">self</span>.id, <span class="kw-2">&amp;</span>map, <span class="prelude-val">None</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
-                <span class="prelude-val">Ok</span>(())
-            },
-            <span class="prelude-val">None </span>=&gt; <span class="prelude-val">Err</span>(Error::Model(ModelError::ItemMissing)),
-        }
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="doccomment">/// Finds the [`Guild`] that owns the emoji by looking through the Cache.
@@ -388,7 +346,6 @@
     /// # use serenity::model::guild::Emoji;
     /// #
     /// # fn run(cache: Cache, emoji: Emoji) {
-    /// #
     /// // assuming emoji has been set already
     /// if let Some(guild_id) = emoji.find_guild_id(&amp;cache) {
     ///     println!(&quot;{} is owned by {}&quot;, emoji.name, guild_id);
@@ -409,6 +366,15 @@
         <span class="prelude-val">None
     </span>}
 
+    <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    #[inline]
+    </span><span class="kw">fn </span>try_find_guild_id(<span class="kw-2">&amp;</span><span class="self">self</span>, cache_http: <span class="kw">impl </span>CacheHttp) -&gt; <span class="prelude-ty">Result</span>&lt;GuildId&gt; {
+        cache_http
+            .cache()
+            .and_then(|c| <span class="self">self</span>.find_guild_id(c))
+            .ok_or(Error::Model(ModelError::ItemMissing))
+    }
+
     <span class="doccomment">/// Generates a URL to the emoji&#39;s image.
     ///
     /// # Examples
@@ -419,7 +385,6 @@
     /// # use serenity::model::guild::Emoji;
     /// #
     /// # fn run(emoji: Emoji) {
-    /// #
     /// // assuming emoji has been set already
     /// println!(&quot;Direct link to emoji image: {}&quot;, emoji.url());
     /// # }
@@ -433,11 +398,10 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Emoji {
-    <span class="doccomment">/// Formats the emoji into a string that will cause Discord clients to
-    /// render the emoji.
+    <span class="doccomment">/// Formats the emoji into a string that will cause Discord clients to render the emoji.
     ///
-    /// This is in the format of either `&lt;:NAME:EMOJI_ID&gt;` for normal emojis,
-    /// or `&lt;a:NAME:EMOJI_ID&gt;` for animated emojis.
+    /// This is in the format of either `&lt;:NAME:EMOJI_ID&gt;` for normal emojis, or
+    /// `&lt;a:NAME:EMOJI_ID&gt;` for animated emojis.
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">if </span><span class="self">self</span>.animated {
             f.write_str(<span class="string">&quot;&lt;a:&quot;</span>)<span class="question-mark">?</span>;

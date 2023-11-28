@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.11.6/src/utils/argument_convert/channel.rs`."><title>channel.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-ae1b282cda4c21ec.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (8142a319e 2023-09-13)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-cabe4b1bd7b9da95.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../../serenity/index.html"><img class="rust-logo" src="../../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serenity-0.12.0/src/utils/argument_convert/channel.rs`."><title>channel.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="serenity" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -161,68 +161,6 @@
 <a href="#161" id="161">161</a>
 <a href="#162" id="162">162</a>
 <a href="#163" id="163">163</a>
-<a href="#164" id="164">164</a>
-<a href="#165" id="165">165</a>
-<a href="#166" id="166">166</a>
-<a href="#167" id="167">167</a>
-<a href="#168" id="168">168</a>
-<a href="#169" id="169">169</a>
-<a href="#170" id="170">170</a>
-<a href="#171" id="171">171</a>
-<a href="#172" id="172">172</a>
-<a href="#173" id="173">173</a>
-<a href="#174" id="174">174</a>
-<a href="#175" id="175">175</a>
-<a href="#176" id="176">176</a>
-<a href="#177" id="177">177</a>
-<a href="#178" id="178">178</a>
-<a href="#179" id="179">179</a>
-<a href="#180" id="180">180</a>
-<a href="#181" id="181">181</a>
-<a href="#182" id="182">182</a>
-<a href="#183" id="183">183</a>
-<a href="#184" id="184">184</a>
-<a href="#185" id="185">185</a>
-<a href="#186" id="186">186</a>
-<a href="#187" id="187">187</a>
-<a href="#188" id="188">188</a>
-<a href="#189" id="189">189</a>
-<a href="#190" id="190">190</a>
-<a href="#191" id="191">191</a>
-<a href="#192" id="192">192</a>
-<a href="#193" id="193">193</a>
-<a href="#194" id="194">194</a>
-<a href="#195" id="195">195</a>
-<a href="#196" id="196">196</a>
-<a href="#197" id="197">197</a>
-<a href="#198" id="198">198</a>
-<a href="#199" id="199">199</a>
-<a href="#200" id="200">200</a>
-<a href="#201" id="201">201</a>
-<a href="#202" id="202">202</a>
-<a href="#203" id="203">203</a>
-<a href="#204" id="204">204</a>
-<a href="#205" id="205">205</a>
-<a href="#206" id="206">206</a>
-<a href="#207" id="207">207</a>
-<a href="#208" id="208">208</a>
-<a href="#209" id="209">209</a>
-<a href="#210" id="210">210</a>
-<a href="#211" id="211">211</a>
-<a href="#212" id="212">212</a>
-<a href="#213" id="213">213</a>
-<a href="#214" id="214">214</a>
-<a href="#215" id="215">215</a>
-<a href="#216" id="216">216</a>
-<a href="#217" id="217">217</a>
-<a href="#218" id="218">218</a>
-<a href="#219" id="219">219</a>
-<a href="#220" id="220">220</a>
-<a href="#221" id="221">221</a>
-<a href="#222" id="222">222</a>
-<a href="#223" id="223">223</a>
-<a href="#224" id="224">224</a>
-<a href="#225" id="225">225</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt;
 
 <span class="kw">use </span><span class="kw">super</span>::ArgumentConvert;
@@ -261,42 +199,39 @@
 <span class="kw">fn </span>channel_belongs_to_guild(channel: <span class="kw-2">&amp;</span>Channel, guild: GuildId) -&gt; bool {
     <span class="kw">match </span>channel {
         Channel::Guild(channel) =&gt; channel.guild_id == guild,
-        Channel::Category(channel) =&gt; channel.guild_id == guild,
         Channel::Private(_channel) =&gt; <span class="bool-val">false</span>,
     }
 }
 
 <span class="kw">async fn </span>lookup_channel_global(
-    ctx: <span class="kw-2">&amp;</span>Context,
+    ctx: <span class="kw">impl </span>CacheHttp,
     guild_id: <span class="prelude-ty">Option</span>&lt;GuildId&gt;,
     s: <span class="kw-2">&amp;</span>str,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;Channel, ChannelParseError&gt; {
-    <span class="kw">if let </span><span class="prelude-val">Some</span>(channel_id) = s.parse::&lt;u64&gt;().ok().or_else(|| <span class="kw">crate</span>::utils::parse_channel(s)) {
-        <span class="kw">return </span>ChannelId(channel_id).to_channel(ctx).<span class="kw">await</span>.map_err(ChannelParseError::Http);
+    <span class="kw">if let </span><span class="prelude-val">Some</span>(channel_id) = s.parse().ok().or_else(|| <span class="kw">crate</span>::utils::parse_channel_mention(s)) {
+        <span class="kw">return </span>channel_id.to_channel(<span class="kw-2">&amp;</span>ctx).<span class="kw">await</span>.map_err(ChannelParseError::Http);
     }
+
+    <span class="kw">let </span>guild_id = guild_id.ok_or(ChannelParseError::NotFoundOrMalformed)<span class="question-mark">?</span>;
 
     <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
-    </span><span class="kw">if let </span><span class="prelude-val">Some</span>(channel) = ctx.cache.channels.iter().find_map(|m| {
-        <span class="kw">let </span>channel = m.value();
-        <span class="kw">if </span>channel.name.eq_ignore_ascii_case(s) {
-            <span class="prelude-val">Some</span>(channel.clone())
-        } <span class="kw">else </span>{
-            <span class="prelude-val">None
-        </span>}
-    }) {
-        <span class="kw">return </span><span class="prelude-val">Ok</span>(Channel::Guild(channel));
-    }
-
-    <span class="kw">if let </span><span class="prelude-val">Some</span>(guild_id) = guild_id {
-        <span class="kw">let </span>channels = ctx.http.get_channels(guild_id.<span class="number">0</span>).<span class="kw">await</span>.map_err(ChannelParseError::Http)<span class="question-mark">?</span>;
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(channel) =
-            channels.into_iter().find(|channel| channel.name.eq_ignore_ascii_case(s))
-        {
-            <span class="kw">return </span><span class="prelude-val">Ok</span>(Channel::Guild(channel));
+    </span><span class="kw">if let </span><span class="prelude-val">Some</span>(cache) = ctx.cache() {
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(guild) = cache.guild(guild_id) {
+            <span class="kw">let </span>channel = guild.channels.values().find(|c| c.name.eq_ignore_ascii_case(s));
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(channel) = channel {
+                <span class="kw">return </span><span class="prelude-val">Ok</span>(Channel::Guild(channel.clone()));
+            }
         }
+
+        <span class="kw">return </span><span class="prelude-val">Err</span>(ChannelParseError::NotFoundOrMalformed);
     }
 
-    <span class="prelude-val">Err</span>(ChannelParseError::NotFoundOrMalformed)
+    <span class="kw">let </span>channels = ctx.http().get_channels(guild_id).<span class="kw">await</span>.map_err(ChannelParseError::Http)<span class="question-mark">?</span>;
+    <span class="kw">if let </span><span class="prelude-val">Some</span>(channel) = channels.into_iter().find(|c| c.name.eq_ignore_ascii_case(s)) {
+        <span class="prelude-val">Ok</span>(Channel::Guild(channel))
+    } <span class="kw">else </span>{
+        <span class="prelude-val">Err</span>(ChannelParseError::NotFoundOrMalformed)
+    }
 }
 
 <span class="doccomment">/// Look up a Channel by a string case-insensitively.
@@ -314,12 +249,12 @@
     <span class="kw">type </span><span class="prelude-val">Err </span>= ChannelParseError;
 
     <span class="kw">async fn </span>convert(
-        ctx: <span class="kw-2">&amp;</span>Context,
+        ctx: <span class="kw">impl </span>CacheHttp,
         guild_id: <span class="prelude-ty">Option</span>&lt;GuildId&gt;,
         _channel_id: <span class="prelude-ty">Option</span>&lt;ChannelId&gt;,
         s: <span class="kw-2">&amp;</span>str,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Err&gt; {
-        <span class="kw">let </span>channel = lookup_channel_global(ctx, guild_id, s).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="kw">let </span>channel = lookup_channel_global(<span class="kw-2">&amp;</span>ctx, guild_id, s).<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="comment">// Don&#39;t yield for other guilds&#39; channels
         </span><span class="kw">if let </span><span class="prelude-val">Some</span>(guild_id) = guild_id {
@@ -374,76 +309,17 @@
     <span class="kw">type </span><span class="prelude-val">Err </span>= GuildChannelParseError;
 
     <span class="kw">async fn </span>convert(
-        ctx: <span class="kw-2">&amp;</span>Context,
+        ctx: <span class="kw">impl </span>CacheHttp,
         guild_id: <span class="prelude-ty">Option</span>&lt;GuildId&gt;,
         channel_id: <span class="prelude-ty">Option</span>&lt;ChannelId&gt;,
         s: <span class="kw-2">&amp;</span>str,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Err&gt; {
-        <span class="kw">match </span>Channel::convert(ctx, guild_id, channel_id, s).<span class="kw">await </span>{
+        <span class="kw">match </span>Channel::convert(<span class="kw-2">&amp;</span>ctx, guild_id, channel_id, s).<span class="kw">await </span>{
             <span class="prelude-val">Ok</span>(Channel::Guild(channel)) =&gt; <span class="prelude-val">Ok</span>(channel),
             <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(GuildChannelParseError::NotAGuildChannel),
             <span class="prelude-val">Err</span>(ChannelParseError::Http(e)) =&gt; <span class="prelude-val">Err</span>(GuildChannelParseError::Http(e)),
             <span class="prelude-val">Err</span>(ChannelParseError::NotFoundOrMalformed) =&gt; {
                 <span class="prelude-val">Err</span>(GuildChannelParseError::NotFoundOrMalformed)
-            },
-        }
-    }
-}
-
-<span class="doccomment">/// Error that can be returned from [`ChannelCategory::convert`].
-</span><span class="attr">#[non_exhaustive]
-#[derive(Debug)]
-</span><span class="kw">pub enum </span>ChannelCategoryParseError {
-    <span class="doccomment">/// When channel retrieval via HTTP failed
-    </span>Http(SerenityError),
-    <span class="doccomment">/// The provided channel string failed to parse, or the parsed result cannot be found in the
-    /// cache.
-    </span>NotFoundOrMalformed,
-    <span class="doccomment">/// When the referenced channel is not a channel category
-    </span>NotAChannelCategory,
-}
-
-<span class="kw">impl </span>std::error::Error <span class="kw">for </span>ChannelCategoryParseError {
-    <span class="kw">fn </span>source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>(<span class="kw">dyn </span>std::error::Error + <span class="lifetime">&#39;static</span>)&gt; {
-        <span class="kw">match </span><span class="self">self </span>{
-            <span class="self">Self</span>::Http(e) =&gt; <span class="prelude-val">Some</span>(e),
-            <span class="self">Self</span>::NotFoundOrMalformed | <span class="self">Self</span>::NotAChannelCategory =&gt; <span class="prelude-val">None</span>,
-        }
-    }
-}
-
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>ChannelCategoryParseError {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-        <span class="kw">match </span><span class="self">self </span>{
-            <span class="self">Self</span>::Http(<span class="kw">_</span>) =&gt; f.write_str(<span class="string">&quot;Failed to request channel via HTTP&quot;</span>),
-            <span class="self">Self</span>::NotFoundOrMalformed =&gt; f.write_str(<span class="string">&quot;Channel not found or unknown format&quot;</span>),
-            <span class="self">Self</span>::NotAChannelCategory =&gt; f.write_str(<span class="string">&quot;Channel is not a channel category&quot;</span>),
-        }
-    }
-}
-
-<span class="doccomment">/// Look up a ChannelCategory by a string case-insensitively.
-///
-/// Lookup is done by the global cache, hence the cache feature needs to be enabled.
-///
-/// For more information, see the ArgumentConvert implementation for [`Channel`]
-</span><span class="attr">#[async_trait::async_trait]
-</span><span class="kw">impl </span>ArgumentConvert <span class="kw">for </span>ChannelCategory {
-    <span class="kw">type </span><span class="prelude-val">Err </span>= ChannelCategoryParseError;
-
-    <span class="kw">async fn </span>convert(
-        ctx: <span class="kw-2">&amp;</span>Context,
-        guild_id: <span class="prelude-ty">Option</span>&lt;GuildId&gt;,
-        channel_id: <span class="prelude-ty">Option</span>&lt;ChannelId&gt;,
-        s: <span class="kw-2">&amp;</span>str,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Err&gt; {
-        <span class="kw">match </span>Channel::convert(ctx, guild_id, channel_id, s).<span class="kw">await </span>{
-            <span class="prelude-val">Ok</span>(Channel::Category(channel)) =&gt; <span class="prelude-val">Ok</span>(channel),
-            <span class="comment">// TODO: accommodate issue #1352 somehow
-            </span><span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(ChannelCategoryParseError::NotAChannelCategory),
-            <span class="prelude-val">Err</span>(ChannelParseError::Http(e)) =&gt; <span class="prelude-val">Err</span>(ChannelCategoryParseError::Http(e)),
-            <span class="prelude-val">Err</span>(ChannelParseError::NotFoundOrMalformed) =&gt; {
-                <span class="prelude-val">Err</span>(ChannelCategoryParseError::NotFoundOrMalformed)
             },
         }
     }

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/builtins/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ae1b282cda4c21ec.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (8142a319e 2023-09-13)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-cabe4b1bd7b9da95.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../poise/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/builtins/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="poise" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (49b3924bd 2023-11-27)" data-channel="nightly" data-search-js="search-56a624991a76cfad.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -294,6 +294,10 @@
 <a href="#294" id="294">294</a>
 <a href="#295" id="295">295</a>
 <a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Building blocks for common commands like help commands or application command registration
 //!
 //! This file provides sample commands and utility functions like help menus or error handlers to
@@ -310,10 +314,11 @@
 <span class="attr">#[cfg(any(feature = <span class="string">&quot;chrono&quot;</span>, feature = <span class="string">&quot;time&quot;</span>))]
 </span><span class="kw">pub use </span>paginate::<span class="kw-2">*</span>;
 
-<span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
+<span class="kw">use crate</span>::{serenity_prelude <span class="kw">as </span>serenity, CreateReply};
 
-<span class="doccomment">/// An error handler that logs errors either via the [`log`] crate or via a Discord message. Set
-/// up a logger (e.g. `env_logger::init()`) to see the logged errors from this method.
+<span class="doccomment">/// An error handler that logs errors either via the [`tracing`] crate or via a Discord message. Set
+/// up a logger (e.g. `env_logger::init()`) or a tracing subscriber
+/// (e.g. `tracing_subscriber::fmt::init()`) to see the logged errors from this method.
 ///
 /// If the user invoked the command wrong ([`crate::FrameworkError::ArgumentParse`]), the command
 /// help is displayed and the user is directed to the help menu.
@@ -323,7 +328,7 @@
 /// ```rust,no_run
 /// # async { let error: poise::FrameworkError&lt;&#39;_, (), &amp;str&gt; = todo!();
 /// if let Err(e) = poise::builtins::on_error(error).await {
-///     log::error!(&quot;Fatal error while sending error message: {}&quot;, e);
+///     tracing::error!(&quot;Fatal error while sending error message: {}&quot;, e);
 /// }
 /// # };
 /// ```
@@ -334,9 +339,9 @@
         <span class="kw">crate</span>::FrameworkError::Setup { error, .. } =&gt; {
             <span class="macro">eprintln!</span>(<span class="string">&quot;Error in user data setup: {}&quot;</span>, error);
         }
-        <span class="kw">crate</span>::FrameworkError::EventHandler { error, event, .. } =&gt; <span class="macro">log::error!</span>(
+        <span class="kw">crate</span>::FrameworkError::EventHandler { error, event, .. } =&gt; <span class="macro">tracing::error!</span>(
             <span class="string">&quot;User event event handler encountered an error on {} event: {}&quot;</span>,
-            event.name(),
+            event.snake_case_name(),
             error
         ),
         <span class="kw">crate</span>::FrameworkError::Command { ctx, error } =&gt; {
@@ -355,19 +360,18 @@
                 <span class="string">&quot;You must specify one of the following subcommands: {}&quot;</span>,
                 subcommands.join(<span class="string">&quot;, &quot;</span>)
             );
-            ctx.send(|b| b.content(response).ephemeral(<span class="bool-val">true</span>)).<span class="kw">await</span><span class="question-mark">?</span>;
+            ctx.send(CreateReply::default().content(response).ephemeral(<span class="bool-val">true</span>))
+                .<span class="kw">await</span><span class="question-mark">?</span>;
         }
         <span class="kw">crate</span>::FrameworkError::CommandPanic { ctx, payload: <span class="kw">_ </span>} =&gt; {
             <span class="comment">// Not showing the payload to the user because it may contain sensitive info
-            </span>ctx.send(|b| {
-                b.embed(|b| {
-                    b.title(<span class="string">&quot;Internal error&quot;</span>)
-                        .color((<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>))
-                        .description(<span class="string">&quot;An unexpected internal error has occurred.&quot;</span>)
-                })
-                .ephemeral(<span class="bool-val">true</span>)
-            })
-            .<span class="kw">await</span><span class="question-mark">?</span>;
+            </span><span class="kw">let </span>embed = serenity::CreateEmbed::default()
+                .title(<span class="string">&quot;Internal error&quot;</span>)
+                .color((<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>))
+                .description(<span class="string">&quot;An unexpected internal error has occurred.&quot;</span>);
+
+            ctx.send(CreateReply::default().embed(embed).ephemeral(<span class="bool-val">true</span>))
+                .<span class="kw">await</span><span class="question-mark">?</span>;
         }
         <span class="kw">crate</span>::FrameworkError::ArgumentParse { ctx, input, error } =&gt; {
             <span class="comment">// If we caught an argument parse error, give a helpful error message with the
@@ -387,14 +391,14 @@
             ctx.say(response).<span class="kw">await</span><span class="question-mark">?</span>;
         }
         <span class="kw">crate</span>::FrameworkError::CommandStructureMismatch { ctx, description } =&gt; {
-            <span class="macro">log::error!</span>(
+            <span class="macro">tracing::error!</span>(
                 <span class="string">&quot;Error: failed to deserialize interaction arguments for `/{}`: {}&quot;</span>,
                 ctx.command.name,
                 description,
             );
         }
         <span class="kw">crate</span>::FrameworkError::CommandCheckFailed { ctx, error } =&gt; {
-            <span class="macro">log::error!</span>(
+            <span class="macro">tracing::error!</span>(
                 <span class="string">&quot;A command check failed in command {} for user {}: {:?}&quot;</span>,
                 ctx.command().name,
                 ctx.author().name,
@@ -409,7 +413,8 @@
                 <span class="string">&quot;You&#39;re too fast. Please wait {} seconds before retrying&quot;</span>,
                 remaining_cooldown.as_secs()
             );
-            ctx.send(|b| b.content(msg).ephemeral(<span class="bool-val">true</span>)).<span class="kw">await</span><span class="question-mark">?</span>;
+            ctx.send(CreateReply::default().content(msg).ephemeral(<span class="bool-val">true</span>))
+                .<span class="kw">await</span><span class="question-mark">?</span>;
         }
         <span class="kw">crate</span>::FrameworkError::MissingBotPermissions {
             missing_permissions,
@@ -419,7 +424,8 @@
                 <span class="string">&quot;Command cannot be executed because the bot is lacking permissions: {}&quot;</span>,
                 missing_permissions,
             );
-            ctx.send(|b| b.content(msg).ephemeral(<span class="bool-val">true</span>)).<span class="kw">await</span><span class="question-mark">?</span>;
+            ctx.send(CreateReply::default().content(msg).ephemeral(<span class="bool-val">true</span>))
+                .<span class="kw">await</span><span class="question-mark">?</span>;
         }
         <span class="kw">crate</span>::FrameworkError::MissingUserPermissions {
             missing_permissions,
@@ -439,26 +445,31 @@
                     ctx.command().name,
                 )
             };
-            ctx.send(|b| b.content(response).ephemeral(<span class="bool-val">true</span>)).<span class="kw">await</span><span class="question-mark">?</span>;
+            ctx.send(CreateReply::default().content(response).ephemeral(<span class="bool-val">true</span>))
+                .<span class="kw">await</span><span class="question-mark">?</span>;
         }
         <span class="kw">crate</span>::FrameworkError::NotAnOwner { ctx } =&gt; {
             <span class="kw">let </span>response = <span class="string">&quot;Only bot owners can call this command&quot;</span>;
-            ctx.send(|b| b.content(response).ephemeral(<span class="bool-val">true</span>)).<span class="kw">await</span><span class="question-mark">?</span>;
+            ctx.send(CreateReply::default().content(response).ephemeral(<span class="bool-val">true</span>))
+                .<span class="kw">await</span><span class="question-mark">?</span>;
         }
         <span class="kw">crate</span>::FrameworkError::GuildOnly { ctx } =&gt; {
             <span class="kw">let </span>response = <span class="string">&quot;You cannot run this command in DMs.&quot;</span>;
-            ctx.send(|b| b.content(response).ephemeral(<span class="bool-val">true</span>)).<span class="kw">await</span><span class="question-mark">?</span>;
+            ctx.send(CreateReply::default().content(response).ephemeral(<span class="bool-val">true</span>))
+                .<span class="kw">await</span><span class="question-mark">?</span>;
         }
         <span class="kw">crate</span>::FrameworkError::DmOnly { ctx } =&gt; {
             <span class="kw">let </span>response = <span class="string">&quot;You cannot run this command outside DMs.&quot;</span>;
-            ctx.send(|b| b.content(response).ephemeral(<span class="bool-val">true</span>)).<span class="kw">await</span><span class="question-mark">?</span>;
+            ctx.send(CreateReply::default().content(response).ephemeral(<span class="bool-val">true</span>))
+                .<span class="kw">await</span><span class="question-mark">?</span>;
         }
         <span class="kw">crate</span>::FrameworkError::NsfwOnly { ctx } =&gt; {
             <span class="kw">let </span>response = <span class="string">&quot;You cannot run this command outside NSFW channels.&quot;</span>;
-            ctx.send(|b| b.content(response).ephemeral(<span class="bool-val">true</span>)).<span class="kw">await</span><span class="question-mark">?</span>;
+            ctx.send(CreateReply::default().content(response).ephemeral(<span class="bool-val">true</span>))
+                .<span class="kw">await</span><span class="question-mark">?</span>;
         }
         <span class="kw">crate</span>::FrameworkError::DynamicPrefix { error, msg, .. } =&gt; {
-            <span class="macro">log::error!</span>(
+            <span class="macro">tracing::error!</span>(
                 <span class="string">&quot;Dynamic prefix failed for message {:?}: {}&quot;</span>,
                 msg.content,
                 error
@@ -469,17 +480,14 @@
             prefix,
             ..
         } =&gt; {
-            <span class="macro">log::warn!</span>(
+            <span class="macro">tracing::warn!</span>(
                 <span class="string">&quot;Recognized prefix `{}`, but didn&#39;t recognize command name in `{}`&quot;</span>,
                 prefix,
                 msg_content,
             );
         }
         <span class="kw">crate</span>::FrameworkError::UnknownInteraction { interaction, .. } =&gt; {
-            <span class="macro">log::warn!</span>(
-                <span class="string">&quot;received unknown interaction \&quot;{}\&quot;&quot;</span>,
-                interaction.data().name
-            );
+            <span class="macro">tracing::warn!</span>(<span class="string">&quot;received unknown interaction \&quot;{}\&quot;&quot;</span>, interaction.data.name);
         }
         <span class="kw">crate</span>::FrameworkError::__NonExhaustive(unreachable) =&gt; <span class="kw">match </span>unreachable {},
     }
@@ -489,7 +497,7 @@
 
 <span class="doccomment">/// An autocomplete function that can be used for the command parameter in your help function.
 ///
-/// See `examples/framework_usage` for an example
+/// See `examples/feature_showcase` for an example
 </span><span class="attr">#[allow(clippy::unused_async)] </span><span class="comment">// Required for the return type
 </span><span class="kw">pub async fn </span>autocomplete_command&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
     ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
@@ -521,73 +529,73 @@
 
     <span class="kw">let </span>show_private_guilds = ctx.framework().options().owners.contains(<span class="kw-2">&amp;</span>ctx.author().id);
 
-    <span class="doccomment">/// Stores details of a guild for the purposes of listing it in the bot guild list
-    </span><span class="kw">struct </span>Guild {
-        <span class="doccomment">/// Name of the guild
-        </span>name: String,
-        <span class="doccomment">/// Number of members in the guild
-        </span>num_members: u64,
-        <span class="doccomment">/// Whether the guild is public
-        </span>is_public: bool,
-    }
-
-    <span class="kw">let </span>guild_ids = ctx.cache().guilds();
-    <span class="kw">let </span><span class="kw-2">mut </span>num_unavailable_guilds = <span class="number">0</span>;
-    <span class="kw">let </span><span class="kw-2">mut </span>guilds = guild_ids
-        .iter()
-        .map(|<span class="kw-2">&amp;</span>guild_id| {
-            ctx.cache().guild_field(guild_id, |guild| Guild {
-                name: guild.name.clone(),
-                num_members: guild.member_count,
-                is_public: guild.features.iter().any(|x| x == <span class="string">&quot;DISCOVERABLE&quot;</span>),
-            })
-        })
-        .filter_map(|guild| {
-            <span class="kw">if </span>guild.is_none() {
-                num_unavailable_guilds += <span class="number">1</span>;
+    <span class="comment">// Aggregate all guilds and sort them by size
+    </span><span class="kw">let </span><span class="kw-2">mut </span>hidden_guilds = <span class="number">0</span>;
+    <span class="kw">let </span><span class="kw-2">mut </span>hidden_guilds_members = <span class="number">0</span>;
+    <span class="kw">let </span><span class="kw-2">mut </span>shown_guilds = Vec::&lt;(String, u64)&gt;::new();
+    <span class="kw">for </span>guild_id <span class="kw">in </span>ctx.cache().guilds() {
+        <span class="kw">match </span>ctx.cache().guild(guild_id) {
+            <span class="prelude-val">Some</span>(guild) =&gt; {
+                <span class="kw">let </span>is_public = guild.features.iter().any(|x| x == <span class="string">&quot;DISCOVERABLE&quot;</span>);
+                <span class="kw">if </span>!is_public &amp;&amp; !show_private_guilds {
+                    hidden_guilds += <span class="number">1</span>; <span class="comment">// private guild whose name and size shouldn&#39;t be exposed
+                </span>} <span class="kw">else </span>{
+                    shown_guilds.push((guild.name.clone(), guild.member_count))
+                }
             }
-            guild
-        })
-        .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
-    guilds.sort_by_key(|guild| u64::MAX - guild.num_members); <span class="comment">// descending sort
+            <span class="prelude-val">None </span>=&gt; hidden_guilds += <span class="number">1</span>, <span class="comment">// uncached guild
+        </span>}
+    }
+    shown_guilds.sort_by_key(|(<span class="kw">_</span>, member)| u64::MAX - member); <span class="comment">// sort largest guilds first
 
-    </span><span class="kw">let </span><span class="kw-2">mut </span>num_private_guilds = <span class="number">0</span>;
-    <span class="kw">let </span><span class="kw-2">mut </span>num_private_guild_members = <span class="number">0</span>;
-    <span class="kw">let </span><span class="kw-2">mut </span>response = <span class="macro">format!</span>(<span class="string">&quot;I am currently in {} servers!\n&quot;</span>, guild_ids.len());
-    <span class="kw">for </span>guild <span class="kw">in </span>guilds {
-        <span class="kw">if </span>guild.is_public || show_private_guilds {
-            <span class="kw">let _ </span>= <span class="macro">writeln!</span>(
-                response,
-                <span class="string">&quot;- **{}** ({} members)&quot;</span>,
-                guild.name, guild.num_members
-            );
-        } <span class="kw">else </span>{
-            num_private_guilds += <span class="number">1</span>;
-            num_private_guild_members += guild.num_members;
-        }
-    }
-    <span class="kw">if </span>num_private_guilds &gt; <span class="number">0 </span>{
-        <span class="kw">let _ </span>= <span class="macro">writeln!</span>(
-            response,
-            <span class="string">&quot;- [{} private servers with {} members total]&quot;</span>,
-            num_private_guilds, num_private_guild_members
-        );
-    }
-    <span class="kw">if </span>num_unavailable_guilds &gt; <span class="number">0 </span>{
-        <span class="kw">let _ </span>= <span class="macro">writeln!</span>(
-            response,
-            <span class="string">&quot;- [{} unavailable servers (cache is not ready yet)]&quot;</span>,
-            num_unavailable_guilds
-        );
-    }
-
+    // Iterate guilds and build up the response message line by line
+    </span><span class="kw">let </span><span class="kw-2">mut </span>response = <span class="macro">format!</span>(
+        <span class="string">&quot;I am currently in {} servers!\n&quot;</span>,
+        shown_guilds.len() + hidden_guilds
+    );
     <span class="kw">if </span>show_private_guilds {
-        response += <span class="string">&quot;\n_Showing private guilds because you are the bot owner_\n&quot;</span>;
+        response.insert_str(<span class="number">0</span>, <span class="string">&quot;_Showing private guilds because you are a bot owner_\n&quot;</span>);
+    }
+    <span class="kw">let </span><span class="kw-2">mut </span>guilds = shown_guilds.into_iter().peekable();
+    <span class="kw">while let </span><span class="prelude-val">Some</span>((name, member_count)) = guilds.peek() {
+        <span class="kw">let </span>line = <span class="macro">format!</span>(<span class="string">&quot;- **{}** ({} members)\n&quot;</span>, name, member_count);
+
+        <span class="comment">// Make sure we don&#39;t exceed a certain number of characters below the 2000 char limit so
+        // we have enough space for the remaining servers line
+        </span><span class="kw">if </span>response.len() + line.len() &gt; <span class="number">1940 </span>{
+            <span class="kw">for </span>(_remaining_guild_name, members) <span class="kw">in </span>guilds {
+                hidden_guilds += <span class="number">1</span>;
+                hidden_guilds_members += members;
+            }
+            <span class="kw">break</span>;
+        }
+
+        response += <span class="kw-2">&amp;</span>line;
+        guilds.next(); <span class="comment">// advance peekable iterator
+    </span>}
+    <span class="kw">if </span>hidden_guilds &gt; <span class="number">0 </span>{
+        <span class="kw">let _ </span>= <span class="macro">writeln!</span>(
+            response,
+            <span class="string">&quot;- {} remaining servers with {} members total&quot;</span>,
+            hidden_guilds, hidden_guilds_members
+        );
     }
 
-    ctx.send(|b| b.content(response).ephemeral(show_private_guilds))
-        .<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="comment">// Final safe guard (shouldn&#39;t be hit at the time of writing)
+    </span><span class="kw">if </span>response.len() &gt; <span class="number">2000 </span>{
+        <span class="kw">let </span><span class="kw-2">mut </span>truncate_at = <span class="number">2000</span>;
+        <span class="kw">while </span>!response.is_char_boundary(truncate_at) {
+            truncate_at -= <span class="number">1</span>;
+        }
+        response.truncate(truncate_at);
+    }
 
+    <span class="comment">// If we show sensitive data (private guilds), it mustn&#39;t be made public, so it&#39;s ephemeral
+    </span><span class="kw">let </span>reply = CreateReply::default()
+        .content(response)
+        .ephemeral(show_private_guilds);
+
+    ctx.send(reply).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div></section></main></body></html>
